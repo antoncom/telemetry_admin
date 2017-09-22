@@ -12,6 +12,8 @@
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="css/telemetry_datatables.css" rel="stylesheet">
+
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -272,6 +274,7 @@
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <script src="js/plugins/dataTables/datatables.min.js"></script>
+    <script src="js/plugins/dataTables/Select-1.2.3/js/dataTables.select.min.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
@@ -306,7 +309,11 @@
 
 
         $(document).ready(function(){
+            var selected = [];
             $('.dataTables-example').DataTable({
+                select: {
+                    style: 'os'
+                },
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
                 },
@@ -315,16 +322,20 @@
                 dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
                 buttons: [
                     {
+                        extend: 'selected',
+                        text: 'Удалить',
+                        action: function ( e, dt, button, config ) {
+                            var rows = dt.rows( { selected: true } ).data();
+                            alert(rows[0][1]);
+                        }
+                    },
+                    {
                         extend: 'add',
                         text: 'Добавить'
                     },
                     {
                         extend: 'edit',
                         text: 'Редактировать'
-                    },
-                    {
-                        extend: 'delete',
-                        text: 'Удалить'
                     },
                     {extend: 'excel', title: 'ExampleFile'},
                     {extend: 'pdf', title: 'ExampleFile'},
@@ -341,7 +352,6 @@
                     }
                 ]
             });
-
         });
     </script>
 </body>
