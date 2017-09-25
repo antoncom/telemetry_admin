@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Настройки | Тарифы</title>
+    <title>Дома и сектора</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -197,16 +197,13 @@
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>Тарифы</h2>
+                    <h2>Дома и сектора</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="index.html">Главная</a>
                         </li>
-                        <li>
-                            <a>Настрйка</a>
-                        </li>
                         <li class="active">
-                            <strong>Тарифы</strong>
+                            <a>Дома и сектора</a>
                         </li>
                     </ol>
                 </div>
@@ -218,30 +215,62 @@
             <div class="row">
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Тарифы, установленные управляющей компанией</h5>
-                    </div>
                     <div class="ibox-content">
-                        <div class="table-responsive">
-                            <table id="example" class="table table-striped table-bordered table-hover dataTables-example" >
-                            <thead>
-                            <tr>
-                                <th>Ресурс</th>
-                                <th>Название тарифа</th>
-                                <th>Идиница измерения</th>
-                                <th>Стоимость, руб.</th>
-                            </tr>
-                            </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Ресурс</th>
-                                <th>Название тарифа</th>
-                                <th>Идиница измерения</th>
-                                <th>Стоимость, руб.</th>
-                            </tr>
-                            </tfoot>
-                            </table>
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1">Дома</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-2">Сектора</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table id="example" class="table table-striped table-bordered table-hover dataTables-example" >
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Адрес дома</th>
+                                                            <th>Кол-во квартир</th>
+                                                            <th>Нежил. помещений</th>
+                                                            <th>Оборудования</th>
+                                                            <th>Счётчики ОДУ</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>Адрес дома</th>
+                                                            <th>Кол-во квартир</th>
+                                                            <th>Нежил. помещений</th>
+                                                            <th>Оборудования</th>
+                                                            <th>Счётчики ОДУ</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-2" class="tab-pane">
+                                            <div class="panel-body">
+                                                <strong>Donec quam felis</strong>
+
+                                                <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
+                                                    and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+
+                                                <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
+                                                    sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -277,9 +306,9 @@
     </script>
     <script type="text/javascript" language="javascript" src="datatables_editor/examples/resources/syntax/shCore.js">
     </script>
-    <script type="text/javascript" language="javascript" src="datatables_editor/examples/resources/demo.js">
+    <script type="text/javascript" language="javascript" src="datatables_editor/examples/resources/demo_building.js">
     </script>
-    <script type="text/javascript" language="javascript" src="datatables_editor/examples/resources/editor-demo.js">
+    <script type="text/javascript" language="javascript" src="datatables_editor/examples/resources/editor-demo_building.js">
     </script>
     <script type="text/javascript" language="javascript" class="init">
 
@@ -290,47 +319,55 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  'datatables_editor/examples/php/rest/create.php'
+                        url:  'datatables_editor/examples/php/rest/create_building.php'
                     },
                     edit: {
                         type: 'PUT',
-                        url:  'datatables_editor/examples/php/rest/edit.php?id=_id_'
+                        url:  'datatables_editor/examples/php/rest/edit_building.php?id=_id_'
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  'datatables_editor/examples/php/rest/remove.php?id=_id_'
+                        url:  'datatables_editor/examples/php/rest/remove_building.php?id=_id_'
                     }
                 },
                 table: "#example",
-                fields: [ {
-                    label: "Энергоресурс",
-                    name: "resource"
-                }, {
-                    label: "Название тарифа:",
-                    name: "tariff_name"
-                }, {
-                    label: "Единица измерения:",
-                    name: "measure"
-                }, {
-                    label: "Стоимость:",
-                    name: "value"
-                }
+                fields: [
+                    {
+                        label: "Адес дома",
+                        name: "building_address"
+                    },
+                    /*{
+                        label: "Кол-во квартир",
+                        name: "apartaments_number"
+                    },
+                    {
+                        label: "Нежилых помещений",
+                        name: "non_live_number"
+                    },
+                    {
+                        label: "Оборудование",
+                        name: "equipmens_number"
+                    },
+                    {
+                        label: "Счётчики ОДУ",
+                        name: "ODU_counters_number"
+                    }*/
                 ],
                 i18n: {
                     create: {
                         button: "Добавить",
-                        title:  "Добавить новый тариф",
-                        submit: "Добавить тариф"
+                        title:  "Добавить адрес дома",
+                        submit: "Добавить адрес дома"
                     },
                     edit: {
                         button: "Редактировать",
-                        title:  "Редактировать тариф",
-                        submit: "Редактировать тариф"
+                        title:  "Редактировать адрес дома",
+                        submit: "Редактировать адрес дома"
                     },
                     remove: {
                         button: "Удалить",
-                        title:  "Удалить тариф",
-                        submit: "Удалить тариф",
+                        title:  "Удалить адрес дома",
+                        submit: "Удалить адрес дома",
                         confirm: {
                             _: "Подтвердить удаление?",
                             1: "Подтвердить удаление?"
@@ -339,7 +376,6 @@
                 }
             } );
 
-
             $('#example').DataTable( {
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
@@ -347,12 +383,13 @@
                 pageLength: 25,
                 responsive: true,
                 dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
-                ajax: "datatables_editor/examples/php/rest/get.php",
+                ajax: "datatables_editor/examples/php/rest/get_building.php",
                 columns: [
-                    { data: "resource" },
-                    { data: "tariff_name" },
-                    { data: "measure" },
-                    { data: "value" }
+                    { data: "building_address" },
+                    { data: "apartaments_number" },
+                    { data: "non_live_number" },
+                    { data: "equipmens_number" },
+                    { data: "ODU_counters_number" },
                 ],
                 select: true,
                 buttons: [

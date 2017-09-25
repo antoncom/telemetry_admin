@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2bc4b232-d4f0-4e02-af74-9a2fe0a47f40" name="Remote host NIC.RU" url="http://telemetry.mediapublish.ru">
+        <fileTransfer host="ftp.mediapub.nichost.ru" port="21" rootFolder="/telemetry.mediapublish.ru/docs" password="dfccdf98dfcddfffdff8df81dffbdfdd" username="mediapub_ftp">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
