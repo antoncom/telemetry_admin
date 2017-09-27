@@ -1007,7 +1007,7 @@ table.table-row  tbody td {padding: 8px 20px;}
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
   background: none;
-  border:0;
+  border: 1px solid transparent;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   color: #b1b1b1!important;
@@ -1323,6 +1323,15 @@ table.table-row  tbody td {padding: 8px 20px;}
   font-size: 0;
   margin-top: 14px;
 }
+
+
+
+
+
+
+
+
+
 
 
 
