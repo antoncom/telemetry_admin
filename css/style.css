@@ -1003,15 +1003,20 @@ table.table-row  tbody td {padding: 8px 20px;}
     border-right:1px solid #e5e5e5;
     background: #fff;
   }
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:focus {
+  background: none;
+  border:0;
+}
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-  color: #b1b1b1;
+  color: #b1b1b1!important;
   margin: 0;
   font-family: 'liberation_sans_narrowregular';
   padding: 0;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, 
- .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, 
- .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, 
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
     color: #b1b1b1;
     background-color: #fff;
     outline: none;
@@ -1317,6 +1322,7 @@ table.table-row  tbody td {padding: 8px 20px;}
   font-size: 0;
   margin-top: 14px;
 }
+
 
 
 
