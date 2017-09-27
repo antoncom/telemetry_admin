@@ -1003,6 +1003,7 @@ table.table-row  tbody td {padding: 8px 20px;}
     border-right:1px solid #e5e5e5;
     background: #fff;
   }
+.dataTables_wrapper .dataTables_paginate .paginate_button:active,
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
   background: none;
@@ -1322,8 +1323,6 @@ table.table-row  tbody td {padding: 8px 20px;}
   font-size: 0;
   margin-top: 14px;
 }
-
-
 
 
 
