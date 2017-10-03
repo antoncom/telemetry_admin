@@ -409,6 +409,11 @@
                 editor.field('res').update($.Resources );
             });
 
+            editor.on( 'initEdit', function ( e) {
+                editor.field('res').update($.Resources );
+            });
+
+
             editor.on( 'preSubmit', function ( e) {
                 editor.field( 'res_name' ).set( editor.get( 'res' ));
             });
