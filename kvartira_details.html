@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Дома и сектора | Дома | </span></title>
+    <title>Дома и сектора | Дома | </title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -20,8 +20,6 @@
     <link rel="stylesheet" type="text/css" href="datatables_editor/css/editor.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="datatables_editor/examples/resources/syntax/shCore.css">
     <style type="text/css" class="init">
-
-
 
     </style>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
@@ -199,7 +197,7 @@
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2 class="dom_address"></h2>
+                <h2 class="dom_address_kv"></h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="index.html">Главная</a>
@@ -211,7 +209,7 @@
                         <a>Дома</a>
                     </li>
                     <li class="active">
-                        <strong><span class="dom_address"></span></strong>
+                        <strong><span class="dom_address_kv"></span></strong>
                     </li>
                 </ol>
             </div>
@@ -224,31 +222,42 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>Объекты внутри дома по адресу: <span class="dom_address"></span></h5>
+                            <h5>Данные квартиры / помещения</h5>
                         </div>
                         <div class="ibox-content">
-                            <div class="table-responsive">
+                            <!--<div class="table-responsive">
                                 <table id="example" class="table table-striped table-bordered table-hover dataTables-example" >
                                     <thead>
-                                        <tr>
-                                            <th>Айди</th>
-                                            <th>Тайп</th>
-                                            <th>Объекты внутри дома</th>
-                                            <th>Логин</th>
-                                            <th>Учёт</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Айди</th>
+                                        <th>Тип площади</th>
+                                        <th>Адрес</th>
+                                        <th>Логин</th>
+                                        <th>Площадь</th>
+                                        <th>Собственник</th>
+                                        <th>Телефон</th>
+                                        <th>Количество прописанных</th>
+                                        <th>Дата заведения карточки</th>
+                                    </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Айди</th>
-                                            <th>Тайп</th>
-                                            <th>Объекты внутри дома</th>
-                                            <th>Логин</th>
-                                            <th>Учёт</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
+                            </div>-->
+                            <div class="panel" data-editor-id="13">
+                                <dl>
+                                    <dt>Name:</dt>
+                                    <dd>
+                                        <span data-editor-field="owner">Bruno</span>
+                                        <span data-editor-field="owner">Nash</span>
+                                    </dd>
+
+                                    <dt>Position:</dt>
+                                    <dd data-editor-field="area">Software Engineer</dd>
+
+                                    <dt>Office:</dt>
+                                    <dd data-editor-field="created">London</dd>
+                                </dl>
                             </div>
+                            <button id="edit">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -302,38 +311,24 @@
         }
 
         editor = new $.fn.dataTable.Editor( {
-            idSrc: "id",
-            ajax: {
-                create: {
-                    type: 'POST',
-                    url:  'https://hometest.appix.ru/api/quarters',
-                    headers: { 'X-Auth-Token': $.cookie('token') },
-                    data: function ( d ) {
-                        var dd = Object();
-                        dd.estate_id = $.GET("estate_id");
-                        dd.type = d.data[0].type;
-                        dd.address = d.data[0].address;
-                        dd.area = d.data[0].area;
-                        dd.owner = d.data[0].owner;
-                        dd.phone = d.data[0].phone;
-                        dd.tenants = d.data[0].tenants;
-                        dd.action = d.action;
-                        return (dd);
-                    }
-                },
+            ajax: 'https://hometest.appix.ru/api/quarters/' + $.GET("kvart_id"),
+            /*ajax: {
                 edit: {
                     type: 'PUT',
-                    url:  'https://hometest.appix.ru/api/quarters/_id_',
+                    url:  'https://hometest.appix.ru/api/quarters/' + $.GET("kvart_id"),
                     headers: { 'X-Auth-Token': $.cookie('token') },
                     data: function ( d ) {
-                        var dd = Object();
-                        dd.res = d.data[editor.val( 'id' )].id;
-                        dd.res = d.data[editor.val( 'id' )].res;
-                        dd.res_name = d.data[editor.val( 'id' )].res_name;
-                        dd.name = d.data[editor.val( 'id' )].name;
-                        dd.units = d.data[editor.val( 'id' )].units;
-                        dd.price = d.data[editor.val( 'id' )].price;
-                        dd.action = d.action;
+                            var dd = Object();
+                            dd.id = $.GET("kvart_id");
+                            dd.type = d.data[$.GET("kvart_id")].type;
+                            dd.address = d.data[$.GET("kvart_id")].address;
+                            dd.login = d.data[$.GET("kvart_id")].login;
+                            dd.area = d.data[$.GET("kvart_id")].area;
+                            dd.owner = d.data[$.GET("kvart_id")].owner;
+                            dd.phone = d.data[$.GET("kvart_id")].phone;
+                            dd.tenants = d.data[$.GET("kvart_id")].tenants;
+                            dd.created = d.data[$.GET("kvart_id")].created;
+                            dd.action = d.action;
                         return(dd);
                     },
                     dataType: "json"
@@ -342,43 +337,25 @@
                     type: 'DELETE',
                     url:  'https://hometest.appix.ru/api/quarters/_id_',
                     headers: { 'X-Auth-Token': $.cookie('token') },
-                    /*data: function ( d ) {
-                     console.log('DATA');
-                     console.log(d);
-                     var dd = Object();
-                     dd.res = d.data[editor.val( 'id' )].id;
-                     dd.res = d.data[editor.val( 'id' )].res;
-                     dd.res_name = d.data[editor.val( 'id' )].res_name;
-                     dd.name = d.data[editor.val( 'id' )].name;
-                     dd.units = d.data[editor.val( 'id' )].units;
-                     dd.price = d.data[editor.val( 'id' )].price;
-                     dd.action = d.action;
-                     return(dd);
-                     },
-                     dataType: "json"*/
                 }
-            },
+            },*/
 
-            table: "#example",
             fields: [ {
                 label: "АйДи дома",
-                name: "estate_id",
+                name: "id",
                 type: "hidden"
             }, {
                 label: "Тип",
                 name: "type",
-                type: "select",
-                def:  "0",
-                ipOpts: [
-                    {"label" : "Жилая площадь", "value" : "1"},
-                    {"label" : "Нежилая площадь", "value" : "2"}
-                ]
             }, {
                 label: "Номер квартиры",
                 name: "address",
             }, {
                 label: "Площадь помещения:",
                 name: "area"
+            }, {
+                label: "Логин:",
+                name: "login"
             }, {
                 label: "Собственник:",
                 name: "owner"
@@ -388,6 +365,9 @@
             }, {
                 label: "Количество прописанных:",
                 name: "tenants"
+            }, {
+                label: "Дата заведения картоки:",
+                name: "created"
             }
             ],
             i18n: {
@@ -414,108 +394,24 @@
         } );
 
 
-/*
-        // $.Resources is populated
-        $.GetResourcesList();
+        $('#edit').on( 'click', function () {
+            editor
+                    .buttons( {
+                        label: "Save",
+                        fn: function () { this.submit(); }
+                    } )
+                    .edit();
+        } );
 
-        // update 'res' selector into the editor popup
-        editor.on( 'initCreate', function ( e) {
-            editor.field('res').update($.Resources );
-        });
+        $('#edit').on( 'click', function () {
+            editor
+                    .title('Edit record')
+                    .buttons('Save changes')
+                    .edit( 13 );
+        } );
 
-        editor.on( 'initEdit', function ( e) {
-            editor.field('res').update($.Resources );
-        });
-
-
-        editor.on( 'preSubmit', function ( e) {
-            editor.field( 'res_name' ).set( editor.get( 'res' ));
-        });
-*/
-
-
-
-        editor.on('close', function(e) {
-            $('#example').DataTable().ajax.reload();
-        });
-
-        $('#example').DataTable({
-            "columnDefs": [
-                {
-                    "targets": [ 0 ],
-                    "visible": false,
-                    "searchable": false
-                },
-                {
-                    "targets": [ 1 ],
-                    "visible": false,
-                    "searchable": false
-                },
-                {
-                    "render": function (data, type, row) {
-                        if(isNaN(data)) { // ОДУ, Обрудование
-                            return '<a href="kvartira_details.html?kvart_id=' + row.id + '">' + data + '</a>';
-                        }
-                        else {  // Квартира №
-                            return '<a href="kvartira_details.html?kvart_id=' + row.id + '">Квартира № ' + data + '</a>';
-                        }
-
-                    },
-                    "targets": 2
-                }
-            ],
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
-            },
-            pageLength: 25,
-            responsive: true,
-            dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
-            ajax: {
-                "url": "https://hometest.appix.ru/api/quarters?table=1&estate_id=" + $.GET("estate_id"),
-                "beforeSend": function (xhr) {
-                    console.log('token = ' + $.cookie('token'));
-                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-                },
-                "dataSrc": function ( json ) {
-                    console.log(json);
-                    if(json.status == "error" && json.code == 401)  {
-                        setTimeout(' window.location.href = "login.html"; ', 10);
-                    }
-                    else {
-                        return json.data;
-                    }
-                }
-            },
-            columns: [
-                {data: "id"},
-                {data: "type"},
-                {data: "address"},
-                {data: "login"},
-                {data: "counters"}
-            ],
-            select: true,
-            buttons: [
-                {extend: "create", editor: editor},
-                {extend: "edit", editor: editor},
-                {extend: "remove", editor: editor},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
-                {
-                    extend: 'print',
-                    customize: function (win) {
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                                .addClass('compact')
-                                .css('font-size', 'inherit');
-                    }
-                }
-            ]
-        });
-
-        // Update <title>, <span> with class="dom_address"
-        $.ajax({
+        // Update <title>, <span> with class="dom_address_kv"
+        /*$.ajax({
             type : 'GET',
             url  : 'https://hometest.appix.ru/api/estates/' + $.GET("estate_id"),
             beforeSend: function(xhr){
@@ -523,18 +419,18 @@
             },
             success :  function(response) {
                 if(response.id > 0)  {
-                    $(".dom_address").html(response.address);
+                    $(".dom_address_kv").html(response.address);
                     $("title").html("Дома и сектора | Дома | " + response.address);
                 }
                 else {
-                    console.log('NO $(".dom_address") updates');
+                    console.log('NO $(".dom_address_kv") updates');
                 }
             },
             error :  function(response) {
                 console.log('ERROR GetResourcesList()');
                 console.log(JSON.stringify(response));
             }
-        });
+        });*/
 
 
     } );
