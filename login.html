@@ -54,6 +54,7 @@
 
     $('document').ready(function()
     {
+
         /* validation */
         $("#login-form").validate({
             rules:
@@ -96,7 +97,7 @@
                     $.cookie('token', response.token);
 
                     $("#btn-login").html('<img src="btn-ajax-loader.gif" /> &nbsp; Signing In ...');
-                    setTimeout(' window.location.href = "tariff.html"; ', 100);
+                    setTimeout(' window.location.href = "' + $.cookie('referrer') + '"' , 100);
                 },
                 error :  function(response) {
 

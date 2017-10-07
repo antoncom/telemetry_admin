@@ -53,7 +53,7 @@
                         <a href="index.html"><i class="fa fa-th-large"></i><span class="nav-label">Главная</span></a>
                     </li>
                     <li>
-                        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Дома и сектора</span></a>
+                        <a href="doma_sectora.html.html"><i class="fa fa-diamond"></i> <span class="nav-label">Дома и сектора</span></a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Начисление</span><span class="fa arrow"></span></a>
@@ -215,20 +215,20 @@
 
 
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="tabs-container">
+                <div class="col-lg-12">
+                    <div class="tabs-container" style="margin-top: 25px;">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1"> This is tab</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2">This is second tab</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab-1">Дома</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2">Сектора</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
                                 <div class="panel-body">
                                     <!--<div class="col-lg-12">-->
                                         <div class="ibox float-e-margins">
-    <!--                                        <div class="ibox-title">
-                                                <h5>Тарифы, установленные управляющей компанией</h5>
-                                            </div>-->
+                                            <div class="ibox-title">
+                                                <h3>Список жилых, многоквартирных домов</h3>
+                                            </div>
                                             <div class="ibox-content">
                                                 <div class="table-responsive">
                                                     <table id="example" class="table table-striped table-bordered table-hover dataTables-example" >
@@ -343,12 +343,8 @@
                         headers: { 'X-Auth-Token': $.cookie('token') },
                         data: function ( d ) {
                             var dd = Object();
-                            dd.res = d.data[editor.val( 'id' )].id;
-                            dd.res = d.data[editor.val( 'id' )].res;
-                            dd.res_name = d.data[editor.val( 'id' )].res_name;
-                            dd.name = d.data[editor.val( 'id' )].name;
-                            dd.units = d.data[editor.val( 'id' )].units;
-                            dd.price = d.data[editor.val( 'id' )].price;
+                            dd.type = d.data[editor.val( 'id' )].type;
+                            dd.address = d.data[editor.val( 'id' )].address;
                             dd.action = d.action;
                             return(dd);
                         },
@@ -357,7 +353,7 @@
                     remove: {
                         type: 'DELETE',
                         url:  'https://hometest.appix.ru/api/estates/_id_',
-                        headers: { 'X-Auth-Token': $.cookie('token') },
+                        headers: { 'X-Auth-Token': $.cookie('token') }
                     }
                 },
                 table: "#example",
@@ -438,6 +434,12 @@
                         "targets": [ 3 ],
                         "visible": false,
                         "searchable": false
+                    },
+                    {
+                        "render": function ( data, type, row ) {
+                            return '<a href="dom_details.html?estate_id=' + row.id + '">' + data + '</a>';
+                        },
+                        "targets": 2
                     }
                 ],
                 "language": {

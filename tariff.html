@@ -53,7 +53,7 @@
                     <a href="index.html"><i class="fa fa-th-large"></i><span class="nav-label">Главная</span></a>
                 </li>
                 <li>
-                    <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Дома и сектора</span></a>
+                    <a href="doma_sectora.html"><i class="fa fa-diamond"></i> <span class="nav-label">Дома и сектора</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Начисление</span><span class="fa arrow"></span></a>
@@ -447,6 +447,7 @@
                 ajax: {
                     "url": "https://hometest.appix.ru/api/tariffs?table=1",
                     "beforeSend": function (xhr) {
+                        console.log('token = ' + $.cookie('token'));
                         xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                     }
                 },
