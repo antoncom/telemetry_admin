@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Energo | Вход в панель администратора</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">Telemetry</h1>
+
+            </div>
+            <div id="error">
+                <!-- error will be shown here ! -->
+            </div>
+            <form class="m-t" role="form" id="login-form">
+                <div class="form-group">
+                    <input name="user" type="text" class="form-control" placeholder="Логин" required="" value="user1" id="user_login" >
+                </div>
+                <div class="form-group">
+                    <input name="password" type="password" class="form-control" placeholder="Пароль" required="" value="pass1" id="password" >
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b" id="btn-login" ><span class="glyphicon glyphicon-log-in"></span> &nbsp; Sign In</button>
+
+                <a href="#"><small>Забыли пароль?</small></a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/plugins/cookie/jquery.cookie.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/validate/jquery.validate.min.js"></script>
+
+
+<script>
+
+    $('document').ready(function()
+    {
+        /* validation */
+        $("#login-form").validate({
+            rules:
+            {
+                password: {
+                    required: true,
+                },
+                user_login: {
+                    required: true
+                },
+            },
+            messages:
+            {
+                password:{
+                    required: "please enter your password"
+                },
+                user: "please enter your login name",
+            },
+            submitHandler: submitForm
+        });
+        /* validation */
+
+        /* login submit */
+        function submitForm()
+        {
+            var data = $("#login-form").serialize();
+            myUrl = 'https://hometest.appix.ru/api/login';
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', myUrl, true);
+            xhr.setRequestHeader('Payment-Id', 'ABC0001');
+            xhr.setRequestHeader('Order-Num', 123);
+            xhr.setRequestHeader('Order-Num', 456);
+            xhr.send(null);
+
+            return false;
+        }
+        /* login submit */
+    });
+</script>
+
+</body>
+
+</html>
