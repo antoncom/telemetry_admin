@@ -8546,3 +8546,13 @@ body.md-skin {
     margin: 0;
   }
 }
+
+
+.inactive,
+a[href="#"] {
+  opacity: 0.5;
+}
+
+a.btn[href="#"] {
+  opacity: 1;
+}
