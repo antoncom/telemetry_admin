@@ -8556,3 +8556,8 @@ a[href="#"] {
 a.btn[href="#"] {
   opacity: 1;
 }
+
+.mp-x5 {
+  font-size: 80px;
+  line-height: 0px;
+}
