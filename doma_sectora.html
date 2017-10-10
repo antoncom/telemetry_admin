@@ -437,6 +437,15 @@
                     "url": "https://hometest.appix.ru/api/estates?table=1",
                     "beforeSend": function (xhr) {
                         xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                    },
+                    "dataSrc": function ( json ) {
+                        console.log(json);
+                        if(json.status == "error" && json.code == 401)  {
+                            setTimeout(' window.location.href = "login.html"; ', 10);
+                        }
+                        else {
+                            return json.data;
+                        }
                     }
                 },
                 columns: [
