@@ -2,6 +2,13 @@
 <project version="4">
   <component name="PublishConfigData" serverName="Remote host NIC.RU" uploadOnCheckin="2bc4b232-d4f0-4e02-af74-9a2fe0a47f40">
     <serverData>
+      <paths name="Apache on XAMPP">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Remote host NIC.RU">
         <serverdata>
           <mappings>

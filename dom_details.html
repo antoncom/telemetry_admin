@@ -39,10 +39,10 @@
                             <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Иван Петров</strong>
-                             </span> <span class="text-muted text-xs block">Администратор <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><span data-field="fname"></span> <span data-field="lname"></span></strong>
+                             </span> <span class="text-muted text-xs block" data-field="role"></span></span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">Профайл</a></li>
+                            <li><a href="#">Профайл</a></li>
                             <li class="divider"></li>
                             <li><a href="javascript: $.Logout();">Выход</a></li>
                         </ul>
@@ -300,6 +300,8 @@
         if ($.cookie('token') == null) {
             window.location.href = "login.html"
         }
+
+        $.GetUserName();
 
         editor = new $.fn.dataTable.Editor( {
             idSrc: "id",

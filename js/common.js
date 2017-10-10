@@ -51,11 +51,74 @@
 })(jQuery);
 
 
+// GetGeneralInfo
+// How to use: $.GetGeneralInfo();
+// On success - <span data-field="key">value</span> are populated at the home page
+(function($){
+    $.GetGeneralInfo = function() {
+        $.ajax({
+            type : 'GET',
+            url  : 'https://hometest.appix.ru/api/info',
+            "data": {
+                "counters": "1"
+            },
+            "dataType": "json",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            },
+            success :  function(response) {
+                $.each( response, function( key, value ) {
+                    $("span[data-field='" + key + "']").html(value);
+                });
+                if(response.role == 2) $("span[data-field='role']").html('Менеджер<b class="caret"></b>');
+                if(response.role == 1) $("span[data-field='role']").html('Администратор<b class="caret"></b>');
+            },
+            error :  function(response) {
+                console.log('ERROR GetGeneralInfo()');
+                console.log(JSON.stringify(response));
+            }
+        });
+    }
+
+})(jQuery);
+
+// GetUserName
+// How to use: $.GetUserName();
+// On success - <span data-field="key">value</span> are populated
+(function($){
+    $.GetUserName = function() {
+        $.ajax({
+            type : 'GET',
+            url  : 'https://hometest.appix.ru/api/info',
+            "data": {
+                "counters": "0"
+            },
+            "dataType": "json",
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            },
+            success :  function(response) {
+                $.each( response, function( key, value ) {
+                    $("span[data-field='" + key + "']").html(value);
+                });
+                if(response.role == 2) $("span[data-field='role']").html('Менеджер<b class="caret"></b>');
+                if(response.role == 1) $("span[data-field='role']").html('Администратор<b class="caret"></b>');
+            },
+            error :  function(response) {
+                console.log('ERROR GetUserName()');
+                console.log(JSON.stringify(response));
+            }
+        });
+    }
+
+})(jQuery);
+
+
 // Referrer - to redirect after login
 var pathname = window.location.pathname;
-var host = window.location.host;
+var href = window.location.href;
 if(pathname.search(/login.html/i) == -1)    {
-    $.cookie('referrer', pathname);
+    $.cookie('referrer', href);
 }
 
 // Get estate_id
