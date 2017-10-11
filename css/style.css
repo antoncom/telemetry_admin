@@ -8561,3 +8561,19 @@ a.btn[href="#"] {
   font-size: 80px;
   line-height: 0px;
 }
+
+#example_paginate {
+  float: right;
+  display: block;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+#example_paginate ul {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+#example_filter label input {
+  margin-left: 15px;
+}
