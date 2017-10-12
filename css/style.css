@@ -8577,3 +8577,12 @@ a.btn[href="#"] {
 #example_filter label input {
   margin-left: 15px;
 }
+
+.grey-bg {
+  background-color: #ad9f8f;
+  color: #ffffff;
+}
+.green-bg {
+  background-color: #199a47;
+  color: #ffffff;
+}
