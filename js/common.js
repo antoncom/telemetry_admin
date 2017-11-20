@@ -1,7 +1,6 @@
 // Logout
 // How to use: $.Logout();
 
-$.API_base = 'https://hometest.appix.ru/api';
 (function($){
     $.Logout = function() {
         $.ajax({
