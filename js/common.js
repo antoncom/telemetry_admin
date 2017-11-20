@@ -40,6 +40,7 @@
                 for(i = 0; i < response.length; i++){
                     $.Resources[i] = { 'label': response[i].name, 'value' : response[i].id };
                 }
+                console.log("RES LEN = " + $.Resources.length);
             },
             error :  function(response) {
                 console.log('ERROR GetResourcesList()');

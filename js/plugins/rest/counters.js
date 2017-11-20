@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     $( function() {
         $( "#verified_until" ).datepicker();
         $( "#verified_until" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
@@ -24,21 +25,20 @@ $(document).ready(function(){
 
     // Populate options in form selectors
     function populateOptions()  {
-        console.log("LEN=" + $('#res option').length);
-        if($('#res option').length <= 1)    {
+        if($('#form_counter #res option').length <= 1)    {
             $.each($.Resources,function(key, value)
             {
-                $('#res').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#form_counter #res').append('<option value="' + value.value + '">' + value.label + '</option>');
             });
         }
 
         if($('#tariff1 option').length <= 1)    {
             $.each($.Tariffs,function(key, value)
             {
-                $('#tariff1').append('<option value="' + value.value + '">' + value.label + '</option>');
-                $('#tariff2').append('<option value="' + value.value + '">' + value.label + '</option>');
-                $('#tariff3').append('<option value="' + value.value + '">' + value.label + '</option>');
-                $('#tariff4').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#form_counter #tariff1').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#form_counter #tariff2').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#form_counter #tariff3').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#form_counter #tariff4').append('<option value="' + value.value + '">' + value.label + '</option>');
             });
         }
     }
@@ -212,9 +212,6 @@ $(document).ready(function(){
     $(document).on('click', '#add_counter', function(e){
         e.preventDefault();
 
-        // Populate options in form selectors
-        populateOptions();
-
         $('.lightbox_content h2').text('Добавить счётчик');
         $('#form_counter button').text('Добавить счётчик');
         $('#form_counter').attr('class', 'form add');
@@ -222,6 +219,10 @@ $(document).ready(function(){
         $('#form_counter .field_container label.error').hide();
         $('#form_counter .field_container').removeClass('valid').removeClass('error');
         $('#form_counter #quarter_id').val($.GET("kvart_id"));
+
+        // Populate options in form selectors
+        populateOptions();
+
         $('#form_counter #name').val('');
         $('#form_counter #model').val('');
         $('#form_counter #verification').val('');
@@ -368,9 +369,6 @@ $(document).ready(function(){
     // Edit counter submit form
     $(document).on('submit', '#form_counter.edit', function(e){
         e.preventDefault();
-
-        // Populate options in form selectors
-        populateOptions();
 
         // Validate form
         if (form_counter.valid() == true){
