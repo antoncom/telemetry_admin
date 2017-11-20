@@ -32,9 +32,12 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="js/plugins/rest/webapp.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
     <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <script charset="utf-8" src="js/plugins/rest/counters.js"></script>
@@ -153,16 +156,15 @@
                 <label for="active">Статус:</label>
                 <div class="field_container selector">
                     <select size="1" id="active" name="active">
-                        <option value="">- Нет -</option>
-                        <option value="1">Активен</option>
                         <option value="0">Неактивен</option>
+                        <option value="1">Активен</option>
                     </select>
                 </div>
             </div>
             <div class="input_container">
                 <label for="model">Модель счётчика</label>
                 <div class="field_container">
-                    <input type="number" min="0" class="text" name="model" id="model" value="">
+                    <input type="text" class="text" name="model" id="model" value="">
                 </div>
             </div>
             <div class="input_container">
@@ -174,18 +176,21 @@
             <div class="input_container">
                 <label for="prod_year">Год выпуска:</label>
                 <div class="field_container">
+                    <!--<input name="prod_year" id="prod_year" type="date" value="" />-->
                     <input type="number" step="1" min="0" class="text" name="prod_year" id="prod_year" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="verification">Срок поверки:</label>
                 <div class="field_container">
+                    <!--<input name="verification" id="verification" type="date" value="" />-->
                     <input type="text" class="text" name="verification" id="verification" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="verified_until">Поверен до даты:</label>
                 <div class="field_container">
+                    <!--<input name="verified_until" id="verified_until" type="date" value="" />-->
                     <input type="text" class="text" name="verified_until" id="verified_until" value="">
                 </div>
             </div>
@@ -198,43 +203,45 @@
             <div class="input_container">
                 <label for="seals">Количество пломб:</label>
                 <div class="field_container">
-                    <input type="text" class="text" name="seals" id="seals" value="">
+                    <input type="number" class="text" name="seals" id="seals" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="seal_num">Номер пломбы:</label>
                 <div class="field_container">
-                    <input type="text" class="text" name="seal_num" id="seal_num" value="">
+                    <input type="number" class="text" name="seal_num" id="seal_num" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="inventory_num">Инвентарный номер:</label>
                 <div class="field_container">
-                    <input type="text" class="text" name="inventory_num" id="inventory_num" value="">
+                    <input type="number" class="text" name="inventory_num" id="inventory_num" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="comm_date">Дата ввода в эксплуатацию:</label>
                 <div class="field_container">
+                    <!--<input name="comm_date" id="comm_date" type="date" value="" />-->
                     <input type="text" class="text" name="comm_date" id="comm_date" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="decomm_date">Дата вывода из эксплуатации:</label>
                 <div class="field_container">
+                    <!--<input id="decomm_date" name="decomm_date" type="date" value="" />-->
                     <input type="text" class="text" name="decomm_date" id="decomm_date" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="initial_val">Начальное значение:</label>
                 <div class="field_container">
-                    <input type="text" class="text" name="initial_val" id="initial_val" value="">
+                    <input type="number" class="text" name="initial_val" id="initial_val" value="">
                 </div>
             </div>
             <div class="input_container">
                 <label for="final_val">Финальное значение:</label>
                 <div class="field_container">
-                    <input type="text" class="text" name="final_val" id="final_val" value="">
+                    <input type="number" class="text" name="final_val" id="final_val" value="">
                 </div>
             </div>
             <div class="input_container">
@@ -574,7 +581,8 @@
                                             <th>Название счётчика</th>
                                             <th>Модель</th>
                                             <th>Срок поверки до</th>
-                                            <th>Вкл / выкл</th>
+                                            <th>Статус</th>
+                                            <th>Редактир.</th>
                                         </tr>
                                         </thead>
                                     </table>

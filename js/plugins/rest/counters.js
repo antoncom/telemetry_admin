@@ -1,10 +1,46 @@
 $(document).ready(function(){
+    $( function() {
+        $( "#verified_until" ).datepicker();
+        $( "#verified_until" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+        $( "#verification" ).datepicker();
+        $( "#verification" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+        $( "#prod_year" ).datepicker();
+        $( "#prod_year" ).datepicker( "option", "dateFormat", "yy" );
+
+        $( "#comm_date" ).datepicker();
+        $( "#comm_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+
+        $( "#decomm_date" ).datepicker();
+        $( "#decomm_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    } );
 
     // $.Resources is populated
     $.GetResourcesList();
 
     // $.Tariffs is populated
     $.GetTariffsList();
+
+    // Populate options in form selectors
+    function populateOptions()  {
+        if($('#res option').length <= 1)    {
+            $.each($.Resources,function(key, value)
+            {
+                $('#res').append('<option value="' + value.value + '">' + value.label + '</option>');
+            });
+        }
+
+        if($('#tariff1 option').length <= 1)    {
+            $.each($.Tariffs,function(key, value)
+            {
+                $('#tariff1').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#tariff2').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#tariff3').append('<option value="' + value.value + '">' + value.label + '</option>');
+                $('#tariff4').append('<option value="' + value.value + '">' + value.label + '</option>');
+            });
+        }
+    }
 
     // On page load: datatable
     var table_counters = $('#table_counters').dataTable({
@@ -13,7 +49,35 @@ $(document).ready(function(){
              "targets": [ 0 ],
              "visible": false,
              "searchable": false
-             }
+             },
+            {
+                "render": function ( data, type, row ) {
+                    var out = "";
+                    $.each($.Resources,function(key, value) {
+                        $('#res').append('<option value="' + value.value + '">' + value.label + '</option>');
+                        if (value.value == data)    {
+                            out = value.label;
+                            return false;
+                        }
+                    });
+                    return out;
+                },
+                "targets": 1
+            },
+            {
+                "render": function ( data, type, row ) {
+                    return (data) ? "ВКЛ" : "Выкл" ;
+
+                },
+                "targets": 5
+            },
+            {
+                "render": function ( data, type, row ) {
+                    return '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
+
+                },
+                "targets": 6
+            }
          ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
@@ -53,7 +117,12 @@ $(document).ready(function(){
             {data: "name"},
             {data: "model"},
             {data: "verification"},
-            {data: "active"}
+            {data: "active"},
+            {
+                data: null,
+                className: "functions"
+                //defaultContent: '<div class="function_buttons"><ul><li class="function_edit"><a data-id=""><span>Edit</span></a></li><li class="function_delete"><a><span>Delete</span></a></li></ul></div>'
+            }
         ]
     });
 
@@ -137,32 +206,12 @@ $(document).ready(function(){
         $('input').blur();
     }
 
-
-    /*
-    * {data: "id"},
-     {data: "res"},
-     {data: "name"},
-     {data: "model"},
-     {data: "verification"},
-     {data: "active"}
-    * */
-    // Add company button
+    // Add counter button
     $(document).on('click', '#add_counter', function(e){
         e.preventDefault();
-        console.log("Tariffs:");
-        console.log($.Tariffs);
 
-        $.each($.Resources,function(key, value)
-        {
-            $('#res').append('<option value="' + value.value + '">' + value.label + '</option>');
-            console.log(value.label + "=" + value.value);
-        });
-
-        $.each($.Tariffs,function(key, value)
-        {
-            $('.tariff').append('<option value="' + value.value + '">' + value.label + '</option>');
-            console.log(value.label + "=" + value.value);
-        });
+        // Populate options in form selectors
+        populateOptions();
 
         $('.lightbox_content h2').text('Добавить счётчик');
         $('#form_counter button').text('Добавить счётчик');
@@ -196,7 +245,7 @@ $(document).ready(function(){
         show_lightbox();
     });
 
-    // Add company submit form
+    // Add counter submit form
     $(document).on('submit', '#form_counter.add', function(e){
         e.preventDefault();
         // Validate form
@@ -237,36 +286,70 @@ $(document).ready(function(){
         }
     });
 
-    // Edit company button
+    // Edit counter button
     $(document).on('click', '.function_edit a', function(e){
         e.preventDefault();
-        // Get company information from database
+
+        // Populate options in form selectors
+        populateOptions();
+
+        // Get counter information from database
         show_loading_message();
         var id      = $(this).data('id');
-        var request = $.ajax({
-            url:          'data.php?job=get_company',
+        var request   = $.ajax({
+            url:          'https://hometest.appix.ru/api/counters/' + id,
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            },
             cache:        false,
-            data:         'id=' + id,
-            dataType:     'json',
-            contentType:  'application/json; charset=utf-8',
-            type:         'get'
+            type:         'GET'
         });
         request.done(function(output){
-            if (output.result == 'success'){
-                $('.lightbox_content h2').text('Edit company');
-                $('#form_counter button').text('Edit company');
+            if (output.id > 0){
+                console.log(output);
+                $('.lightbox_content h2').text('Редактировать счётчик');
+                $('#form_counter button').text('Редактировать счётчик');
                 $('#form_counter').attr('class', 'form edit');
                 $('#form_counter').attr('data-id', id);
                 $('#form_counter .field_container label.error').hide();
                 $('#form_counter .field_container').removeClass('valid').removeClass('error');
-                $('#form_counter #rank').val(output.data[0].rank);
-                $('#form_counter #company_name').val(output.data[0].company_name);
-                $('#form_counter #industries').val(output.data[0].industries);
-                $('#form_counter #revenue').val(output.data[0].revenue);
-                $('#form_counter #fiscal_year').val(output.data[0].fiscal_year);
-                $('#form_counter #employees').val(output.data[0].employees);
-                $('#form_counter #market_cap').val(output.data[0].market_cap);
-                $('#form_counter #headquarters').val(output.data[0].headquarters);
+                $('#form_counter #res').val(output.res);
+                $('#form_counter #name').val(output.name);
+                $('#form_counter #model').val(output.model);
+                $('#form_counter #verification').val(output.verification);
+                $('#form_counter #verified_until').val(output.verified_until);
+                $('#form_counter #active').val(output.active);
+                if(output.active) $('#form_counter #active').val(1);
+                else $('#form_counter #active').val(0);
+                $('#form_counter #factory_num').val(output.factory_num);
+                $('#form_counter #headquarters').val(output.headquarters);
+                $('#form_counter #prod_year').val(output.prod_year);
+                $('#form_counter #class').val(output.class);
+                $('#form_counter #seals').val(output.seals);
+                $('#form_counter #seal_num').val(output.seal_num);
+                $('#form_counter #inventory_num').val(output.inventory_num);
+                $('#form_counter #comm_date').val(output.comm_date);
+                $('#form_counter #decomm_date').val(output.decomm_date);
+                $('#form_counter #initial_val').val(output.initial_val);
+                $('#form_counter #final_val').val(output.final_val);
+                $('#form_counter #responsible').val(output.responsible);
+                $('#form_counter #tariff1').val(output.tariff1);
+                //$("#form_counter #tariff1 option").filter(function() {
+                //    return this.text == output.tariff1;
+                //}).attr('selected', true);
+                //$("#form_counter #tariff2 option").filter(function() {
+                //    return this.text == output.tariff2;
+                //}).attr('selected', true);
+                //$("#form_counter #tariff3 option").filter(function() {
+                //    return this.text == output.tariff3;
+                //}).attr('selected', true);
+                //$("#form_counter #tariff4 option").filter(function() {
+                //    return this.text == output.tariff4;
+                //}).attr('selected', true);
+                $('#form_counter #tariff2').val(output.tariff2);
+                $('#form_counter #tariff3').val(output.tariff3);
+                $('#form_counter #tariff4').val(output.tariff4);
+
                 hide_loading_message();
                 show_lightbox();
             } else {
@@ -280,36 +363,42 @@ $(document).ready(function(){
         });
     });
 
-    // Edit company submit form
+    // Edit counter submit form
     $(document).on('submit', '#form_counter.edit', function(e){
         e.preventDefault();
+
+        // Populate options in form selectors
+        populateOptions();
+
         // Validate form
         if (form_counter.valid() == true){
-            // Send company information to database
+            // Send counter information to database
             hide_ipad_keyboard();
             hide_lightbox();
             show_loading_message();
             var id        = $('#form_counter').attr('data-id');
             var form_data = $('#form_counter').serialize();
             var request   = $.ajax({
-                url:          'data.php?job=edit_company&id=' + id,
+                url:          'https://hometest.appix.ru/api/counters/' + id,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
                 cache:        false,
                 data:         form_data,
                 dataType:     'json',
-                contentType:  'application/json; charset=utf-8',
-                type:         'get'
+                type:         'PUT'
             });
             request.done(function(output){
-                if (output.result == 'success'){
+                if (output.status == 'ok'){
                     // Reload datable
-                    table_companies.api().ajax.reload(function(){
+                    table_counters.api().ajax.reload(function(){
                         hide_loading_message();
-                        var company_name = $('#company_name').val();
-                        show_message("Company '" + company_name + "' edited successfully.", 'success');
+                        var counter_name = $('#name').val();
+                        show_message("Счётчик '" + counter_name + "' ID = " + id + " успешно оновлен.", 'success');
                     }, true);
                 } else {
                     hide_loading_message();
-                    show_message('Edit request failed', 'error');
+                    show_message(output.message, 'error');
                 }
             });
             request.fail(function(jqXHR, textStatus){
@@ -319,26 +408,27 @@ $(document).ready(function(){
         }
     });
 
-    // Delete company
+    // Delete counter
     $(document).on('click', '.function_delete a', function(e){
         e.preventDefault();
-        var company_name = $(this).data('name');
-        if (confirm("Are you sure you want to delete '" + company_name + "'?")){
+        var counter_id = $(this).data('id');
+        if (confirm("Вы уверены, что хотите удалить счётчик ID = '" + counter_id + "'?")){
             show_loading_message();
             var id      = $(this).data('id');
-            var request = $.ajax({
-                url:          'data.php?job=delete_company&id=' + id,
+            var request   = $.ajax({
+                url:          'https://hometest.appix.ru/api/counters/' + id,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
                 cache:        false,
-                dataType:     'json',
-                contentType:  'application/json; charset=utf-8',
-                type:         'get'
+                type:         'DELETE'
             });
             request.done(function(output){
-                if (output.result == 'success'){
+                if (output.status == 'ok'){
                     // Reload datable
-                    table_companies.api().ajax.reload(function(){
+                    table_counters.api().ajax.reload(function(){
                         hide_loading_message();
-                        show_message("Company '" + company_name + "' deleted successfully.", 'success');
+                        show_message("Счётчик ID= '" + counter_id + "' удалён успешно.", 'success');
                     }, true);
                 } else {
                     hide_loading_message();
@@ -351,5 +441,4 @@ $(document).ready(function(){
             });
         }
     });
-
 });
