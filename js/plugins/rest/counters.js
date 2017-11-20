@@ -97,7 +97,8 @@ $(document).ready(function(){
         responsive: true,
         dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
         ajax: {
-            "url": "https://hometest.appix.ru/api/counters?quarter_id=49&table=1",
+            "url": "https://hometest.appix.ru/api/counters?quarter_id=" + $.GET("kvart_id") + "&table=1",
+
             "beforeSend": function (xhr) {
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },
@@ -219,7 +220,7 @@ $(document).ready(function(){
         $('#form_counter').attr('data-id', '');
         $('#form_counter .field_container label.error').hide();
         $('#form_counter .field_container').removeClass('valid').removeClass('error');
-        //$('#form_counter #res').val('');
+        $('#form_counter #quarter_id').val($.GET("kvart_id"));
         $('#form_counter #name').val('');
         $('#form_counter #model').val('');
         $('#form_counter #verification').val('');
@@ -234,8 +235,8 @@ $(document).ready(function(){
         $('#form_counter #inventory_num').val('');
         $('#form_counter #comm_date').val('');
         $('#form_counter #decomm_date').val('');
-        $('#form_counter #initial_val').val('');
-        $('#form_counter #final_val').val('');
+        $('#form_counter #initial_value').val('');
+        $('#form_counter #final_value').val('');
         $('#form_counter #responsible').val('');
         $('#form_counter #tariff1').val('');
         $('#form_counter #tariff2').val('');
@@ -330,8 +331,8 @@ $(document).ready(function(){
                 $('#form_counter #inventory_num').val(output.inventory_num);
                 $('#form_counter #comm_date').val(output.comm_date);
                 $('#form_counter #decomm_date').val(output.decomm_date);
-                $('#form_counter #initial_val').val(output.initial_val);
-                $('#form_counter #final_val').val(output.final_val);
+                $('#form_counter #initial_value').val(output.initial_value);
+                $('#form_counter #final_value').val(output.final_value);
                 $('#form_counter #responsible').val(output.responsible);
                 $('#form_counter #tariff1').val(output.tariff1);
                 //$("#form_counter #tariff1 option").filter(function() {
