@@ -9,25 +9,273 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+<!--
+    <link href="js/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <link href="css/telemetry_datatables.css" rel="stylesheet">
+-->
 
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+<!--
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="js/plugins/datatablesEditor/css/editor.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="js/plugins/datatablesEditor/examples/resources/syntax/shCore.css">
+-->
     <style type="text/css" class="init">
 
     </style>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/liberation-sans-narrow-bold/stylesheet.css">
 
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/plugins/rest/webapp.css">
+
+
+    <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+    <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+    <script charset="utf-8" src="js/plugins/rest/counters.js"></script>
+    <script src="js/plugins/cookie/jquery.cookie.js"></script>
+    <script src="js/common.js"></script>
+
+
+
+    <!--<script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+    <script src="js/plugins/cookie/jquery.cookie.js"></script>
+    <script src="js/common.js"></script>
+    <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+
+    <script charset="utf-8" src="js/plugins/rest/counters.js"></script>-->
+
+
+
+
+    <!--<script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/plugins/dataTables/datatables.min.js"></script>
+    <script src="js/plugins/cookie/jquery.cookie.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="js/plugins/dataTables/Select-1.2.3/js/dataTables.select.min.js"></script>
+    <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>-->
+
+
+
+
+    <!-- Mainly scripts -->
+<!--    <script src="js/jquery-3.1.1.min.js"></script>-->
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/dateformat/jquery-dateFormat.js"></script>
+
+
+
+    <!--<script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/js/dataTables.editor.min.js">
+    </script>
+    <script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/syntax/shCore.js">
+    </script>
+    <script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/demo.js">
+    </script>
+    <script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/editor-demo.js">
+    </script>-->
+
+
+
 </head>
 
 <body class="boxed-layout">
+
+<!-- Lightbox Добавить счётчик //-->
+<div class="lightbox_bg"></div>
+<div class="lightbox_container">
+    <div class="lightbox_close"></div>
+    <div class="lightbox_content">
+
+        <h2>Добавить счётчик энергоресурса</h2>
+        <form class="form add" id="form_counter" data-id="" novalidate>
+            <input type="hidden" name="quarter_id" id="quarter_id" value="49">
+            <div class="input_container">
+                <label for="res">Вид ресурса: <span class="required">*</span></label>
+                <div class="field_container selector">
+                    <select size="1" id="res" name="res" required>
+                        <option value="">- Нет -</option>
+                    </select>
+                    <!--<input type="number" step="1" min="0" class="text" name="res" id="res" value="" required>-->
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="tariff1">Выбор тарифа 1:</label>
+                <div class="field_container selector">
+                    <select size="1" id="tariff1" name="tariff1" class="tariff">
+                        <option value="">- Нет -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="tariff2">Выбор тарифа 2:</label>
+                <div class="field_container selector">
+                    <select size="1" id="tariff2" name="tariff2" class="tariff">
+                        <option value="">- Нет -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="tariff3">Выбор тарифа 3:</label>
+                <div class="field_container selector">
+                    <select size="1" id="tariff3" name="tariff3" class="tariff">
+                        <option value="">- Нет -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="tariff4">Выбор тарифа 4:</label>
+                <div class="field_container selector">
+                    <select size="1" id="tariff4" name="tariff4" class="tariff">
+                        <option value="">- Нет -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="name">Название счётчика:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="name" id="name" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="active">Статус:</label>
+                <div class="field_container selector">
+                    <select size="1" id="active" name="active">
+                        <option value="">- Нет -</option>
+                        <option value="1">Активен</option>
+                        <option value="0">Неактивен</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="model">Модель счётчика</label>
+                <div class="field_container">
+                    <input type="number" min="0" class="text" name="model" id="model" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="factory_num">Заводской номер:</label>
+                <div class="field_container">
+                    <input type="number" min="0" class="text" name="factory_num" id="factory_num" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="prod_year">Год выпуска:</label>
+                <div class="field_container">
+                    <input type="number" step="1" min="0" class="text" name="prod_year" id="prod_year" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="verification">Срок поверки:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="verification" id="verification" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="verified_until">Поверен до даты:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="verified_until" id="verified_until" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="class">Класс точности:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="class" id="class" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="seals">Количество пломб:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="seals" id="seals" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="seal_num">Номер пломбы:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="seal_num" id="seal_num" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="inventory_num">Инвентарный номер:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="inventory_num" id="inventory_num" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="comm_date">Дата ввода в эксплуатацию:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="comm_date" id="comm_date" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="decomm_date">Дата вывода из эксплуатации:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="decomm_date" id="decomm_date" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="initial_val">Начальное значение:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="initial_val" id="initial_val" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="final_val">Финальное значение:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="final_val" id="final_val" value="">
+                </div>
+            </div>
+            <div class="input_container">
+                <label for="responsible">ФИО ответственного лица:</label>
+                <div class="field_container">
+                    <input type="text" class="text" name="responsible" id="responsible" value="">
+                </div>
+            </div>
+
+            <div class="button_container">
+                <button type="submit">Добавить счётчик</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<noscript id="noscript_container">
+    <div id="noscript" class="error">
+        <p>JavaScript support is needed to use this page.</p>
+    </div>
+</noscript>
+
+<div id="message_container">
+    <div id="message" class="success">
+        <p>This is a success message.</p>
+    </div>
+</div>
+
+<div id="loading_container">
+    <div id="loading_container2">
+        <div id="loading_container3">
+            <div id="loading_container4">
+                Loading, please wait...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End of Lightbox Дщбавить счётчик //-->
+
+
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
@@ -283,6 +531,55 @@
                             </dl>
 
                         </div>
+
+                        <!-- СЧЁТЧИКИ КВАРТИРЫ //-->
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Холодное водоснабжение</h5>
+                            </div>
+                            <div class="ibox-content">
+
+                                    <!--<table id="example" class="table table-striped table-bordered table-hover dataTables-example" >
+                                        <thead>
+                                        <tr>
+                                            <th>Вид энергоресурса</th>
+                                            <th>Название счётчика</th>
+                                            <th>Модель</th>
+                                            <th>Срок поверки до</th>
+                                            <th>Карточка</th>
+                                            <th>Вкл / выкл</th>
+                                        </tr>
+                                        </thead>
+                                        <tfoot>
+                                        <tr>
+                                            <th>Вид энергоресурса</th>
+                                            <th>Название счётчика</th>
+                                            <th>Модель</th>
+                                            <th>Срок поверки до</th>
+                                            <th>Карточка</th>
+                                            <th>Вкл / выкл</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>-->
+
+
+                                    <button type="button" class="button" id="add_counter">Добавить счётчик</button>
+
+
+                                    <table id="table_counters" class="datatable" >
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Вид энергоресурса</th>
+                                            <th>Название счётчика</th>
+                                            <th>Модель</th>
+                                            <th>Срок поверки до</th>
+                                            <th>Вкл / выкл</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -297,36 +594,12 @@
 </div>
 
 
-<!-- Mainly scripts -->
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/plugins/cookie/jquery.cookie.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<script src="js/plugins/dataTables/datatables.min.js"></script>
-<script src="js/plugins/dataTables/Select-1.2.3/js/dataTables.select.min.js"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script>
-<script src="js/common.js"></script>
-<script src="js/plugins/dateformat/jquery-dateFormat.js"></script>
 
 
-<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js">
-</script>
-<script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/js/dataTables.editor.min.js">
-</script>
-<script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/syntax/shCore.js">
-</script>
-<script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/demo.js">
-</script>
-<script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/editor-demo.js">
-</script>
+
 <script type="text/javascript" language="javascript" class="init">
 
-    var editor; // use a global for the submit and return data rendering in the examples
+   /* var editor; // use a global for the submit and return data rendering in the examples
 
     $(document).ready(function() {
 
@@ -335,7 +608,10 @@
             window.location.href = "login.html"
         }
 
-        $.GetUserName();
+        $.GetUserName();*/
+
+
+        /*// ДАННЫЕ КВАРТИРЫ
 
         editor = new $.fn.dataTable.Editor( {
             ajax: {
@@ -431,10 +707,10 @@
                     }
                 }
             }
-        } );
+        } );*/
 
 
-        var kvartira_details = new Object();
+/*        var kvartira_details = new Object();
         function updateKvartDetails(kvartira_details)    {
             if(kvartira_details.type == 1) $("dd[data-editor-field='type']").html('Жилая площадь');
             if(kvartira_details.type == 2) $("dd[data-editor-field='type']").html('Нежилая площадь');
@@ -444,9 +720,9 @@
             $("dd[data-editor-field='phone']").html(kvartira_details.phone);
             $("dd[data-editor-field='tenants']").html(kvartira_details.tenants);
             $("dd[data-editor-field='created']").html($.format.date(kvartira_details.created, "dd.MM.yyyy"));
-        }
+        }*/
 
-        $('#edit').on( 'click', function () {
+        /*$('#edit').on( 'click', function () {
             editor
                     .title('Edit record')
                     .buttons( {
@@ -491,10 +767,10 @@
                     .buttons('Delete')
                     .message('Are you sure you wish to delete this record?')
                     .remove( $.GET("kvart_id") );
-        } );
+        } );*/
 
 
-        $.ajax({
+        /*$.ajax({
             type : 'GET',
             url  : 'https://hometest.appix.ru/api/quarters/' + $.GET("kvart_id"),
             beforeSend: function(xhr){
@@ -513,8 +789,8 @@
                 console.log('ERROR GetResourcesList()');
                 console.log(JSON.stringify(response));
             }
-        });
-    } );
+        });*/
+ //   } );
 </script>
 </body>
 </html>

@@ -51,6 +51,35 @@
 })(jQuery);
 
 
+// GetTariffsList
+// How to use: $.GetTariffsList();
+// As result - $.Tariffs array is populated.
+(function($){
+    $.GetTariffsList = function() {
+        $.ajax({
+            type : 'GET',
+            url  : 'https://hometest.appix.ru/api/tariffs',
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                console.log('before ' + $.cookie('token'));
+            },
+            success :  function(response) {
+                var i;
+                $.Tariffs = new Array();
+                for(i = 0; i < response.length; i++){
+                    $.Tariffs[i] = { 'label': response[i].name, 'value' : response[i].id };
+                }
+            },
+            error :  function(response) {
+                console.log('ERROR GetTariffsList()');
+                console.log(JSON.stringify(response));
+            }
+        });
+    }
+
+})(jQuery);
+
+
 // GetGeneralInfo
 // How to use: $.GetGeneralInfo();
 // On success - <span data-field="key">value</span> are populated at the home page
@@ -150,7 +179,7 @@ if(pathname.search(/login.html/i) == -1)    {
                 return response;
             },
             error :  function(response) {
-                console.log('ERROR GetResourcesList()');
+                console.log('ERROR GetEstate()');
                 console.log(JSON.stringify(response));
             }
         });

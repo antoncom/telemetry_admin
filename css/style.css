@@ -1626,7 +1626,9 @@ a.list-group-item.active:focus {
   margin-top: 15px;
   position: relative;
 }
-/* DATATABLES */
+/*
+
+!* DATATABLES *!
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc,
@@ -1672,6 +1674,9 @@ div.dt-button-info {
     float: none;
   }
 }
+*/
+
+
 /* CIRCLE */
 .img-circle {
   border-radius: 50%;
