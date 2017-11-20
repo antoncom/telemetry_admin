@@ -44,7 +44,7 @@ $(document).ready(function(){
         responsive: true,
         dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
         ajax: {
-            "url": "https://hometest.appix.ru/api/estates?table=1",
+            "url": $.API_base + "/estates?table=1",
             "beforeSend": function (xhr) {
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },

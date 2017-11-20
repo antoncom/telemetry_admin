@@ -448,7 +448,7 @@
                 responsive: true,
                 dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
                 ajax: {
-                    "url": "https://hometest.appix.ru/api/tariffs?table=1",
+                    "url": $.API_base + "/tariffs?table=1",
                     "beforeSend": function (xhr) {
                         console.log('token = ' + $.cookie('token'));
                         xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));

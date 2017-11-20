@@ -474,7 +474,7 @@
             responsive: true,
             dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
             ajax: {
-                "url": "https://hometest.appix.ru/api/quarters?table=1&estate_id=" + $.GET("estate_id"),
+                "url": $.API_base + "/quarters?table=1&estate_id=" + $.GET("estate_id"),
                 "beforeSend": function (xhr) {
                     console.log('token = ' + $.cookie('token'));
                     xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));

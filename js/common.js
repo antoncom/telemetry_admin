@@ -5,7 +5,7 @@
     $.Logout = function() {
         $.ajax({
             type : 'DELETE',
-            url  : 'https://hometest.appix.ru/api/login',
+            url  : $.API_base + '/login',
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },
@@ -30,10 +30,9 @@
     $.GetResourcesList = function() {
         $.ajax({
             type : 'GET',
-            url  : 'https://hometest.appix.ru/api/resources',
+            url  : $.API_base + '/resources',
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-                console.log('before ' + $.cookie('token'));
             },
             success :  function(response) {
                 var i;
@@ -59,7 +58,7 @@
     $.GetTariffsList = function() {
         $.ajax({
             type : 'GET',
-            url  : 'https://hometest.appix.ru/api/tariffs',
+            url  : $.API_base + '/tariffs',
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 console.log('before ' + $.cookie('token'));
@@ -88,7 +87,7 @@
     $.GetGeneralInfo = function() {
         $.ajax({
             type : 'GET',
-            url  : 'https://hometest.appix.ru/api/info',
+            url  : $.API_base + '/info',
             "data": {
                 "counters": "1"
             },
@@ -119,7 +118,7 @@
     $.GetUserName = function() {
         $.ajax({
             type : 'GET',
-            url  : 'https://hometest.appix.ru/api/info',
+            url  : $.API_base + '/info',
             "data": {
                 "counters": "0"
             },
@@ -170,7 +169,7 @@ if(pathname.search(/login.html/i) == -1)    {
     $.GetEstate = function(estId) {
         $.ajax({
             type : 'GET',
-            url  : 'https://hometest.appix.ru/api/estates/' + estId,
+            url  : $.API_base + '/estates/' + estId,
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 console.log('before ' + $.cookie('token'));

@@ -24,6 +24,7 @@ $(document).ready(function(){
 
     // Populate options in form selectors
     function populateOptions()  {
+        console.log("LEN=" + $('#res option').length);
         if($('#res option').length <= 1)    {
             $.each($.Resources,function(key, value)
             {
@@ -97,7 +98,7 @@ $(document).ready(function(){
         responsive: true,
         dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
         ajax: {
-            "url": "https://hometest.appix.ru/api/counters?quarter_id=" + $.GET("kvart_id") + "&table=1",
+            "url": $.API_base + "/counters?quarter_id=" + $.GET("kvart_id") + "&table=1",
 
             "beforeSend": function (xhr) {
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
