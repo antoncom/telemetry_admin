@@ -79,7 +79,7 @@
         function submitForm()
         {
             var data = $("#login-form").serialize();
-            myUrl = 'https://hometest.appix.ru/api/login';
+            myUrl = $.API_base + '/login';
             var xhr = new XMLHttpRequest();
             xhr.open('POST', myUrl, true);
             xhr.setRequestHeader('Payment-Id', 'ABC0001');

@@ -84,7 +84,7 @@
 
             $.ajax({
                 type : 'POST',
-                url  : 'https://hometest.appix.ru/api/login',
+                url  : $.API_base + '/login',
                 data : data,
                 dataType : 'json',
                 beforeSend: function()

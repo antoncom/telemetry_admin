@@ -308,7 +308,7 @@
             ajax: {
                 create: {
                     type: 'POST',
-                    url:  'https://hometest.appix.ru/api/quarters',
+                    url:  $.API_base + '/quarters',
                     headers: { 'X-Auth-Token': $.cookie('token') },
                     data: function ( d ) {
                         var dd = Object();
@@ -325,7 +325,7 @@
                 },
                 edit: {
                     type: 'PUT',
-                    url:  'https://hometest.appix.ru/api/quarters/_id_',
+                    url:  $.API_base + '/quarters/_id_',
                     headers: { 'X-Auth-Token': $.cookie('token') },
                     data: function ( d ) {
                         var dd = Object();
@@ -342,7 +342,7 @@
                 },
                 remove: {
                     type: 'DELETE',
-                    url:  'https://hometest.appix.ru/api/quarters/_id_',
+                    url:  $.API_base + '/quarters/_id_',
                     headers: { 'X-Auth-Token': $.cookie('token') },
                     /*data: function ( d ) {
                      console.log('DATA');
@@ -519,7 +519,7 @@
         // Update <title>, <span> with class="dom_address"
         $.ajax({
             type : 'GET',
-            url  : 'https://hometest.appix.ru/api/estates/' + $.GET("estate_id"),
+            url  : $.API_base + '/estates/' + $.GET("estate_id"),
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },

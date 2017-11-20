@@ -329,7 +329,7 @@
                 ajax: {
                     create: {
                         type: 'POST',
-                        url:  'https://hometest.appix.ru/api/estates',
+                        url:  $.API_base + '/estates',
                         headers: { 'X-Auth-Token': $.cookie('token') },
                         data: function ( d ) {
                             var dd = Object();
@@ -341,7 +341,7 @@
                     },
                     edit: {
                         type: 'PUT',
-                        url:  'https://hometest.appix.ru/api/estates/_id_',
+                        url:  $.API_base + '/estates/_id_',
                         headers: { 'X-Auth-Token': $.cookie('token') },
                         data: function ( d ) {
                             var dd = Object();
@@ -354,7 +354,7 @@
                     },
                     remove: {
                         type: 'DELETE',
-                        url:  'https://hometest.appix.ru/api/estates/_id_',
+                        url:  $.API_base + '/estates/_id_',
                         headers: { 'X-Auth-Token': $.cookie('token') }
                     }
                 },

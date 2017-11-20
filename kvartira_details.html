@@ -625,7 +625,7 @@
             ajax: {
                 edit: {
                     type: 'PUT',
-                    url:  'https://hometest.appix.ru/api/quarters/' + $.GET("kvart_id"),
+                    url:  $.API_base + '/quarters/' + $.GET("kvart_id"),
                     headers: { 'X-Auth-Token': $.cookie('token') },
                     data: function ( d ) {
                             var dd = Object();
@@ -641,7 +641,7 @@
                 },
                 remove: {
                     type: 'DELETE',
-                    url:  'https://hometest.appix.ru/api/quarters/' + $.GET("kvart_id"),
+                    url:  $.API_base + '/quarters/' + $.GET("kvart_id"),
                     headers: { 'X-Auth-Token': $.cookie('token') },
                     success :  function(response) {
                         setTimeout(' window.location.href = "dom_details.html?estate_id=' + $.cookie('estate_id') + '"' , 5);
@@ -740,7 +740,7 @@
                                     function () {
                                         $.ajax({
                                             type : 'GET',
-                                            url  : 'https://hometest.appix.ru/api/quarters/' + $.GET("kvart_id"),
+                                            url  : $.API_base + '/quarters/' + $.GET("kvart_id"),
                                             beforeSend: function(xhr){
                                                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                                             },
@@ -780,7 +780,7 @@
 
         /*$.ajax({
             type : 'GET',
-            url  : 'https://hometest.appix.ru/api/quarters/' + $.GET("kvart_id"),
+            url  : $.API_base + '/quarters/' + $.GET("kvart_id"),
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },

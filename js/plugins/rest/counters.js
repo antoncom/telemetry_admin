@@ -257,7 +257,7 @@ $(document).ready(function(){
             show_loading_message();
             var form_data = $('#form_counter').serialize();
             var request   = $.ajax({
-                url:          'https://hometest.appix.ru/api/counters',
+                url:          $.API_base + '/counters',
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 },
@@ -298,7 +298,7 @@ $(document).ready(function(){
         show_loading_message();
         var id      = $(this).data('id');
         var request   = $.ajax({
-            url:          'https://hometest.appix.ru/api/counters/' + id,
+            url:          $.API_base + '/counters/' + id,
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },
@@ -380,7 +380,7 @@ $(document).ready(function(){
             var id        = $('#form_counter').attr('data-id');
             var form_data = $('#form_counter').serialize();
             var request   = $.ajax({
-                url:          'https://hometest.appix.ru/api/counters/' + id,
+                url:          $.API_base + '/counters/' + id,
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 },
@@ -417,7 +417,7 @@ $(document).ready(function(){
             show_loading_message();
             var id      = $(this).data('id');
             var request   = $.ajax({
-                url:          'https://hometest.appix.ru/api/counters/' + id,
+                url:          $.API_base + '/counters/' + id,
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 },
