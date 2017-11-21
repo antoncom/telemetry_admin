@@ -49,7 +49,14 @@ $(document).ready(function(){
                     value = value.substring(0,10);
                     value = value.replace(/-/g,".");
                 }
-                $('table[data=quarter] tr td dd[data-editor-field='+key).text(value);
+                if(key=='address')  {
+                    value = $.cookie('estate_address') + ', кв. ' + value;
+                }
+                if(key=='area')  {
+                    value = value + " м²";
+                }
+
+                $('table[data=quarter] tr td[data-editor-field='+key).text(value);
 
             });
             //return response;
