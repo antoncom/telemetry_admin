@@ -156,8 +156,8 @@
             <div class="input_container">
                 <label for="active">Статус:</label>
                 <div class="field_container selector">
-                    <select size="1" id="active" name="active">
-                        <option value="0">Неактивен</option>
+                    <select id="active" name="active">
+                        <option value="0" selected="selected">Неактивен</option>
                         <option value="1">Активен</option>
                     </select>
                 </div>
@@ -178,7 +178,12 @@
                 <label for="prod_year">Год выпуска:</label>
                 <div class="field_container">
                     <!--<input name="prod_year" id="prod_year" type="date" value="" />-->
-                    <input type="number" step="1" min="0" class="text" name="prod_year" id="prod_year" value="">
+                    <!--<input type="number" step="1" min="0" class="text" name="prod_year" id="prod_year" value="">-->
+                    <div class="field_container selector">
+                        <select class="text" name="prod_year" id="prod_year" >
+                            <option value="">-Нет-</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="input_container">
@@ -483,19 +488,12 @@
                         <div class="ibox-content">
 
                             <dl>
-                                <dd>
-                                    <button id="edit">Редактировать</button>
-                                </dd>
-                                <dd>
-                                    <button id="remove">Удалить</button>
-                                </dd>
-
-                                <table class="table table-bordered" data-editor-id="13">
+                                <table class="table table-bordered" data="quarter">
                                     <tbody>
                                         <tr>
                                             <th><dt data-editor-label="type">Тип площади:</dt></th>
                                             <td>
-                                                <dd data-editor-field="type" data-editor-id="13"></dd>
+                                                <dd data-editor-field="type"></dd>
                                             </td>
                                         </tr>
                                         <tr>
@@ -543,7 +541,7 @@
                         <!-- СЧЁТЧИКИ КВАРТИРЫ //-->
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Холодное водоснабжение</h5>
+                                <h5>Счётчики энергоресурсов</h5>
                             </div>
                             <div class="ibox-content">
 

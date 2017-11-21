@@ -40,7 +40,6 @@
                 for(i = 0; i < response.length; i++){
                     $.Resources[i] = { 'label': response[i].name, 'value' : response[i].id };
                 }
-                console.log("RES LEN = " + $.Resources.length);
             },
             error :  function(response) {
                 console.log('ERROR GetResourcesList()');
@@ -62,7 +61,6 @@
             url  : $.API_base + '/tariffs',
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-                console.log('before ' + $.cookie('token'));
             },
             success :  function(response) {
                 var i;

@@ -7,8 +7,10 @@ $(document).ready(function(){
         $( "#verification" ).datepicker();
         $( "#verification" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
 
+/*
         $( "#prod_year" ).datepicker();
         $( "#prod_year" ).datepicker( "option", "dateFormat", "yy" );
+*/
 
         $( "#comm_date" ).datepicker();
         $( "#comm_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
@@ -16,6 +18,47 @@ $(document).ready(function(){
         $( "#decomm_date" ).datepicker();
         $( "#decomm_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
     } );
+
+    // Populate html table with Quarter data
+    $.ajax({
+        type : 'GET',
+        url  : $.API_base + '/quarters/' + $.GET("kvart_id"),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            console.log('before ' + $.cookie('token'));
+        },
+        success :  function(response) {
+            //console.log(response);
+
+            $.each(response, function(key, value) {
+                //console.log("KEY=" + key + " VALUE=" + value);
+                if(key == 'type') {
+                    switch(value){
+                        case(1): value = "Жилая";
+                            break;
+                        case(2): value = "Нежилая";
+                            break;
+                        case(3): value = "Счётчик ОДУ";
+                            break;
+                        case(4): value = "Оборудование";
+                            break;
+                        default:;
+                    }
+                }
+                if(key=='created') {
+                    value = value.substring(0,10);
+                    value = value.replace(/-/g,".");
+                }
+                $('table[data=quarter] tr td dd[data-editor-field='+key).text(value);
+
+            });
+            //return response;
+        },
+        error :  function(response) {
+            console.log('ERROR GetEstate()');
+            console.log(JSON.stringify(response));
+        }
+    });
 
     // $.Resources is populated
     $.GetResourcesList();
@@ -25,6 +68,8 @@ $(document).ready(function(){
 
     // Populate options in form selectors
     function populateOptions()  {
+
+        // Poulate resources
         if($('#form_counter #res option').length <= 1)    {
             $.each($.Resources,function(key, value)
             {
@@ -32,6 +77,7 @@ $(document).ready(function(){
             });
         }
 
+        // Populate tariffs
         if($('#tariff1 option').length <= 1)    {
             $.each($.Tariffs,function(key, value)
             {
@@ -40,6 +86,16 @@ $(document).ready(function(){
                 $('#form_counter #tariff3').append('<option value="' + value.value + '">' + value.label + '</option>');
                 $('#form_counter #tariff4').append('<option value="' + value.value + '">' + value.label + '</option>');
             });
+        }
+
+        // Popuate Year of production for counter
+        if($('#form_counter #prod_year option').length <= 1) {
+            var i, yr, now = new Date();
+            for (i = 0; i < 30; i++) {
+                yr = now.getFullYear() - 10 + i; // or whatever
+                $('#form_counter #prod_year').append($('<option/>').val(yr).text(yr));
+            }
+            ;
         }
     }
 
@@ -227,10 +283,10 @@ $(document).ready(function(){
         $('#form_counter #model').val('');
         $('#form_counter #verification').val('');
         $('#form_counter #verified_until').val('');
-        $('#form_counter #active').val('');
+        $('#form_counter #active').val('0');
         $('#form_counter #factory_num').val('');
         $('#form_counter #headquarters').val('');
-        $('#form_counter #prod_year').val('');
+        //$('#form_counter #prod_year').val('');
         $('#form_counter #class').val('');
         $('#form_counter #seals').val('');
         $('#form_counter #seal_num').val('');
