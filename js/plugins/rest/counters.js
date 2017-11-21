@@ -75,7 +75,6 @@ $(document).ready(function(){
 
     // Populate options in form selectors
     function populateOptions()  {
-
         // Poulate resources
         if($('#form_counter #res option').length <= 1)    {
             $.each($.Resources,function(key, value)
@@ -118,7 +117,6 @@ $(document).ready(function(){
                 "render": function ( data, type, row ) {
                     var out = "";
                     $.each($.Resources,function(key, value) {
-                        $('#res').append('<option value="' + value.value + '">' + value.label + '</option>');
                         if (value.value == data)    {
                             out = value.label;
                             return false;
