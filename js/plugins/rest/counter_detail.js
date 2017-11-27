@@ -27,6 +27,7 @@ $(document).ready(function(){
     $.GetTariffsList();
 
     populateCounterData();
+    reloadTelemetreadersTable();
 
     function populateCounterData()  {
         // Populate html table with Counter data
@@ -187,27 +188,11 @@ $(document).ready(function(){
         },
         responsive: true,
         dom: 'Tgt',
-        //data: output.files,
-        ajax: {
-            "url": $.API_base + "/readers?counter_id=" + $.GET("counter_id"),
-            "beforeSend": function (xhr) {
-                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-            },
-            "dataSrc": function ( json ) {
-                console.log(json);
-                if(json.status == "error" && json.code == 401)  {
-                    setTimeout(' window.location.href = "login.html"; ', 10);
-                }
-                else {
-                    return json.data;
-                }
-            }
-        },
-
+        data: null,
         "columnDefs": [
             {
                 "render": function ( data, type, row ) {
-                    return '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '" data-name="' + row.rfid + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '" data-name="' + row.rfid + '" data-counter-id="' + $('#form_counter').attr('data-id') + '"><span>Delete</span></a></li></ul></div>';
+                    return '<div class="function_buttons"><ul><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
 
                 },
                 "targets": 2
@@ -607,12 +592,18 @@ $(document).ready(function(){
             type:         'GET'
         });
         request.done(function(output){
-            if (output.id > 0){
-                table_counter_files.fnClearTable();
-                if(output.files.length > 0) table_counter_files.fnAddData(output.files);
+            if (output.id >= 0){ // reader exists or list of readers is empty
+                table_counter_readers.fnClearTable();
+                // reader exists
+                if (output.id > 0) {
+                    table_counter_readers.fnAddData(output);
+                    $( "#rfid" ).prop( "disabled", true );
+                    $( "#add_reader" ).prop( "disabled", true );
+                    $( "#rfid").val('');
+                    $('#form_reader').hide()
+                }
 
                 hide_loading_message();
-                show_lightbox();
             } else {
                 hide_loading_message();
                 show_message('Information request failed: reloadTelemetreadersTable()', 'error');
@@ -685,7 +676,7 @@ $(document).ready(function(){
 
 
     // ADD TELEMETRY READER
-    $(document).on('submit', '#form_reader', function(e) {
+   /* $(document).on('submit', '#form_reader', function(e) {
         e.preventDefault();
 
         // Validate form
@@ -711,11 +702,8 @@ $(document).ready(function(){
                 if (output.id > 0){
 
                     // Reload RFID datatable
-                     table_telemetreader.api().ajax.reload(function(){
-                         hide_loading_message();
-                         var reader = $('#name').val();
-                         show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
-                     }, true);
+                    reloadTelemetreadersTable();
+                    show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
                 } else {
                     hide_loading_message();
                     show_message(output.message, 'error');
@@ -726,7 +714,7 @@ $(document).ready(function(){
                 show_message('Edit request failed: ADD READER ' + textStatus, 'error');
             });
         }
-    });
+    });*/
 
     // ON ADD_READER BUTTON
     $(document).on('click', '#add_reader', function(e){
@@ -751,13 +739,10 @@ $(document).ready(function(){
         });
         request.done(function(output){
             if (output.id > 0){
-
                 // Reload RFID datatable
-                table_telemetreader.api().ajax.reload(function(){
-                    hide_loading_message();
-                    var reader = $('#name').val();
-                    show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
-                }, true);
+                reloadTelemetreadersTable();
+                show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
+
             } else {
                 hide_loading_message();
                 show_message(output.message, 'error');
@@ -768,6 +753,42 @@ $(document).ready(function(){
             show_message('Edit request failed: ADD READER ' + textStatus, 'error');
         });
 
+    });
+
+
+    // Delete reader
+    $(document).on('click', '#table_counter_readers .function_delete a', function(e){
+        e.preventDefault();
+        var reader_id = $(this).data('id');
+        if (confirm("Вы уверены, что хотите удалить считыватель ID = '" + reader_id + "'?")){
+            show_loading_message();
+            var request   = $.ajax({
+                url:          $.API_base + '/readers/' + reader_id,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
+                cache:        false,
+                type:         'DELETE'
+            });
+            request.done(function(output){
+                if (output.status == 'ok'){
+                    // Reload datable
+                    reloadTelemetreadersTable();
+                        hide_loading_message();
+                        show_message("Считыватель ID= '" + reader_id + "' удалён успешно.", 'success');
+                    $( "#rfid" ).prop( "disabled", false );
+                    $( "#add_reader" ).prop( "disabled", false );
+                    $('#form_reader').show();
+                } else {
+                    hide_loading_message();
+                    show_message('Delete request failed', 'error');
+                }
+            });
+            request.fail(function(jqXHR, textStatus){
+                hide_loading_message();
+                show_message('Delete request failed: Delete reader' + textStatus, 'error');
+            });
+        }
     });
 
 
