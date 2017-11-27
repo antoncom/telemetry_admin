@@ -19,55 +19,91 @@ $(document).ready(function(){
         $( "#decomm_date" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
     } );
 
-    // Populate html table with Quarter data
-    $.ajax({
-        type : 'GET',
-        url  : $.API_base + '/quarters/' + $.GET("kvart_id"),
-        beforeSend: function(xhr){
-            xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-        },
-        success :  function(response) {
-            $.each(response, function(key, value) {
-                if(key == 'type') {
-                    switch(value){
-                        case(1): value = "Жилая";
-                            break;
-                        case(2): value = "Нежилая";
-                            break;
-                        case(3): value = "Счётчик ОДУ";
-                            break;
-                        case(4): value = "Оборудование";
-                            break;
-                        default:;
-                    }
-                }
-                if(key=='created') {
-                    value = value.substring(0,10);
-                    value = value.replace(/-/g,".");
-                }
-                if(key=='address')  {
-                    value = $.cookie('estate_address') + ', кв. ' + value;
-                }
-                if(key=='area')  {
-                    value = value + " м²";
-                }
-
-                $('table[data=quarter] tr td[data-editor-field='+key).text(value);
-
-            });
-            //return response;
-        },
-        error :  function(response) {
-            console.log('ERROR GetEstate()');
-            console.log(JSON.stringify(response));
-        }
-    });
 
     // $.Resources is populated
     $.GetResourcesList();
 
     // $.Tariffs is populated
     $.GetTariffsList();
+
+    populateCounterData();
+
+    function populateCounterData()  {
+        // Populate html table with Counter data
+        $.ajax({
+            type : 'GET',
+            url  : $.API_base + '/counters/' + $.GET("counter_id"),
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            },
+            success :  function(response) {
+                $.each(response, function(key, value) {
+
+
+                    switch(key) {
+                        case("res"):    {
+                            $.each($.Resources,function(k, v) {
+                                if (v.value == value)    {
+                                    value = v.label;
+                                    return false;
+                                }
+                            });
+                            break;
+                        }
+                        case("tariff1"):
+                        case("tariff2"):
+                        case("tariff3"):
+                        case("tariff4"):   {
+                            if(value == null) {value = "–"; break; }
+                            $.each($.Tariffs,function(k, v) {
+                                if (v.value == value)    {
+                                    value = v.label;
+                                    return false;
+                                }
+                            });
+                            break;
+                        }
+
+                        default:    {
+                            if(value == null) value = "";
+                            if(key == "active") value = (value) ? "Активный" : "Неактивный";
+                            break;
+                        }
+                    }
+
+                    if(key=='created') {
+                        value = value.substring(0,10);
+                        value = value.replace(/-/g,".");
+                    }
+                    if(key=='address')  {
+                        value = $.cookie('estate_address') + ', кв. ' + value;
+                    }
+                    if(key=='area')  {
+                        value = value + " м²";
+                    }
+
+                    $('table[data=counter] tr td[data-editor-field='+key).text(value);
+
+                    if(key=='files')  {
+                        // Populate table of files
+                        table_counter_files.fnClearTable();
+                        if(value.length > 0) table_counter_files.fnAddData(value);
+                    }
+
+
+                });
+                //return response;
+                hide_loading_message();
+            },
+            error :  function(response) {
+                console.log('ERROR GetEstate()');
+                console.log(JSON.stringify(response));
+            }
+        });
+    }
+
+
+
 
     // Populate options in form selectors
     function populateOptions()  {
@@ -105,68 +141,60 @@ $(document).ready(function(){
 
     // On page load: datatable
 
-    dataSet = "";
-
-    var table_counters = $('#table_counters').dataTable({
-        "columnDefs": [
-             {
-             "targets": [ 0 ],
-             "visible": false,
-             "searchable": false
-             },
-            {
-                "render": function ( data, type, row ) {
-                    var out = "";
-                    $.each($.Resources,function(key, value) {
-                        if (value.value == data)    {
-                            out = value.label;
-                            return false;
-                        }
-                    });
-                    return out;
-                },
-                "targets": 1
-            },
-            {
-                "render": function ( data, type, row ) {
-                    return (data) ? "ВКЛ" : "Выкл" ;
-
-                },
-                "targets": 5
-            },
-            {
-                "render": function ( data, type, row ) {
-                    //return '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
-                    return '<div class="function_buttons"><ul><li class=""><a href="counter_details.html?counter_id=' + row.id + '" data-id="' + row.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
-
-                },
-                "targets": 6
-            }
-         ],
+    // Counter files table
+    var table_counter_files = $('#table_counter_files').dataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
         },
-        "oLanguage": {
-            "oPaginate": {
-                "sFirst":       " ",
-                "sPrevious":    " ",
-                "sNext":        " ",
-                "sLast":        " ",
-            },
-            "sLengthMenu":    "Число строк: _MENU_",
-            "sInfo":          "Total of _TOTAL_ records (showing _START_ to _END_)",
-            "sInfoFiltered":  "(filtered from _MAX_ total records)"
-        },
-        pageLength: 25,
         responsive: true,
-        dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
-        ajax: {
-            "url": $.API_base + "/counters?quarter_id=" + $.GET("kvart_id") + "&table=1",
+        dom: 'Tgt',
+        //data: output.files,
+        data: null,
+        "columnDefs": [
+            {
+                "render": function ( data, type, row ) {
+                    return '<div class="function_buttons"><ul><li class="function_delete"><a data-id="' + row.id + '" data-name="' + row.name + '" data-counter-id="' + $('#form_counter').attr('data-id') + '"><span>Delete</span></a></li></ul></div>';
 
+                },
+                "targets": 2
+            }
+        ],
+        columns: [
+            {
+                title: "name",
+                data: "name"
+            },
+            {
+                title: "size",
+                data: "size"
+            },
+
+            {
+                title: "del",
+                data: null,
+                className: "functions"
+                //defaultContent: '<div class="function_buttons"><ul><li class="function_edit"><a data-id=""><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>'
+            }
+        ]
+    });
+
+    dataSet = "";
+
+    // Counter files readers
+    var table_counter_readers = $('#table_counter_readers').dataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
+        },
+        responsive: true,
+        dom: 'Tgt',
+        //data: output.files,
+        ajax: {
+            "url": $.API_base + "/readers?counter_id=" + $.GET("counter_id"),
             "beforeSend": function (xhr) {
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },
             "dataSrc": function ( json ) {
+                console.log(json);
                 if(json.status == "error" && json.code == 401)  {
                     setTimeout(' window.location.href = "login.html"; ', 10);
                 }
@@ -175,75 +203,7 @@ $(document).ready(function(){
                 }
             }
         },
-        columns: [
-            {data: "id"},
-            {data: "res"},
-            {data: "name"},
-            {data: "model"},
-            {data: "verification"},
-            {data: "active"},
-            {
-                data: null,
-                className: "functions"
-                //defaultContent: '<div class="function_buttons"><ul><li class="function_edit"><a data-id=""><span>Edit</span></a></li><li class="function_delete"><a><span>Delete</span></a></li></ul></div>'
-            }
-        ]
-    });
 
-
-    // Counter files table
-    var table_counter_files = $('#table_counter_files').dataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
-        },
-        responsive: true,
-        dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
-        //data: output.files,
-        data: null,
-        "columnDefs": [
-            {
-                "render": function ( data, type, row ) {
-                    return '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '" data-name="' + row.name + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '" data-name="' + row.name + '" data-counter-id="' + $('#form_counter').attr('data-id') + '"><span>Delete</span></a></li></ul></div>';
-
-                },
-                "targets": 4
-            }
-        ],
-        columns: [
-            {
-                title: "id",
-                data: "id"
-            },
-            {
-                title: "name",
-                data: "name"
-            },
-            {
-                title: "title",
-                data: "title"
-            },
-            {
-                title: "size",
-                data: "size"
-            },
-
-            {
-                data: null,
-                className: "functions"
-                //defaultContent: '<div class="function_buttons"><ul><li class="function_edit"><a data-id=""><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>'
-            }
-        ]
-    });
-
-    // Counter files table
-    var table_counter_readers = $('#table_counter_readers').dataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Russian.json"
-        },
-        responsive: true,
-        dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
-        //data: output.files,
-        data: null,
         "columnDefs": [
             {
                 "render": function ( data, type, row ) {
@@ -438,7 +398,7 @@ $(document).ready(function(){
 
 
     // Edit counter button
-    $(document).on('click', '.function_edit a', function(e){
+    $(document).on('click', '#edit_counter', function(e){
         e.preventDefault();
 
         // Populate options in form selectors
@@ -446,7 +406,7 @@ $(document).ready(function(){
 
         // Get counter information from database
         show_loading_message();
-        var id      = $(this).data('id');
+        var id      = $.GET('counter_id')
         var request   = $.ajax({
             url:          $.API_base + '/counters/' + id,
             beforeSend: function(xhr){
@@ -484,18 +444,6 @@ $(document).ready(function(){
                 $('#form_counter #final_value').val(output.final_value);
                 $('#form_counter #responsible').val(output.responsible);
                 $('#form_counter #tariff1').val(output.tariff1);
-                //$("#form_counter #tariff1 option").filter(function() {
-                //    return this.text == output.tariff1;
-                //}).attr('selected', true);
-                //$("#form_counter #tariff2 option").filter(function() {
-                //    return this.text == output.tariff2;
-                //}).attr('selected', true);
-                //$("#form_counter #tariff3 option").filter(function() {
-                //    return this.text == output.tariff3;
-                //}).attr('selected', true);
-                //$("#form_counter #tariff4 option").filter(function() {
-                //    return this.text == output.tariff4;
-                //}).attr('selected', true);
                 $('#form_counter #tariff2').val(output.tariff2);
                 $('#form_counter #tariff3').val(output.tariff3);
                 $('#form_counter #tariff4').val(output.tariff4);
@@ -503,12 +451,12 @@ $(document).ready(function(){
 
 
                 // Populate table of files
-                table_counter_files.fnClearTable();
-                if(output.files.length > 0) table_counter_files.fnAddData(output.files);
+                //table_counter_files.fnClearTable();
+                //if(output.files.length > 0) table_counter_files.fnAddData(output.files);
 
 
                 // Populate table of telemetry readeers
-                reloadTelemetreadersTable();
+                //reloadTelemetreadersTable();
 
 
 
@@ -540,7 +488,7 @@ $(document).ready(function(){
             hide_ipad_keyboard();
             hide_lightbox();
             show_loading_message();
-            var id        = $('#form_counter').attr('data-id');
+            var id        = $.GET('counter_id');
             var form_data = $('#form_counter').serialize();
             var request   = $.ajax({
                 url:          $.API_base + '/counters/' + id,
@@ -554,12 +502,18 @@ $(document).ready(function(){
             });
             request.done(function(output){
                 if (output.status == 'ok'){
-                    // Reload datable
+
+                    populateCounterData();
+                    //hide_loading_message();
+                    var counter_name = $('#name').val();
+                    show_message("Счётчик '" + counter_name + "' ID = " + id + " успешно обновлён.", 'success');
+
+                    /*// Reload datable
                     table_counters.api().ajax.reload(function(){
                         hide_loading_message();
                         var counter_name = $('#name').val();
                         show_message("Счётчик '" + counter_name + "' ID = " + id + " успешно обновлён.", 'success');
-                    }, true);
+                    }, true);*/
                 } else {
                     hide_loading_message();
                     show_message(output.message, 'error');
@@ -610,50 +564,13 @@ $(document).ready(function(){
 
     // File UPLOAD
 
-    //WORKS
-/*    $("div#drpzn").uploadFile({
-        url:"https://hometest.appix.ru/api/files",
-        fileName:"file",
-        headers: {"X-Auth-Token": $.cookie('token')},
-        formData: {"title":"My file title","counter_id":27}
-        /!*beforeSend: function(xhr) {
-            console.log("COOKIE");
-            console.log($.cookie('token'));
-            xhr.setRequestHeader("X-Auth-Token", $.cookie('token'));
-        }*!/
-    });*/
-
-
-    //WORKS TOO
-    /*$("div#drpzn").dropzone({
-        url: "https://hometest.appix.ru/api/files",
-        addRemoveLinks : true,
-        maxFilesize: 5,
-        dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"><i class="fa fa-caret-right text-danger"></i> Drop files <span class="font-xs">to upload</span></span><span>&nbsp&nbsp<h4 class="display-inline"> (Or Click)</h4></span>',
-        dictResponseError: 'Error uploading file!',
-        headers: {
-            'X-Auth-Token': $.cookie('token'),
-            'Cache-Control': null,
-            'X-Requested-With': null
-        },
-        init: function() {
-            this.on("sending", function(file, xhr, formData){
-                formData.append("title", "My file Title");
-                formData.append("fileName", "file");
-                formData.append("counter_id", 27);
-            }),
-                this.on("success", function(file, xhr){
-                    alert(file.xhr.response);
-                })
-        }
-    });*/
-
     // Обновление таблицы со списком файлов счётчика
     // Активируется при добавлении, удалении файла счётчика
     function reloadFilesTable() {
+
         // Update files list
         // Get counter information from database
-        var counter_id = $( '#form_counter').attr('data-id');
+        var counter_id = $.GET("counter_id");
         show_loading_message();
         var request   = $.ajax({
             url:          $.API_base + '/counters/' + counter_id,
@@ -669,17 +586,17 @@ $(document).ready(function(){
                 if(output.files.length > 0) table_counter_files.fnAddData(output.files);
 
                 hide_loading_message();
-                show_lightbox();
+                //show_lightbox();
             } else {
                 hide_loading_message();
-                show_message('Information request failed', 'error');
+                show_message('Information request failed: reloadFilesTable()', 'error');
             }
         });
     };
 
     // Reload telemetry readers table
     function reloadTelemetreadersTable() {
-        var counter_id = $( '#form_counter').attr('data-id');
+        var counter_id = $.GET('counter_id');
         show_loading_message();
         var request   = $.ajax({
             url:          $.API_base + '/readers?counter_id=' + counter_id,
@@ -698,7 +615,7 @@ $(document).ready(function(){
                 show_lightbox();
             } else {
                 hide_loading_message();
-                show_message('Information request failed', 'error');
+                show_message('Information request failed: reloadTelemetreadersTable()', 'error');
             }
         });
     };
@@ -707,8 +624,9 @@ $(document).ready(function(){
     Dropzone.options.dropzoneForm = {
         url: "https://hometest.appix.ru/api/files",
         maxFilesize: 5,
-        dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"><i class="fa fa-caret-right text-danger"></i> Drop files <span class="font-xs">to upload</span></span><span>&nbsp&nbsp<h4 class="display-inline"> (Or Click)</h4></span>',
+        //dictDefaultMessage: '<span class="text-center"><span class="font-lg visible-xs-block visible-sm-block visible-lg-block"><span class="font-lg"><i class="fa fa-caret-right text-danger"></i> Drop files <span class="font-xs">to upload</span></span><span>&nbsp&nbsp<h4 class="display-inline"> (Or Click)</h4></span>',
         dictResponseError: 'Error uploading file!',
+        previewTemplate: '<div class="dz-preview"></div>',
         headers: {
             'X-Auth-Token': $.cookie('token'),
             'Cache-Control': null,
@@ -716,24 +634,27 @@ $(document).ready(function(){
         },
         init: function() {
             this.on("sending", function(file, xhr, formData){
-                var counter_id = $( '#form_counter').attr('data-id');
+                var counter_id = $.GET('counter_id');
                 formData.append("counter_id", counter_id);
                 formData.append("title", file.upload.filename);
                 formData.append("fileName", "file");
 
             }),
-                this.on("success", function(file, xhr){
-                    reloadFilesTable();
-                })
+            this.on("success", function(file, xhr){
+                reloadFilesTable();
+            })
         }
     };
+
+
+
 
 
     // Delete file for counter
     $(document).on('click', '#table_counter_files .function_delete a', function(e){
         e.preventDefault();
         var file_name = $(this).data('name');
-        var counter_id      = $(this).data('counter-id');
+        var counter_id      = $.GET("counter_id");
         if (confirm("Вы уверены, что хотите удалить файл счётчика '" + file_name + "'?")){
             show_loading_message();
             var id      = $(this).data('id');
@@ -761,5 +682,93 @@ $(document).ready(function(){
             });
         }
     });
+
+
+    // ADD TELEMETRY READER
+    $(document).on('submit', '#form_reader', function(e) {
+        e.preventDefault();
+
+        // Validate form
+        var form_reader = $('#form_reader');
+        form_reader.validate();
+        if (form_reader.valid() == true){
+            // Send RFID information to database
+
+            show_loading_message();
+            var counter_id        = $.GET('counter_id');
+            var form_data = $('#form_reader').serialize();
+            var request   = $.ajax({
+                url:          $.API_base + '/readers',
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
+                cache:        false,
+                data:         form_data,
+                dataType:     'json',
+                type:         'POST'
+            });
+            request.done(function(output){
+                if (output.id > 0){
+
+                    // Reload RFID datatable
+                     table_telemetreader.api().ajax.reload(function(){
+                         hide_loading_message();
+                         var reader = $('#name').val();
+                         show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
+                     }, true);
+                } else {
+                    hide_loading_message();
+                    show_message(output.message, 'error');
+                }
+            });
+            request.fail(function(jqXHR, textStatus){
+                hide_loading_message();
+                show_message('Edit request failed: ADD READER ' + textStatus, 'error');
+            });
+        }
+    });
+
+    // ON ADD_READER BUTTON
+    $(document).on('click', '#add_reader', function(e){
+        e.preventDefault();
+        var rfid = $('#rfid').val();
+
+            show_loading_message();
+        var counter_id        = $.GET('counter_id');
+        var form_data = $('#form_reader').serialize();
+        form_data += '&counter_id=' + counter_id;
+
+        console.log(form_data);
+        var request   = $.ajax({
+            url:          $.API_base + '/readers',
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            },
+            cache:        false,
+            data:         form_data,
+            dataType:     'json',
+            type:         'POST'
+        });
+        request.done(function(output){
+            if (output.id > 0){
+
+                // Reload RFID datatable
+                table_telemetreader.api().ajax.reload(function(){
+                    hide_loading_message();
+                    var reader = $('#name').val();
+                    show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
+                }, true);
+            } else {
+                hide_loading_message();
+                show_message(output.message, 'error');
+            }
+        });
+        request.fail(function(jqXHR, textStatus){
+            hide_loading_message();
+            show_message('Edit request failed: ADD READER ' + textStatus, 'error');
+        });
+
+    });
+
 
 });

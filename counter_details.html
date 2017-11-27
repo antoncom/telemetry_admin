@@ -4,25 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Дома и сектора | Дома | </title>
+    <title>Дома и сектора | Данные счётчика энергоресурсов | </title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
-<!--
-    <link href="js/plugins/dataTables/datatables.min.css" rel="stylesheet">
-    <link href="css/telemetry_datatables.css" rel="stylesheet">
--->
-
-
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-<!--
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="js/plugins/datatablesEditor/css/editor.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="js/plugins/datatablesEditor/examples/resources/syntax/shCore.css">
--->
     <style type="text/css" class="init">
 
     </style>
@@ -31,7 +19,7 @@
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="js/plugins/rest/webapp.css">
+    <link rel="stylesheet" href="js/plugins/rest/webapp.css"> <!--AAAAA-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -43,40 +31,12 @@
     <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
     <script charset="utf-8" src="js/plugins/dropzone/dropzone.js"></script>
 
-    <!--WORKS-->
-    <!--<link href="https://rawgithub.com/hayageek/jquery-upload-file/master/css/uploadfile.css" rel="stylesheet">
-    <script src="https://rawgithub.com/hayageek/jquery-upload-file/master/js/jquery.uploadfile.min.js"></script>-->
-
-    <script charset="utf-8" src="js/plugins/rest/counters.js"></script>
+    <script charset="utf-8" src="js/plugins/rest/counter_detail.js"></script>
     <script src="js/plugins/cookie/jquery.cookie.js"></script>
     <script src="js/common.js"></script>
-
-
-
-    <!--<script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
-    <script src="js/plugins/cookie/jquery.cookie.js"></script>
-    <script src="js/common.js"></script>
-    <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
-
-    <script charset="utf-8" src="js/plugins/rest/counters.js"></script>-->
-
-
-
-
-    <!--<script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/plugins/dataTables/datatables.min.js"></script>
-    <script src="js/plugins/cookie/jquery.cookie.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js"></script>
-    <script src="js/plugins/dataTables/Select-1.2.3/js/dataTables.select.min.js"></script>
-    <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>-->
-
-
 
 
     <!-- Mainly scripts -->
-<!--    <script src="js/jquery-3.1.1.min.js"></script>-->
-
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -85,19 +45,6 @@
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
     <script src="js/plugins/dateformat/jquery-dateFormat.js"></script>
-
-
-
-    <!--<script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/js/dataTables.editor.min.js">
-    </script>
-    <script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/syntax/shCore.js">
-    </script>
-    <script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/demo.js">
-    </script>
-    <script type="text/javascript" language="javascript" src="js/plugins/datatablesEditor/examples/resources/editor-demo.js">
-    </script>-->
-
-
 
 </head>
 
@@ -112,7 +59,7 @@
         <h2>Добавить счётчик энергоресурса</h2>
         <form class="form add" id="form_counter" data-id="" novalidate>
             <input type="hidden" name="quarter_id" id="quarter_id" value="">
-            <div class="input_container">
+            <div class="input_container select">
                 <label for="res">Вид ресурса: <span class="required">*</span></label>
                 <div class="field_container selector">
                     <select size="1" id="res" name="res" required>
@@ -121,7 +68,7 @@
                     <!--<input type="number" step="1" min="0" class="text" name="res" id="res" value="" required>-->
                 </div>
             </div>
-            <div class="input_container">
+            <div class="input_container select">
                 <label for="tariff1">Выбор тарифа 1:</label>
                 <div class="field_container selector">
                     <select size="1" id="tariff1" name="tariff1" class="tariff">
@@ -129,7 +76,7 @@
                     </select>
                 </div>
             </div>
-            <div class="input_container">
+            <div class="input_container select">
                 <label for="tariff2">Выбор тарифа 2:</label>
                 <div class="field_container selector">
                     <select size="1" id="tariff2" name="tariff2" class="tariff">
@@ -137,7 +84,7 @@
                     </select>
                 </div>
             </div>
-            <div class="input_container">
+            <div class="input_container select">
                 <label for="tariff3">Выбор тарифа 3:</label>
                 <div class="field_container selector">
                     <select size="1" id="tariff3" name="tariff3" class="tariff">
@@ -145,7 +92,7 @@
                     </select>
                 </div>
             </div>
-            <div class="input_container">
+            <div class="input_container select">
                 <label for="tariff4">Выбор тарифа 4:</label>
                 <div class="field_container selector">
                     <select size="1" id="tariff4" name="tariff4" class="tariff">
@@ -159,9 +106,9 @@
                     <input type="text" class="text" name="name" id="name" value="">
                 </div>
             </div>
-            <div class="input_container">
+            <div class="input_container select">
                 <label for="active">Статус:</label>
-                <div class="field_container selector">
+                <div class="field_container  selector">
                     <select id="active" name="active">
                         <option value="0" selected="selected">Неактивен</option>
                         <option value="1">Активен</option>
@@ -169,7 +116,7 @@
                 </div>
             </div>
             <div class="input_container">
-                <label for="model">Модель счётчика:</label>
+                <label for="model">Модель счётчика</label>
                 <div class="field_container">
                     <input type="text" class="text" name="model" id="model" value="">
                 </div>
@@ -180,7 +127,7 @@
                     <input type="number" min="0" class="text" name="factory_num" id="factory_num" value="">
                 </div>
             </div>
-            <div class="input_container">
+            <div class="input_container  select">
                 <label for="prod_year">Год выпуска:</label>
                 <div class="field_container">
                     <!--<input name="prod_year" id="prod_year" type="date" value="" />-->
@@ -268,13 +215,13 @@
             </div>
         </form>
 
-
+<!--
         <h2>Добавить файлы счётчика</h2>
         <form action="#" class="dropzone" id="dropzoneForm">
             <div class="fallback">
                 <input name="file" type="file" multiple />
             </div>
-        </form>
+        </form>-->
 
         <!--<table id="table_counter_files" class="datatable" >
             <thead>
@@ -286,9 +233,9 @@
             </tr>
             </thead>
         </table>-->
-        <table id="table_counter_files" class="datatable" ></table>
+        <!--<table id="table_counter_files" class="datatable" ></table>-->
 
-
+<!--
         <h2>Добавить телеметрический считыватель</h2>
 
         <table id="table_counter_readers" class="datatable" ></table>
@@ -296,11 +243,15 @@
             <div class="button_container">
                 <button type="submit">Добавить считыватель</button>
             </div>
-        </form>
+        </form>-->
 
 
     </div>
 </div>
+
+
+
+
 <noscript id="noscript_container">
     <div id="noscript" class="error">
         <p>JavaScript support is needed to use this page.</p>
@@ -517,101 +468,180 @@
         </div>
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Данные квартиры / помещения</h5>
-                        </div>
-                        <div class="ibox-content">
+                <div class="col-lg-6">
+                    <div class="widget style1">
+                        <div class="row">
 
-                            <dl>
-                                <table class="table table-bordered" data="quarter">
-                                    <tbody>
-                                        <tr>
-                                            <th data-editor-label="type">Тип площади:</th>
-                                            <td data-editor-field="type"></td>
-                                        </tr>
-                                        <tr>
-                                            <th data-editor-label="address">Адрес:</th>
-                                            <td data-editor-field="address"></td>
-                                        </tr>
-                                        <tr>
-                                            <th data-editor-label="area">Площадь:</th>
-                                            <td data-editor-field="area"></td>
-                                        </tr>
-                                        <tr>
-                                            <th data-editor-label="owner">Собственник:</th>
-                                            <td data-editor-field="owner"></td>
-                                        </tr>
-                                        <tr>
-                                            <th data-editor-label="phone">Телефон:</th>
-                                            <td data-editor-field="phone"></td>
-                                        </tr>
-                                        <tr>
-                                            <th data-editor-label="tenants">Количество прописанных:</th>
-                                            <td data-editor-field="tenants"></td>
-                                        </tr>
-                                        <tr>
-                                            <th data-editor-label="created">Дата заведения карточки:</th>
-                                            <td data-editor-field="created"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </dl>
 
-                        </div>
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Данные счётчика</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <table class="table table-bordered" data="counter">
+                                            <tbody>
+                                            <tr>
+                                                <th data-editor-label="res">Вид ресурса:</th>
+                                                <td data-editor-field="res"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="tariff1">Выбор тарифа 1:</th>
+                                                <td data-editor-field="tariff1"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="tariff2">Выбор тарифа 2:</th>
+                                                <td data-editor-field="tariff2"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="tariff3">Выбор тарифа 3:</th>
+                                                <td data-editor-field="tariff3"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="tariff4">Выбор тарифа 4:</th>
+                                                <td data-editor-field="tariff4"></td>
+                                            </tr>
 
-                        <!-- СЧЁТЧИКИ КВАРТИРЫ //-->
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>Счётчики энергоресурсов</h5>
+                                            <tr>
+                                                <th data-editor-label="name">Название счётчика</th>
+                                                <td data-editor-field="name"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="active">Статус:</th>
+                                                <td data-editor-field="active"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="model">Модель счётчика:</th>
+                                                <td data-editor-field="model"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="factory_num">Заводской номер:</th>
+                                                <td data-editor-field="factory_num"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="prod_year">Год выпуска:</th>
+                                                <td data-editor-field="prod_year"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="verification">Срок поверки:</th>
+                                                <td data-editor-field="verification"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="verified_until">Поверен до даты:</th>
+                                                <td data-editor-field="verified_until"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="class">Класс точности:</th>
+                                                <td data-editor-field="class"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="seals">Количество пломб:</th>
+                                                <td data-editor-field="seals"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="seal_num">Номер пломбы:</th>
+                                                <td data-editor-field="seal_num"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="inventory_num">Инвентарный номер:</th>
+                                                <td data-editor-field="inventory_num"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="comm_date">Дата ввода в эксплуатацию:</th>
+                                                <td data-editor-field="comm_date"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="decomm_date">Дата вывода из эксплуатации:</th>
+                                                <td data-editor-field="decomm_date"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="initial_value">Начальное значение:</th>
+                                                <td data-editor-field="initial_value"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="final_value">Финальное значение:</th>
+                                                <td data-editor-field="final_value"></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-editor-label="responsible">ФИО ответственного лицаа:</th>
+                                                <td data-editor-field="responsible"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <button type="button" class="button" id="edit_counter">Изменить</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="ibox-content">
 
-                                    <!--<table id="example" class="table table-striped table-bordered table-hover dataTables-example" >
-                                        <thead>
-                                        <tr>
-                                            <th>Вид энергоресурса</th>
-                                            <th>Название счётчика</th>
-                                            <th>Модель</th>
-                                            <th>Срок поверки до</th>
-                                            <th>Карточка</th>
-                                            <th>Вкл / выкл</th>
-                                        </tr>
-                                        </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Вид энергоресурса</th>
-                                            <th>Название счётчика</th>
-                                            <th>Модель</th>
-                                            <th>Срок поверки до</th>
-                                            <th>Карточка</th>
-                                            <th>Вкл / выкл</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>-->
-
-
-                                    <button type="button" class="button" id="add_counter">Добавить счётчик</button>
-
-
-                                    <table id="table_counters" class="datatable" >
-                                        <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Вид энергоресурса</th>
-                                            <th>Название счётчика</th>
-                                            <th>Модель</th>
-                                            <th>Срок поверки до</th>
-                                            <th>Статус</th>
-                                            <th>Редактир.</th>
-                                        </tr>
-                                        </thead>
-                                    </table>
-                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="widget style1">
+                        <div class="row">
+
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Файлы счётчика</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <table id="table_counter_files" class="datatable" ></table>
+                                        <form action="#" class="dropzone" id="dropzoneForm">
+                                            <div class="fallback">
+                                                <input name="file" type="file" multiple />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="widget style1">
+                        <div class="row">
+
+
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Телеметрический считыватель</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <table id="table_counter_readers" class="datatable" ></table>
+                                        <form class="form add_telemetreader" id="form_reader" data-id="" novalidate>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group"><input type="text" placeholder="Введите RFID" class="form-control" id="rfid" name="rfid" /></div>
+
+                                                </td>
+
+                                                <td style="padding: 8px 0 0 10px;">
+                                                    <div class="button_container">
+                                                        <button type="button" class="button" id="add_reader">Добавить</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
             </div>
         </div>
         <div class="footer">
@@ -629,198 +659,6 @@
 
 <script type="text/javascript" language="javascript" class="init">
 
-   /* var editor; // use a global for the submit and return data rendering in the examples
-
-    $(document).ready(function() {
-
-        // check token
-        if ($.cookie('token') == null) {
-            window.location.href = "login.html"
-        }
-
-        $.GetUserName();*/
-
-
-        /*// ДАННЫЕ КВАРТИРЫ
-
-        editor = new $.fn.dataTable.Editor( {
-            ajax: {
-                edit: {
-                    type: 'PUT',
-                    url:  $.API_base + '/quarters/' + $.GET("kvart_id"),
-                    headers: { 'X-Auth-Token': $.cookie('token') },
-                    data: function ( d ) {
-                            var dd = Object();
-                            dd.type = d.data[$.GET("kvart_id")].type;
-                            dd.address = d.data[$.GET("kvart_id")].address;
-                            dd.area = d.data[$.GET("kvart_id")].area;
-                            dd.owner = d.data[$.GET("kvart_id")].owner;
-                            dd.phone = d.data[$.GET("kvart_id")].phone;
-                            dd.tenants = d.data[$.GET("kvart_id")].tenants;
-                            dd.action = d.action;
-                        return(dd);
-                    }
-                },
-                remove: {
-                    type: 'DELETE',
-                    url:  $.API_base + '/quarters/' + $.GET("kvart_id"),
-                    headers: { 'X-Auth-Token': $.cookie('token') },
-                    success :  function(response) {
-                        setTimeout(' window.location.href = "dom_details.html?estate_id=' + $.cookie('estate_id') + '"' , 5);
-                    },
-                    error :  function(response) {
-                        console.log('ERROR kvartira_details DELETE');
-                        console.log(JSON.stringify(response));
-                    }
-                }
-            },
-            fields: [ {
-                label: "АйДи дома",
-                name: "id",
-                type: "hidden"
-            }, {
-                label: "Тип",
-                name: "type",
-                type: "select",
-                def:  "0",
-                ipOpts: [
-                    {"label" : "Жилая площадь", "value" : "1"},
-                    {"label" : "Нежилая площадь", "value" : "2"}
-                ]
-            }, {
-                label: "Номер квартиры",
-                name: "address",
-            }, {
-                label: "Логин",
-                name: "login",
-                type: "hidden"
-            }, {
-                label: "Коунтерс",
-                name: "counters",
-                type: "hidden"
-            }, {
-                label: "Площадь помещения:",
-                name: "area"
-            }, {
-                label: "Собственник:",
-                name: "owner"
-            }, {
-                label: "Телефон:",
-                name: "phone"
-            }, {
-                label: "Количество прописанных:",
-                name: "tenants"
-            }, {
-                label: "Креайтед",
-                name: "created",
-                type: "hidden"
-            }
-            ],
-            i18n: {
-                create: {
-                    button: "Добавить",
-                    title:  "Добавить объект внутри дома",
-                    submit: "Добавить объект"
-                },
-                edit: {
-                    button: "Редактировать",
-                    title:  "Редактировать объект внутри дома",
-                    submit: "Редактировать объект"
-                },
-                remove: {
-                    button: "Удалить",
-                    title:  "Удалить объект",
-                    submit: "Удалить объект",
-                    confirm: {
-                        _: "Подтвердить удаление?",
-                        1: "Подтвердить удаление?"
-                    }
-                }
-            }
-        } );*/
-
-
-/*        var kvartira_details = new Object();
-        function updateKvartDetails(kvartira_details)    {
-            if(kvartira_details.type == 1) $("dd[data-editor-field='type']").html('Жилая площадь');
-            if(kvartira_details.type == 2) $("dd[data-editor-field='type']").html('Нежилая площадь');
-            $("dd[data-editor-field='address']").html($.cookie('estate_address') + ', кв. ' + kvartira_details.address);
-            $("dd[data-editor-field='area']").html(kvartira_details.area + ' кв.м');
-            $("dd[data-editor-field='owner']").html(kvartira_details.owner);
-            $("dd[data-editor-field='phone']").html(kvartira_details.phone);
-            $("dd[data-editor-field='tenants']").html(kvartira_details.tenants);
-            $("dd[data-editor-field='created']").html($.format.date(kvartira_details.created, "dd.MM.yyyy"));
-        }*/
-
-        /*$('#edit').on( 'click', function () {
-            editor
-                    .title('Edit record')
-                    .buttons( {
-                        label: "Save",
-                        fn: function () {
-                            this.submit(
-                                    function () {
-                                        $.ajax({
-                                            type : 'GET',
-                                            url  : $.API_base + '/quarters/' + $.GET("kvart_id"),
-                                            beforeSend: function(xhr){
-                                                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-                                            },
-                                            success :  function(response) {
-                                                if(response.id > 0)  {
-                                                    kvartira_details = response;
-                                                    updateKvartDetails(kvartira_details);
-                                                }
-                                                else {
-                                                    console.log('NO kvartira_details updates');
-                                                }
-                                            },
-                                            error :  function(response) {
-                                                console.log('ERROR kvartira_details()');
-                                                console.log(JSON.stringify(response));
-                                            }
-                                        });
-                                    },
-                                    function () {
-                                        console.log( 'Form  encountered an error :-(' );
-                                    }
-                            );
-                        }
-                    } )
-                    .edit($.GET("kvart_id"))
-                    .set(kvartira_details);
-        });
-
-        $('#remove').on( 'click', function () {
-            editor
-                    .title('Delete record')
-                    .buttons('Delete')
-                    .message('Are you sure you wish to delete this record?')
-                    .remove( $.GET("kvart_id") );
-        } );*/
-
-
-        /*$.ajax({
-            type : 'GET',
-            url  : $.API_base + '/quarters/' + $.GET("kvart_id"),
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-            },
-            success :  function(response) {
-                if(response.id > 0)  {
-                    kvartira_details = response;
-                    updateKvartDetails(kvartira_details);
-                }
-                else {
-                    console.log('NO kvartira_details updates');
-                }
-            },
-            error :  function(response) {
-                console.log('ERROR GetResourcesList()');
-                console.log(JSON.stringify(response));
-            }
-        });*/
- //   } );
 </script>
 </body>
 </html>

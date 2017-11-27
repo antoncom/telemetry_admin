@@ -146,7 +146,7 @@ button.button:active {
 /* Datatable ------------------------------------------------------------------------------------ */
 .dataTables_wrapper {
     position: relative;
-    padding: 50px 0 50px 0;
+    padding: 0px 0 10px 0;
 }
 
 .dataTables_length {
@@ -162,7 +162,7 @@ button.button:active {
     margin: 0;
 }
 .dataTables_length select, select {
-    width: 100px;
+    width: 250px;
     height: 30px;
     position: absolute;
     top: 0;
@@ -447,9 +447,15 @@ table.datatable tbody td.functions .function_buttons span {
 }
 
 .lightbox_content .input_container {
-    width: 600px;
+    width: 450px;
     margin: 0 0 10px 0;
 }
+
+.lightbox_content .input_container.select {
+    width: 450px;
+    margin: 0 0 10px 0;
+}
+
 .lightbox_content .input_container:after {
     clear: both;
     height: 0;
@@ -471,8 +477,8 @@ table.datatable tbody td.functions .function_buttons span {
 }
 
 .lightbox_content .input_container .field_container {
-    width: 400px;
-    float: right;
+    /*width: 400px;*/
+    /*float: right;*/
     position: relative;
 }
 .lightbox_content .input_container .field_container label.error {
@@ -495,7 +501,7 @@ table.datatable tbody td.functions .function_buttons span {
     display: none !important;
 }
 .lightbox_content .input_container .field_container input {
-    width: 400px;
+    width: 250px;
     height: 32px;
     background-color: #f9f9f9;
     line-height: 30px;
@@ -689,4 +695,8 @@ table.datatable tbody td.functions .function_buttons span {
         -webkit-transform: rotate(359deg);
         transform:         rotate(359deg);
     }
+}
+
+select[multiple], select[size] {
+    height: 30px;
 }
