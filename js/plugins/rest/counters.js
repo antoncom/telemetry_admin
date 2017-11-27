@@ -136,8 +136,8 @@ $(document).ready(function(){
             },
             {
                 "render": function ( data, type, row ) {
-                    //return '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
-                    return '<div class="function_buttons"><ul><li class=""><a href="counter_details.html?counter_id=' + row.id + '" data-id="' + row.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
+                    //return '<div class="function_buttons"><ul><li class=""><a href="counter_details.html?counter_id=' + row.id + '" data-id="' + row.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
+                    return '<a style="display: block; width: 30px; float: left; margin: 12px 10px 0 0; text-decoration: underline;" href="counter_details.html?counter_id=' + row.id + '" data-id="' + row.id + '"><span>Edit</span></a><div class="function_buttons"><ul><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
 
                 },
                 "targets": 6
@@ -159,7 +159,7 @@ $(document).ready(function(){
         },
         pageLength: 25,
         responsive: true,
-        dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
+        dom: 'Tgt',
         ajax: {
             "url": $.API_base + "/counters?quarter_id=" + $.GET("kvart_id") + "&table=1",
 
