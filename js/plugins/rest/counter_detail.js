@@ -356,6 +356,14 @@ $(document).ready(function(){
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 },
+                "dataSrc": function ( json ) {
+                    if(json.status == "error" && json.code == 401)  {
+                        setTimeout(' window.location.href = "login.html"; ', 10);
+                    }
+                    else {
+                        return json.data;
+                    }
+                },
                 cache:        false,
                 data:         form_data,
                 dataType:     'json',
@@ -396,6 +404,14 @@ $(document).ready(function(){
             url:          $.API_base + '/counters/' + id,
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            },
+            "dataSrc": function ( json ) {
+                if(json.status == "error" && json.code == 401)  {
+                    setTimeout(' window.location.href = "login.html"; ', 10);
+                }
+                else {
+                    return json.data;
+                }
             },
             cache:        false,
             type:         'GET'
@@ -480,6 +496,14 @@ $(document).ready(function(){
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 },
+                "dataSrc": function ( json ) {
+                    if(json.status == "error" && json.code == 401)  {
+                        setTimeout(' window.location.href = "login.html"; ', 10);
+                    }
+                    else {
+                        return json.data;
+                    }
+                },
                 cache:        false,
                 data:         form_data,
                 dataType:     'json',
@@ -523,6 +547,14 @@ $(document).ready(function(){
                 beforeSend: function(xhr){
                     xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                 },
+                "dataSrc": function ( json ) {
+                    if(json.status == "error" && json.code == 401)  {
+                        setTimeout(' window.location.href = "login.html"; ', 10);
+                    }
+                    else {
+                        return json.data;
+                    }
+                },
                 cache:        false,
                 type:         'DELETE'
             });
@@ -562,6 +594,14 @@ $(document).ready(function(){
             beforeSend: function(xhr){
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },
+            "dataSrc": function ( json ) {
+                if(json.status == "error" && json.code == 401)  {
+                    setTimeout(' window.location.href = "login.html"; ', 10);
+                }
+                else {
+                    return json.data;
+                }
+            },
             cache:        false,
             type:         'GET'
         });
@@ -573,8 +613,13 @@ $(document).ready(function(){
                 hide_loading_message();
                 //show_lightbox();
             } else {
-                hide_loading_message();
-                show_message('Information request failed: reloadFilesTable()', 'error');
+                if(output.status == "error" && output.code == 401)  {
+                    setTimeout(' window.location.href = "login.html"; ', 10);
+                }
+                else {
+                    hide_loading_message();
+                    show_message('Information request failed: reloadFilesTable()', 'error');
+                }
             }
         });
     };
@@ -605,8 +650,13 @@ $(document).ready(function(){
 
                 hide_loading_message();
             } else {
-                hide_loading_message();
-                show_message('Information request failed: reloadTelemetreadersTable()', 'error');
+                if(output.status == "error" && output.code == 401)  {
+                    setTimeout(' window.location.href = "login.html"; ', 10);
+                }
+                else {
+                    hide_loading_message();
+                    show_message('Information request failed: reloadTelemetreadersTable()', 'error');
+                }
             }
         });
     };

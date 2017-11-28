@@ -26,6 +26,15 @@ $(document).ready(function(){
         beforeSend: function(xhr){
             xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
         },
+        "dataSrc": function ( json ) {
+            if(json.status == "error" && json.code == 401)  {
+                //console.log("LOHIN FAILED");
+                setTimeout(' window.location.href = "login.html"; ', 10);
+            }
+            else {
+                return json.data;
+            }
+        },
         success :  function(response) {
             $.each(response, function(key, value) {
                 if(key == 'type') {
