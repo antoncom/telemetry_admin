@@ -47,7 +47,7 @@
     <!--<link href="https://rawgithub.com/hayageek/jquery-upload-file/master/css/uploadfile.css" rel="stylesheet">
     <script src="https://rawgithub.com/hayageek/jquery-upload-file/master/js/jquery.uploadfile.min.js"></script>-->
 
-    <script charset="utf-8" src="js/plugins/rest/counters.js"></script>
+    <script charset="utf-8" src="js/plugins/rest/kvartira-details.js"></script>
     <script src="js/plugins/cookie/jquery.cookie.js"></script>
     <script src="js/common.js"></script>
 
@@ -107,168 +107,217 @@
 <div class="lightbox_bg"></div>
 <div class="lightbox_container">
     <div class="lightbox_close"></div>
-    <div class="lightbox_content webapp">
+    <h2>Добавить счётчик энергоресурса</h2>
 
-        <h2>Добавить счётчик энергоресурса</h2>
-        <form class="form add" id="form_counter" data-id="" novalidate>
-            <input type="hidden" name="quarter_id" id="quarter_id" value="">
-            <div class="input_container">
-                <label for="res">Вид ресурса: <span class="required">*</span></label>
-                <div class="field_container selector">
-                    <select size="1" id="res" name="res" required>
-                        <option value="">- Нет -</option>
-                    </select>
-                    <!--<input type="number" step="1" min="0" class="text" name="res" id="res" value="" required>-->
+    <form class="form add" id="form_counter" data-id="" novalidate>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 lightbox_content">
+                    <h3>
+                        Данные счётчика
+                    </h3>
+                    <input type="hidden" name="quarter_id" id="quarter_id" value="">
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="res">Вид ресурса:</label>
+                            <div class="field_container selector">
+                                <select size="1" id="res" name="res" required>
+                                    <option value="">- Нет -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="name">Название счётчика:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="name" id="name" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="active">Статус:</label>
+                            <div class="field_container  selector">
+                                <select id="active" name="active">
+                                    <option value="0" selected="selected">Неактивен</option>
+                                    <option value="1">Активен</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="model">Модель счётчика</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="model" id="model" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="factory_num">Заводской номер:</label>
+                            <div class="field_container">
+                                <input type="number" min="0" class="text" name="factory_num" id="factory_num" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="class">Класс точности:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="class" id="class" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <h3>
+                        Тарифы счётчика
+                    </h3>
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="tariff1">Выбор тарифа 1:</label>
+                            <div class="field_container selector">
+                                <select size="1" id="tariff1" name="tariff1" class="tariff">
+                                    <option value="">- Нет -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="tariff2">Выбор тарифа 2:</label>
+                            <div class="field_container selector">
+                                <select size="1" id="tariff2" name="tariff2" class="tariff">
+                                    <option value="">- Нет -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="tariff3">Выбор тарифа 3:</label>
+                            <div class="field_container selector">
+                                <select size="1" id="tariff3" name="tariff3" class="tariff">
+                                    <option value="">- Нет -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="tariff4">Выбор тарифа 4:</label>
+                            <div class="field_container selector">
+                                <select size="1" id="tariff4" name="tariff4" class="tariff">
+                                    <option value="">- Нет -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="input_container">
-                <label for="tariff1">Выбор тарифа 1:</label>
-                <div class="field_container selector">
-                    <select size="1" id="tariff1" name="tariff1" class="tariff">
-                        <option value="">- Нет -</option>
-                    </select>
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="tariff2">Выбор тарифа 2:</label>
-                <div class="field_container selector">
-                    <select size="1" id="tariff2" name="tariff2" class="tariff">
-                        <option value="">- Нет -</option>
-                    </select>
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="tariff3">Выбор тарифа 3:</label>
-                <div class="field_container selector">
-                    <select size="1" id="tariff3" name="tariff3" class="tariff">
-                        <option value="">- Нет -</option>
-                    </select>
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="tariff4">Выбор тарифа 4:</label>
-                <div class="field_container selector">
-                    <select size="1" id="tariff4" name="tariff4" class="tariff">
-                        <option value="">- Нет -</option>
-                    </select>
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="name">Название счётчика:</label>
-                <div class="field_container">
-                    <input type="text" class="text" name="name" id="name" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="active">Статус:</label>
-                <div class="field_container selector">
-                    <select id="active" name="active">
-                        <option value="0" selected="selected">Неактивен</option>
-                        <option value="1">Активен</option>
-                    </select>
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="model">Модель счётчика:</label>
-                <div class="field_container">
-                    <input type="text" class="text" name="model" id="model" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="factory_num">Заводской номер:</label>
-                <div class="field_container">
-                    <input type="number" min="0" class="text" name="factory_num" id="factory_num" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="prod_year">Год выпуска:</label>
-                <div class="field_container">
-                    <!--<input name="prod_year" id="prod_year" type="date" value="" />-->
-                    <!--<input type="number" step="1" min="0" class="text" name="prod_year" id="prod_year" value="">-->
-                    <div class="field_container selector">
-                        <select class="text" name="prod_year" id="prod_year" >
-                            <option value="">-Нет-</option>
-                        </select>
+
+                <div class="col-md-6 lightbox_content">
+                    <h3>
+                        Эксплуатация счётчика
+                    </h3>
+                    <div class="input_container  select">
+                        <div class="validation_container">
+                            <label for="prod_year">Год выпуска:</label>
+                            <div class="field_container">
+                                <div class="field_container selector">
+                                    <select class="text" name="prod_year" id="prod_year" >
+                                        <option value="">-Нет-</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="verification">Срок поверки:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="verification" id="verification" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="verified_until">Поверен до даты:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="verified_until" id="verified_until" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="seals">Количество пломб:</label>
+                            <div class="field_container">
+                                <input type="number" class="text" name="seals" id="seals" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="seal_num">Номер пломбы:</label>
+                            <div class="field_container">
+                                <input type="number" class="text" name="seal_num" id="seal_num" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="inventory_num">Инвентарный номер:</label>
+                            <div class="field_container">
+                                <input type="number" class="text" name="inventory_num" id="inventory_num" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="comm_date">Дата ввода в эксплуатацию:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="comm_date" id="comm_date" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="decomm_date">Дата вывода из эксплуатации:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="decomm_date" id="decomm_date" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="initial_value">Начальное значение:</label>
+                            <div class="field_container">
+                                <input type="number" class="text" name="initial_value" id="initial_value" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="final_value">Финальное значение:</label>
+                            <div class="field_container">
+                                <input type="number" class="text" name="final_value" id="final_value" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="responsible">ФИО ответственного лица:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="responsible" id="responsible" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_container">
+                        <button type="submit" class="button">Добавить счётчик</button>
                     </div>
                 </div>
             </div>
-            <div class="input_container">
-                <label for="verification">Срок поверки:</label>
-                <div class="field_container">
-                    <!--<input name="verification" id="verification" type="date" value="" />-->
-                    <input type="text" class="text" name="verification" id="verification" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="verified_until">Поверен до даты:</label>
-                <div class="field_container">
-                    <!--<input name="verified_until" id="verified_until" type="date" value="" />-->
-                    <input type="text" class="text" name="verified_until" id="verified_until" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="class">Класс точности:</label>
-                <div class="field_container">
-                    <input type="text" class="text" name="class" id="class" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="seals">Количество пломб:</label>
-                <div class="field_container">
-                    <input type="number" class="text" name="seals" id="seals" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="seal_num">Номер пломбы:</label>
-                <div class="field_container">
-                    <input type="number" class="text" name="seal_num" id="seal_num" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="inventory_num">Инвентарный номер:</label>
-                <div class="field_container">
-                    <input type="number" class="text" name="inventory_num" id="inventory_num" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="comm_date">Дата ввода в эксплуатацию:</label>
-                <div class="field_container">
-                    <!--<input name="comm_date" id="comm_date" type="date" value="" />-->
-                    <input type="text" class="text" name="comm_date" id="comm_date" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="decomm_date">Дата вывода из эксплуатации:</label>
-                <div class="field_container">
-                    <!--<input id="decomm_date" name="decomm_date" type="date" value="" />-->
-                    <input type="text" class="text" name="decomm_date" id="decomm_date" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="initial_value">Начальное значение:</label>
-                <div class="field_container">
-                    <input type="number" class="text" name="initial_value" id="initial_value" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="final_value">Финальное значение:</label>
-                <div class="field_container">
-                    <input type="number" class="text" name="final_value" id="final_value" value="">
-                </div>
-            </div>
-            <div class="input_container">
-                <label for="responsible">ФИО ответственного лица:</label>
-                <div class="field_container">
-                    <input type="text" class="text" name="responsible" id="responsible" value="">
-                </div>
-            </div>
-
-            <div class="button_container">
-                <button type="submit">Добавить счётчик</button>
-            </div>
-        </form>
-
-    </div>
+        </div>
+    </form>
 </div>
 <noscript id="noscript_container">
     <div id="noscript" class="error">
