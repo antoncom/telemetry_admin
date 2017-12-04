@@ -162,9 +162,11 @@ button.button:active {
     margin: 0;
 }
 .dataTables_length select, select {
-    width: 250px;
+    /*width: 250px;*/
+    width: 56%;
     height: 30px;
-    position: absolute;
+    /*position: absolute;*/
+    position: relative;
     top: 0;
     right: 0;
     background-color: #fff;
@@ -176,13 +178,13 @@ button.button:active {
     border-radius:         6px;
     margin: 0;
 }
-.dataTables_length:after,
+/*.dataTables_length:after,
 .field_container.selector:after {
     width: 30px;
     height: 30px;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 19px;
     background-color: #999;
     font-family: 'FontAwesome', Arial, Helvetica, sans-serif;
     font-weight: normal;
@@ -198,12 +200,37 @@ button.button:active {
     -moz-border-radius-bottomright:     6px;
     border-top-right-radius:            6px;
     border-bottom-right-radius:         6px;
+}*/
+.dataTables_length:after, .field_container.selector:after {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    top: 1px;
+    right: 28px;
+    background-color: #999;
+    font-family: 'FontAwesome', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    content: '\f107';
+    pointer-events: none;
+    -webkit-border-top-right-radius: 6px;
+    -webkit-border-bottom-right-radius: 6px;
+    -moz-border-radius-topright: 6px;
+    -moz-border-radius-bottomright: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 7px;
+    /* float: right; */
 }
+
+
 .dataTables_length select::-ms-expand,
 select::-ms-expand  {
     display: none;
 }
-
 
 
 .dataTables_filter {
@@ -389,6 +416,7 @@ table.datatable tbody td.functions .function_buttons span {
 
 .lightbox_container {
     display: none;
+    padding-left: 30px;
     width: 80%;
     height: 90%;
     position: fixed;
@@ -399,7 +427,7 @@ table.datatable tbody td.functions .function_buttons span {
     color: #666;
     overflow-y: scroll;
     overflow-x: auto;
-    padding: 50px 0 0 0;
+    padding: 25px 0 0 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing:     border-box;
     box-sizing:          border-box;
@@ -408,11 +436,13 @@ table.datatable tbody td.functions .function_buttons span {
     border-radius:         6px;
 }
 
+
+
 .lightbox_close {
     width: 35px;
     height: 35px;
     position: absolute;
-    top: 45px;
+    top: 33px;
     right: 45px;
     font-family: 'FontAwesome', Arial, Helvetica, sans-serif;
     font-weight: normal;
@@ -434,74 +464,50 @@ table.datatable tbody td.functions .function_buttons span {
     border-color: #333;
 }
 
-.lightbox_content {
-    width: 642px;
-    padding: 0 50px 0 50px;
+.lightbox_content.webapp {
+    width: 460px;
+    padding: 0 0px 0 50px;
 }
-.lightbox_content h2 {
+.lightbox_container h2 {
     font-weight: 700;
     font-size: 2rem;
     line-height: 2rem;
     color: #f70;
-    margin: 0 0 25px 0;
+    margin: 15px 5% 0px 5%;
 }
 
 .lightbox_content .input_container {
-    width: 450px;
+    /*width: 450px;*/
+    width: 100%;
     margin: 0 0 10px 0;
 }
 
 .lightbox_content .input_container.select {
-    width: 450px;
+    /*width: 409px;*/
+    /*width: 91%;*/
     margin: 0 0 10px 0;
 }
 
-.lightbox_content .input_container:after {
+/*.lightbox_content .input_container:after {
     clear: both;
     height: 0;
     display: block;
     font-size: 0;
     line-height: 0;
     content: ' ';
-}
+}*/
 
 .lightbox_content .input_container label {
-    width: 200px;
+    /*width: 157px;*/
     float: left;
     font-size: 1rem;
-    line-height: 32px;
-}
-.lightbox_content .input_container label span.required {
-    font-weight: bold;
-    color: #f70;
+    /* line-height: 32px; */
+    margin: 6px 0 0 2px;
 }
 
-.lightbox_content .input_container .field_container {
-    /*width: 400px;*/
-    /*float: right;*/
-    position: relative;
-}
-.lightbox_content .input_container .field_container label.error {
-    width: 400px;
-    display: block;
-    background-color: #fff1e6;
-    line-height: 1.4rem;
-    color: #333;
-    padding: 5px 0 6px 10px;
-    border: 1px solid #f70;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing:    border-box;
-    box-sizing:         border-box;
-    -webkit-border-radius: 6px;
-    -moz-border-radius:    6px;
-    border-radius:         6px;
-    margin: 0 0 5px 0;
-}
-.lightbox_content .input_container .field_container label.error.valid {
-    display: none !important;
-}
 .lightbox_content .input_container .field_container input {
-    width: 250px;
+    /*width: 250px;*/
+    width: 52%;
     height: 32px;
     background-color: #f9f9f9;
     line-height: 30px;
@@ -520,33 +526,195 @@ table.datatable tbody td.functions .function_buttons span {
     color: #000;
 }
 
-.lightbox_content .input_container .field_container.error:after,
-.lightbox_content .input_container .field_container.valid:after {
+@media (max-width: 600px) {
+    .lightbox_content .input_container label {
+        float: left;
+    }
+    .lightbox_content .input_container .field_container {
+        width: auto;
+        /*height: 50px;*/
+    }
+    .col-md-6 {
+        float: none;
+    }
+    .lightbox_content .input_container .field_container input {
+        width: 90%;
+    }
+    .dataTables_length select, select {
+        /* width: 250px; */
+        width: 90%;
+    }
+    .validation_container   {
+        height: 62px;
+    }
+
+}
+
+@media (min-width: 601px)   {
+    .lightbox_content .input_container label {
+        float: left;
+    }
+    .lightbox_content .input_container .field_container {
+        /*width: 250px;*/
+        /*width: 56%;*/
+        width: auto;
+        /*height: 50px;*/
+    }
+    .col-md-6 {
+        width: 50%;
+        float: left;
+    }
+    .lightbox_content .input_container .field_container input {
+        width: 88%;
+    }
+    .dataTables_length select, select {
+        /* width: 250px; */
+        width: 90%;
+    }
+    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+        right: 5%;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1100px)   {
+    .lightbox_container {
+        left: 2%;
+        width: 96%
+    }
+
+    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+        right: 2%;
+    }
+}
+
+@media (min-width: 1101px) and (max-width: 1230px)   {
+    .lightbox_container {
+        left: 5%;
+        width: 90%
+    }
+    .validation_container   {
+        width: 443px;
+    }
+    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+        right: 3%;
+    }
+    .lightbox_content .input_container .field_container input {
+        width: 54%;
+    }
+    .dataTables_length select, select {
+        /* width: 250px; */
+        width: 56%;
+    }
+    .validation_container   {
+        height: 42px;
+    }
+    .lightbox_content .input_container label {
+        width: 157px;
+    }
+}
+
+@media (min-width: 1231px)  {
+    .lightbox_container {
+        left: 10%;
+        width: 80%
+    }
+    .validation_container   {
+        width: 443px;
+    }
+    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+        right: 2%;
+    }
+    .lightbox_content .input_container .field_container input {
+        width: 54%;
+    }
+    .dataTables_length select, select {
+        /* width: 250px; */
+        width: 56%;
+    }
+    .validation_container   {
+        height: 42px;
+    }
+    .lightbox_content .input_container label {
+        width: 157px;
+    }
+}
+
+.lightbox_content .input_container label span.required {
+    font-weight: bold;
+    color: #f70;
+    float: left;
+}
+
+.lightbox_content .input_container .field_container {
+    /*width: 400px;*/
+    /*float: right;*/
+    position: relative;
+    display: block;
+    /*height: 32px;*/
+}
+
+.lightbox_content .input_container .field_container.selector {
+    /*width: 407px;*/
+    width: 97%;
+}
+/*.lightbox_content .input_container .validation_container label.error,
+.lightbox_content .input_container .field_container label.error    { !*.field_container*!
+    width: 400px;
+    display: block;
+    background-color: #fff1e6;
+    line-height: 1.4rem;
+    color: #333;
+    padding: 5px 0 6px 10px;
+    border: 1px solid #f70;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    box-sizing:         border-box;
+    -webkit-border-radius: 6px;
+    -moz-border-radius:    6px;
+    border-radius:         6px;
+    margin: 0 0 5px 0;
+}*/
+/*.lightbox_content .input_container .validation_container label.error.valid,
+.lightbox_content .input_container .field_container label.error.valid  { !*field_container*!
+    display: none !important;
+}*/
+
+
+
+.lightbox_content .input_container .validation_container.error:after,/*field_container*/
+/*
+.lightbox_content .input_container .field_container.error:after,!*field_container*!
+.lightbox_content .input_container .field_container.valid:after,
+*/
+.lightbox_content .input_container .validation_container.valid:after {/*field_container*/
     width: 32px;
-    height: 32px;
-    position: absolute;
-    bottom: 0;
-    right: -42px;
+    height: 0px;
+    position: relative;
+    float: right;
+    top: -31px;
+    /* right: 10px; */
     font-family: 'FontAwesome', Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-size: 20px;
-    line-height: 32px;
+    /* line-height: 32px; */
     text-align: center;
 }
-.lightbox_content .input_container .field_container.error:after {
+.lightbox_content .input_container .validation_container.error:after,
+.lightbox_content .input_container .field_container.error:after {/*field_container*/
     content: '\f00d';
     color: #c00;
 }
-.lightbox_content .input_container .field_container.valid:after {
+.lightbox_content .input_container .validation_container.valid:after,
+.lightbox_content .input_container .field_container.valid:after {/*field_container*/
     content: '\f00c';
     color: #090;
 }
 
 .lightbox_content .button_container {
-    width: 600px;
     height: 35px;
     text-align: right;
     padding: 15px 0 50px 0;
+    margin-top: 30px;
 }
 .lightbox_content .button_container button {
     height: 35px;
@@ -559,6 +727,7 @@ table.datatable tbody td.functions .function_buttons span {
     -webkit-border-radius: 6px;
     -moz-border-radius:    6px;
     border-radius:         6px;
+    float: left;
 }
 .lightbox_content .button_container button:hover {
     background-color: #333;
@@ -578,7 +747,7 @@ table.datatable tbody td.functions .function_buttons span {
 }
 #message_container {
     display: none;
-    z-index: 9001;
+    z-index: 9099;
 }
 #message,
 #noscript {
@@ -700,3 +869,21 @@ table.datatable tbody td.functions .function_buttons span {
 select[multiple], select[size] {
     height: 30px;
 }
+
+#form_counter h3    {
+    color: #f70;
+    margin: 30px 0 20px 0;
+    font-size: 21px;
+    padding: 0px;
+}
+
+#form_counter .container-fluid .row    {
+    padding: 0 5% 0 5%;
+    width: 100%;
+}
+
+.col-md-6 {
+    padding: 0 15px 0 3px;
+}
+
+

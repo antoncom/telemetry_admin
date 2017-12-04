@@ -28,6 +28,9 @@
 // As result - $.Resources array is populated.
 (function($){
     $.GetResourcesList = function() {
+        // callback
+        console.log("callback GetResourcesList");
+
         $.ajax({
             type : 'GET',
             url  : $.API_base + '/resources',
@@ -56,6 +59,8 @@
 // As result - $.Tariffs array is populated.
 (function($){
     $.GetTariffsList = function() {
+        // callback
+        console.log("callback GetTariffsList");
         $.ajax({
             type : 'GET',
             url  : $.API_base + '/tariffs',

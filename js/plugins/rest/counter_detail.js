@@ -39,8 +39,6 @@ $(document).ready(function(){
             },
             success :  function(response) {
                 $.each(response, function(key, value) {
-
-
                     switch(key) {
                         case("res"):    {
                             $.each($.Resources,function(k, v) {
@@ -95,6 +93,12 @@ $(document).ready(function(){
                 });
                 //return response;
                 hide_loading_message();
+
+                // callback
+                var $dfStep3 = new $.Deferred();
+                console.log("callback populateCounterData");
+                $dfStep3.resolve();
+                return $dfStep3.promise();
             },
             error :  function(response) {
                 console.log('ERROR GetEstate()');
@@ -224,24 +228,33 @@ $(document).ready(function(){
     jQuery.validator.setDefaults({
         success: 'valid',
         rules: {
-            fiscal_year: {
-                required: true,
-                min:      2000,
-                max:      2025
+            name: {
+                required: true
             }
         },
         errorPlacement: function(error, element){
-            error.insertBefore(element);
+            /*error.insertBefore(element);*/
         },
         highlight: function(element){
-            $(element).parent('.field_container').removeClass('valid').addClass('error');
+            /*$(element).parent('.field_selector').removeClass('valid').addClass('error');*/
+            $(element).closest('.validation_container').removeClass('valid').addClass('error');
         },
         unhighlight: function(element){
-            $(element).parent('.field_container').addClass('valid').removeClass('error');
+            /*$(element).parent('.field_selector').addClass('valid').removeClass('error');*/
+            $(element).closest('.validation_container').addClass('valid').removeClass('error');
         }
     });
     var form_counter = $('#form_counter');
-    form_counter.validate();
+    form_counter.validate({
+        rules: {
+            res: {
+                required: true
+            },
+            name: {
+                required: true
+            }
+        }
+    });
 
     // Show message
     function show_message(message_text, message_type){
@@ -271,6 +284,16 @@ $(document).ready(function(){
 
     // Show lightbox
     function show_lightbox(){
+        form_counter.validate({
+            rules: {
+                res: {
+                    required: true
+                },
+                name: {
+                    required: true
+                }
+            }
+        });
         $('.lightbox_bg').show();
         $('.lightbox_container').show();
     }
@@ -304,8 +327,8 @@ $(document).ready(function(){
     $(document).on('click', '#add_counter', function(e){
         e.preventDefault();
 
-        $('.lightbox_content h2').text('Добавить счётчик');
-        $('#form_counter button').text('Добавить счётчик');
+        $('.lightbox_container h2').text('Добавить счётчик');
+        $('#form_counter button').text('Сохранить');
         $('#form_counter').attr('class', 'form add');
         $('#form_counter').attr('data-id', '');
         $('#form_counter .field_container label.error').hide();
@@ -418,8 +441,8 @@ $(document).ready(function(){
         });
         request.done(function(output){
             if (output.id > 0){
-                $('.lightbox_content h2').text('Редактировать счётчик');
-                $('#form_counter button').text('Редактировать счётчик');
+                $('.lightbox_container h2').text('Редактировать счётчик');
+                $('#form_counter button').text('Сохранить изменения');
                 $('#form_counter').attr('class', 'form edit');
                 $('#form_counter').attr('data-id', id);
                 $('#form_counter .field_container label.error').hide();
@@ -647,6 +670,12 @@ $(document).ready(function(){
                     $( "#rfid").val('');
                     $('#form_reader').hide()
                 }
+
+                // callback
+                var $dfStep4 = new $.Deferred();
+                console.log("callback reloadTelemetreadersTable");
+                $dfStep4.resolve();
+                return $dfStep4.promise();
 
                 hide_loading_message();
             } else {
