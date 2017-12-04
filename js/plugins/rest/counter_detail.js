@@ -247,9 +247,6 @@ $(document).ready(function(){
     var form_counter = $('#form_counter');
     form_counter.validate({
         rules: {
-            res: {
-                required: true
-            },
             name: {
                 required: true
             }
@@ -447,7 +444,15 @@ $(document).ready(function(){
                 $('#form_counter').attr('data-id', id);
                 $('#form_counter .field_container label.error').hide();
                 $('#form_counter .field_container').removeClass('valid').removeClass('error');
-                $('#form_counter #res').val(output.res);
+                var resName = "";
+                $.each($.Resources,function(k, v) {
+                    if (v.value == output.res)    {
+                        resName = v.label;
+                        return false;
+                    }
+                });
+                $('#form_counter #res').text(resName);
+
                 $('#form_counter #name').val(output.name);
                 $('#form_counter #model').val(output.model);
                 $('#form_counter #verification').val(output.verification);

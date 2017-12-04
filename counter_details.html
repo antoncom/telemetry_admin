@@ -64,16 +64,25 @@
                     Данные счётчика
                 </h3>
                 <input type="hidden" name="quarter_id" id="quarter_id" value="">
-                <div class="input_container select">
+                <!--<div class="input_container select">
                     <div class="validation_container">
                         <label for="res">Вид ресурса:</label>
                         <div class="field_container selector">
-                            <select size="1" id="res" name="res" required>
+                            <select size="1" id="res" name="res" required disabled="disabled">
                                 <option value="">- Нет -</option>
                             </select>
                         </div>
                     </div>
+                </div>-->
+                <div class="input_container select">
+                    <div class="validation_container">
+                        <label for="res">Вид ресурса:</label>
+                        <div class="field_container">
+                            <div id="res" style="padding-top: 5px;"></div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="input_container">
                     <div class="validation_container">
                         <label for="name">Название счётчика:</label>
