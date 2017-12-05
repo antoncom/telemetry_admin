@@ -886,4 +886,10 @@ select[multiple], select[size] {
     padding: 0 15px 0 3px;
 }
 
+.lightbox_container {
+    /* left: 0%; */
+    margin: 0 30% 0 30%;
+    width: 600px;
+    height: 530px;
+}
 

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Дома и сектора | Дома | </title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!--AAA-->
+    <link href="js/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="css/telemetry_datatables.css" rel="stylesheet">
+
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="js/plugins/rest/webapp.css">
+    <link href="css/style.css" rel="stylesheet">
+
+
+    <style type="text/css" class="init">
+
+    </style>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/liberation-sans-narrow-bold/stylesheet.css">
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+
+
+    <script src="js/config.js"></script>
+    <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
+    <script charset="utf-8" src="js/plugins/dropzone/dropzone.js"></script>
+
+
+
+    <script charset="utf-8" src="js/plugins/rest/equipment-details.js"></script>
+    <script src="js/plugins/cookie/jquery.cookie.js"></script>
+    <script src="js/plugins/uri/uri.js"></script>
+    <script src="js/common.js"></script>
+
+
+
+
+
+
+
+
+    <!-- Mainly scripts -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/dateformat/jquery-dateFormat.js"></script>
+
+
+</head>
+
+<body class="boxed-layout">
+
+<!-- Lightbox Добавить оборудование //-->
+<div class="lightbox_bg"></div>
+<div class="lightbox_container">
+    <div class="lightbox_close"></div>
+    <h2 style="margin-left: 60px;">Добавить оборудование</h2>
+
+    <form class="form add" id="form_equipment" data-id="" novalidate>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 lightbox_content" style="padding: 30px 20px 0 60px;">
+                    <input type="hidden" name="quarter_id" id="quarter_id" value="">
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="name">Название оборудования:</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="name" id="name" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="model">Модель считывателя</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="model" id="model" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="rfid">RFID считывателя</label>
+                            <div class="field_container">
+                                <input type="text" class="text" name="rfid" id="rfid" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="contact_type">Тип контакта:</label>
+                            <div class="field_container  selector">
+                                <select id="contact_type" name="contact_type">
+                                    <option value="0" selected="selected">Открытый</option>
+                                    <option value="1">Закрытый</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input_container select">
+                        <div class="validation_container">
+                            <label for="alert_type">Тип оповещения:</label>
+                            <div class="field_container  selector">
+                                <select id="alert_type" name="alert_type">
+                                    <option value="0" selected="selected">Нет</option>
+                                    <option value="1">СМС</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input_container">
+                        <div class="validation_container">
+                            <label for="phone">Телефон для СМС:</label>
+                            <div class="field_container">
+                                <input type="number" min="0" class="text" name="phone" id="phone" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button_container">
+                        <button type="submit" class="button">Добавить счётчик</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<noscript id="noscript_container">
+    <div id="noscript" class="error">
+        <p>JavaScript support is needed to use this page.</p>
+    </div>
+</noscript>
+
+<div id="message_container">
+    <div id="message" class="success">
+        <p>This is a success message.</p>
+    </div>
+</div>
+
+<div id="loading_container">
+    <div id="loading_container2">
+        <div id="loading_container3">
+            <div id="loading_container4">
+                Loading, please wait...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End of Lightbox Добавить оборудование //-->
+
+
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="img/profile_small.png" />
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><span data-field="fname"></span> <span data-field="lname"></span></strong>
+                             </span> <span class="text-muted text-xs block" data-field="role"></span></span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="#">Профайл</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript: $.Logout();">Выход</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-th-large"></i><span class="nav-label">Главная</span></a>
+                </li>
+                <li>
+                    <a href="doma_sectora.html"><i class="fa fa-diamond"></i> <span class="nav-label">Дома и сектора</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label inactive">Начисление</span><span class="fa arrow"></span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o" ></i> <span class="nav-label inactive">Потребление ресурсов</span><span class="fa arrow"></span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-envelope inactive"></i> <span class="nav-label inactive">Сообщения жильцов </span><span class="label label-warning pull-right">8</span></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label inactive">Сообщения системы </span><span class="label label-info pull-right">8</span></a>
+                </li>
+                <li>
+                    <a href="##"><i class="fa fa-desktop"></i> <span class="nav-label">Настройка</span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="#" class="inactive">Реквизиты, счёт</a></li>
+                        <li><a href="tariff.html">Тарифы</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">Панель администратора</span>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-envelope"></i>  <span class="label label-warning">0</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="#" class="pull-left inactive">
+                                        <img alt="image" class="img-circle" src="img/a7.jpg">
+                                    </a>
+                                    <div class="media-body">
+                                        <small class="pull-right">46h ago</small>
+                                        <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                        <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="#" class="pull-left inactive">
+                                        <img alt="image" class="img-circle" src="img/a4.jpg">
+                                    </a>
+                                    <div class="media-body ">
+                                        <small class="pull-right text-navy">5h ago</small>
+                                        <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                        <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="#" class="pull-left inactive">
+                                        <img alt="image" class="img-circle" src="img/profile.jpg">
+                                    </a>
+                                    <div class="media-body ">
+                                        <small class="pull-right">23h ago</small>
+                                        <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                        <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="#">
+                                        <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i>  <span class="label label-primary">0</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                        <span class="pull-right text-muted small">12 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                        <span class="pull-right text-muted small">4 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="#">
+                                        <strong>See All Alerts</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript: $.Logout();">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2 class="dom_address"></h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html">Главная</a>
+                    </li>
+                    <li>
+                        <a>Дома и сектора</a>
+                    </li>
+                    <li>
+                        <a>Дома</a>
+                    </li>
+                    <li class="active">
+                        <strong><span class="dom_address"></span></strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 id="quarter_subheader">Данные объекта</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                            <dl>
+                                <table id="quarter_details" class="table table-bordered" data="quarter">
+                                    <tbody>
+                                        <!--Данные добавляются динамически-->
+                                    </tbody>
+                                </table>
+                            </dl>
+
+                        </div>
+
+                        <!-- Прочее оборудование //-->
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Оборудование</h5>
+                            </div>
+                            <div class="ibox-content">
+                                    <button type="button" class="button" id="add_equipment">Добавить оборудование</button>
+
+                                    <table id="table_equipment" class="datatable" >
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Наименование оборудования</th>
+                                            <th>Редактор</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                Copyright &copy; 2017
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

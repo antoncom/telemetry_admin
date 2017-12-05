@@ -460,7 +460,8 @@
                 {
                     "render": function (data, type, row) {
                         if(isNaN(data)) { // ОДУ, Обрудование
-                            return '<a href="kvartira_details.html?kvart_id=' + row.id + '&estate_id=' + $.GET("estate_id") + '">' + data + '</a>';
+                            if(data === "ОДУ") return '<a href="kvartira_details.html?kvart_id=' + row.id + '&estate_id=' + $.GET("estate_id") + '">' + data + '</a>';
+                            if(data === "Оборудование") return '<a href="equipment_details.html?kvart_id=' + row.id + '&estate_id=' + $.GET("estate_id") + '">' + data + '</a>';
                         }
                         else {  // Квартира №
                             return '<a href="kvartira_details.html?kvart_id=' + row.id + '&estate_id=' + $.GET("estate_id") + '">Квартира № ' + data + '</a>';
