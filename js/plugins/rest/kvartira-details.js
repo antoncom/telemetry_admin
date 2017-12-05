@@ -43,17 +43,62 @@ $(document).ready(function(){
             }
         },
         success :  function(response) {
-            $.each(response, function(key, value) {
+
+            // Данные в таблице для жилых и нежилых помещений
+            var labels_types12 = {
+                type: "Тип:",
+                address: "Адрес:",
+                area: "Площадь помещения:",
+                owner: "Собственник:",
+                phone: "Телефон:",
+                tenants: "Число прописанных:",
+                created: "Дата заведения карточки:",
+                login: "Логин:",
+                counters: "Число приборов учёта:"
+            };
+
+            // Данные в таблице для "Счётчики ОДУ" и "Прочее обрудование"
+            var labels_types34 = {
+                type: "Тип:",
+                address: "Адрес:",
+                created: "Дата заведения карточки:"
+            };
+
+            // Получаем объект "response" только с нужными свойствами
+            if(response.type == 3 || response.type == 4) var labels = labels_types34;
+            else var labels = labels_types12;
+            var response_reduced = Object.keys(labels).reduce(function(o, k) { o[k] = response[k]; return o; }, {});
+
+            var tbody = $('#quarter_details').children('tbody');
+            var quarter_table = tbody.length ? tbody : $('#quarter_details');
+            var row = '<tr>'+
+                '<th>{{name}}</th>'+
+                '<td>{{value}}</td>'+
+                '</tr>';
+
+            $.each(response_reduced, function(key, value) {
                 if(key == 'type') {
                     switch(value){
-                        case(1): value = "Жилая";
+                        case(1): {
+                            value = "Жилая";
+                            $("#quarter_subheader").text("Данные квартиры / частного дома");
                             break;
-                        case(2): value = "Нежилая";
+                        }
+                        case(2): {
+                            value = "Нежилая";
+                            $("#quarter_subheader").text("Данные помещения");
                             break;
-                        case(3): value = "Счётчик ОДУ";
+                        }
+                        case(3): {
+                            value = "Счётчик ОДУ";
+                            $("#quarter_subheader").text("Данные счётчиков ОДУ");
                             break;
-                        case(4): value = "Оборудование";
+                        }
+                        case(4): {
+                            value = "Оборудование";
+                            $("#quarter_subheader").text("Данные оборудования");
                             break;
+                        }
                         default:;
                     }
                 }
@@ -62,16 +107,24 @@ $(document).ready(function(){
                     value = value.replace(/-/g,".");
                 }
                 if(key=='address')  {
-                    value = $.cookie('estate_address') + ', кв. ' + value;
+                    if(value> 0)    {
+                        $.cookie('estate_homenum', value);
+                        value = $.cookie('estate_address') + ', кв. ' + value;
+                    }
+                    else {
+                        value = $.cookie('estate_address');
+                    }
                 }
                 if(key=='area')  {
                     value = value + " м²";
                 }
 
-                $('table[data=quarter] tr td[data-editor-field='+key).text(value);
-
+                // Добавляем строку таблицы с данными
+                quarter_table.append(row.compose({
+                    'name': labels[key],
+                    'value': value
+                }));
             });
-            //return response;
         },
         error :  function(response) {
             console.log('ERROR GetEstate()');

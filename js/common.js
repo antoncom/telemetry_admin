@@ -23,6 +23,8 @@
 
 })(jQuery);
 
+
+
 // GetResourcesList
 // How to use: $.GetResourcesList();
 // As result - $.Resources array is populated.
@@ -190,4 +192,85 @@ if(pathname.search(/login.html/i) == -1)    {
     }
 
 })(jQuery);
+
+// -----------------
+// For adding table rows dinamically we use this solution:
+// https://stackoverflow.com/a/24490396
+
+//Compose template string
+String.prototype.compose = (function (){
+    var re = /\{{(.+?)\}}/g;
+    return function (o){
+        return this.replace(re, function (_, k){
+            return typeof o[k] != 'undefined' ? o[k] : '';
+        });
+    }
+}());
+
+// How to use:
+//var tbody = $('#myTable').children('tbody');
+//var table = tbody.length ? tbody : $('#myTable');
+//var row = '<tr>'+
+//    '<td>{{id}}</td>'+
+//    '<td>{{name}}</td>'+
+//    '<td>{{phone}}</td>'+
+//    '</tr>';
+//
+//
+////Add row
+//table.append(row.compose({
+//    'id': 3,
+//    'name': 'Lee',
+//    'phone': '123 456 789'
+//}));
+// -----------------
+
+
+// Формирование <TITLE> Breadcrumbs и заголовков страниц
+// Анализируем URI и на основе этого получаем и обновляем нелбходимые данные в заголовках HTML страницы
+$(document).ready(function() {
+    var uri = new URI(window.location);
+// ЕСЛИ dom_details.html
+// ЕСЛИ kvartira_details.html
+// ЕСЛИ counter_details.html
+
+    switch(uri.filename())  {
+        case("dom_details.html"):
+        case("kvartira_details.html"): {
+            $.ajax({
+                type : 'GET',
+                url  : $.API_base + '/estates/' + $.GET("estate_id"),
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
+                success :  function(response) {
+                    if(response.id > 0)  {
+                        $(".dom_address").html(response.address);
+                        $("title").html("Дома и сектора | Дома | " + response.address);
+                        $.cookie('estate_address', response.address);
+                        $.cookie('estate_id', response.id);
+                    }
+                    else {
+                        console.log('NO $(".dom_address") updates');
+                    }
+                },
+                error :  function(response) {
+                    console.log('ERROR GetResourcesList()');
+                    console.log(JSON.stringify(response));
+                }
+            });
+            break;
+        }
+        case("***.html"): {
+
+            break;
+        }
+
+        default: ;
+    }
+});
+
+
+
+
 
