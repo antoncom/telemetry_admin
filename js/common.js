@@ -236,7 +236,9 @@ $(document).ready(function() {
 
     switch(uri.filename())  {
         case("dom_details.html"):
-        case("kvartira_details.html"): {
+        case("kvartira_details.html"):
+        case("counter_details.html"):
+        case("equipment_details.html"): {
             $.ajax({
                 type : 'GET',
                 url  : $.API_base + '/estates/' + $.GET("estate_id"),
@@ -268,6 +270,12 @@ $(document).ready(function() {
 
         default: ;
     }
+
+    // TODO
+    // Добавить получение номера квартиры по URL-параметру kvaty_id
+    // Таким образом полный адрес квартиры получать в одном месте (только здесь) и передавать его на страницы через coookie
+    // Получение адреса дома и номера квартиры реализовать в виде последовательно выполняемых функций.
+
 });
 
 
