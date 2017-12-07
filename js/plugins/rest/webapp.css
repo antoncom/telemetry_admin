@@ -505,7 +505,7 @@ table.datatable tbody td.functions .function_buttons span {
     margin: 6px 0 0 2px;
 }
 
-.lightbox_content .input_container .field_container input {
+/*.lightbox_content */.input_container .field_container input {
     /*width: 250px;*/
     width: 52%;
     height: 32px;
@@ -521,7 +521,7 @@ table.datatable tbody td.functions .function_buttons span {
     -moz-border-radius:    6px;
     border-radius:         6px;
 }
-.lightbox_content .input_container .field_container input:focus {
+/*.lightbox_content*/ .input_container .field_container input:focus {
     background-color: #ffd;
     color: #000;
 }
@@ -571,7 +571,7 @@ table.datatable tbody td.functions .function_buttons span {
         /* width: 250px; */
         width: 90%;
     }
-    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+    /*.lightbox_content*/ .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
         right: 5%;
     }
 }
@@ -582,7 +582,7 @@ table.datatable tbody td.functions .function_buttons span {
         width: 96%
     }
 
-    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+    /*.lightbox_content*/ .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
         right: 2%;
     }
 }
@@ -595,7 +595,7 @@ table.datatable tbody td.functions .function_buttons span {
     .validation_container   {
         width: 443px;
     }
-    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+    /*.lightbox_content*/ .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
         right: 3%;
     }
     .lightbox_content .input_container .field_container input {
@@ -621,7 +621,7 @@ table.datatable tbody td.functions .function_buttons span {
     .validation_container   {
         width: 443px;
     }
-    .lightbox_content .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
+    /*.lightbox_content*/ .input_container .validation_container.error:after, .lightbox_content .input_container .validation_container.valid:after  {
         right: 2%;
     }
     .lightbox_content .input_container .field_container input {
@@ -645,7 +645,7 @@ table.datatable tbody td.functions .function_buttons span {
     float: left;
 }
 
-.lightbox_content .input_container .field_container {
+/*.lightbox_content*/ .input_container .field_container {
     /*width: 400px;*/
     /*float: right;*/
     position: relative;
@@ -653,7 +653,7 @@ table.datatable tbody td.functions .function_buttons span {
     /*height: 32px;*/
 }
 
-.lightbox_content .input_container .field_container.selector {
+/*.lightbox_content*/ .input_container .field_container.selector {
     /*width: 407px;*/
     width: 97%;
 }
@@ -681,12 +681,12 @@ table.datatable tbody td.functions .function_buttons span {
 
 
 
-.lightbox_content .input_container .validation_container.error:after,/*field_container*/
+/*.lightbox_content*/ .input_container .validation_container.error:after,
 /*
 .lightbox_content .input_container .field_container.error:after,!*field_container*!
 .lightbox_content .input_container .field_container.valid:after,
 */
-.lightbox_content .input_container .validation_container.valid:after {/*field_container*/
+/*.lightbox_content*/ .input_container .validation_container.valid:after {/*field_container*/
     width: 32px;
     height: 0px;
     position: relative;
@@ -699,13 +699,13 @@ table.datatable tbody td.functions .function_buttons span {
     /* line-height: 32px; */
     text-align: center;
 }
-.lightbox_content .input_container .validation_container.error:after,
-.lightbox_content .input_container .field_container.error:after {/*field_container*/
+/*.lightbox_content*/ .input_container .validation_container.error:after,
+/*.lightbox_content*/ .input_container .field_container.error:after {/*field_container*/
     content: '\f00d';
     color: #c00;
 }
-.lightbox_content .input_container .validation_container.valid:after,
-.lightbox_content .input_container .field_container.valid:after {/*field_container*/
+/*.lightbox_content*/ .input_container .validation_container.valid:after,
+/*.lightbox_content*/ .input_container .field_container.valid:after {/*field_container*/
     content: '\f00c';
     color: #090;
 }
@@ -886,4 +886,34 @@ select[multiple], select[size] {
     padding: 0 15px 0 3px;
 }
 
+.form.add_telemetreader .validation_container    {
+    width: 185px;
+}
+
+.form.add_telemetreader .validation_container .field_container select    {
+    width: 100%;
+}
+
+.form.add_telemetreader .field_container input {
+    width: 145px;
+}
+.form.add_telemetreader .field_container.selector:after {
+    top: 0px;
+    right: 28px;
+}
+
+.form.add_telemetreader .input_container .validation_container.error:after   {
+    float: right;
+    margin-right: 8px;
+    top: -30px;
+    position: relative;
+}
+
+.form.add_telemetreader .input_container .validation_container.input.valid:after   {
+    margin-right: 7px;
+}
+
+.form.add_telemetreader .input_container .validation_container.selector.error:after   {
+    margin-right: 0px;
+}
 

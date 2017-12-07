@@ -366,7 +366,7 @@ $(document).ready(function(){
         e.preventDefault();
         // Validate form
         if (form_counter.valid() == true){
-            // Send company information to database
+            // Send information to database
             hide_ipad_keyboard();
             hide_lightbox();
             show_loading_message();
@@ -676,13 +676,12 @@ $(document).ready(function(){
                     $('#form_reader').hide()
                 }
 
+                hide_loading_message();
                 // callback
                 var $dfStep4 = new $.Deferred();
                 console.log("callback reloadTelemetreadersTable");
                 $dfStep4.resolve();
                 return $dfStep4.promise();
-
-                hide_loading_message();
             } else {
                 if(output.status == "error" && output.code == 401)  {
                     setTimeout(' window.location.href = "login.html"; ', 10);
@@ -800,43 +799,56 @@ $(document).ready(function(){
         }
     });*/
 
+    var form_reader = $('#form_reader');
+    form_reader.validate({
+        rules: {
+            rfid: {
+                required: true
+            },
+            channel: {
+                required: true
+            }
+        }
+    });
     // ON ADD_READER BUTTON
     $(document).on('click', '#add_reader', function(e){
         e.preventDefault();
-        var rfid = $('#rfid').val();
+
+        // Validate form
+        if (form_reader.valid() == true){
+            var rfid = $('#rfid').val();
 
             show_loading_message();
-        var counter_id        = $.GET('counter_id');
-        var form_data = $('#form_reader').serialize();
-        form_data += '&counter_id=' + counter_id;
+            var counter_id        = $.GET('counter_id');
+            var form_data = $('#form_reader').serialize();
+            form_data += '&counter_id=' + counter_id;
 
-        console.log(form_data);
-        var request   = $.ajax({
-            url:          $.API_base + '/readers',
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-            },
-            cache:        false,
-            data:         form_data,
-            dataType:     'json',
-            type:         'POST'
-        });
-        request.done(function(output){
-            if (output.id > 0){
-                // Reload RFID datatable
-                reloadTelemetreadersTable();
-                show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
+            var request   = $.ajax({
+                url:          $.API_base + '/readers',
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
+                cache:        false,
+                data:         form_data,
+                dataType:     'json',
+                type:         'POST'
+            });
+            request.done(function(output){
+                if (output.id > 0){
+                    // Reload RFID datatable
+                    reloadTelemetreadersTable();
+                    show_message("Считыватель ID=" + output.id + " успешно добавлен.", 'success');
 
-            } else {
+                } else {
+                    hide_loading_message();
+                    show_message(output.message, 'error');
+                }
+            });
+            request.fail(function(jqXHR, textStatus){
                 hide_loading_message();
-                show_message(output.message, 'error');
-            }
-        });
-        request.fail(function(jqXHR, textStatus){
-            hide_loading_message();
-            show_message('Edit request failed: ADD READER ' + textStatus, 'error');
-        });
-
+                show_message('Edit request failed: ADD READER ' + textStatus, 'error');
+            });
+        }
     });
 
 
