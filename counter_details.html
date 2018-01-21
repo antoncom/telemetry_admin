@@ -6,20 +6,20 @@
 
     <title>Дома и сектора | Данные счётчика энергоресурсов | </title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <style type="text/css" class="init">
 
     </style>
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../fonts/liberation-sans-narrow-bold/stylesheet.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/liberation-sans-narrow-bold/stylesheet.css">
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oxygen:400,700">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../js/plugins/rest/webapp.css">
+    <link rel="stylesheet" href="js/plugins/rest/webapp.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script charset="utf-8" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -27,289 +27,47 @@
     <script charset="utf-8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
 
 
-    <script src="../js/config.js"></script>
+    <script src="js/config.js"></script>
     <script charset="utf-8" src="//cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.min.js"></script>
-    <script charset="utf-8" src="../js/plugins/dropzone/dropzone.js"></script>
+    <script charset="utf-8" src="js/plugins/dropzone/dropzone.js"></script>
 
-    <script charset="utf-8" src="../js/plugins/rest/manager/counter_details.js"></script>
-    <script src="../js/plugins/cookie/jquery.cookie.js"></script>
-    <script src="../js/plugins/uri/uri.js"></script>
-    <script src="../js/plugins/rest/common_all.js"></script>
-    <script src="../js/plugins/rest/common_manager.js"></script>
+    <script charset="utf-8" src="js/plugins/rest/user/counter_detail_user.js"></script>
+    <script src="js/plugins/cookie/jquery.cookie.js"></script>
+    <script src="js/plugins/uri/uri.js"></script>
+    <script src="js/plugins/rest/common_all.js"></script>
+    <script src="js/plugins/rest/common_user.js"></script>
 
 
     <!-- Mainly scripts -->
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="../js/inspinia.js"></script>
-    <script src="../js/plugins/pace/pace.min.js"></script>
-    <script src="../js/plugins/dateformat/jquery-dateFormat.js"></script>
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <script src="js/plugins/dateformat/jquery-dateFormat.js"></script>
+    <script type="text/javascript" language="javascript" class="init">
+
+        // check token
+        if($.cookie('token') == null)   {
+            window.location.href = "login.html"
+        }
+
+        $.GetGeneralInfo();
+
+    </script>
 
 </head>
 
 <body class="boxed-layout">
-
-<!-- Lightbox Добавить счётчик //-->
-<div class="lightbox_bg"></div>
-<div class="lightbox_container">
-    <div class="lightbox_close"></div>
-    <h2>Добавить счётчик энергоресурса</h2>
-
-    <form class="form add" id="form_counter" data-id="" novalidate>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 lightbox_content">
-                <h3>
-                    Данные счётчика
-                </h3>
-                <input type="hidden" name="quarter_id" id="quarter_id" value="">
-                <!--<div class="input_container select">
-                    <div class="validation_container">
-                        <label for="res">Вид ресурса:</label>
-                        <div class="field_container selector">
-                            <select size="1" id="res" name="res" required disabled="disabled">
-                                <option value="">- Нет -</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>-->
-                <div class="input_container select">
-                    <div class="validation_container">
-                        <label for="res">Вид ресурса:</label>
-                        <div class="field_container">
-                            <div id="res" style="padding-top: 5px;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="name">Название счётчика:</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="name" id="name" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container select">
-                    <div class="validation_container">
-                        <label for="active">Статус:</label>
-                        <div class="field_container  selector">
-                            <select id="active" name="active">
-                                <option value="0" selected="selected">Неактивен</option>
-                                <option value="1">Активен</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="model">Модель счётчика</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="model" id="model" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="factory_num">Заводской номер:</label>
-                        <div class="field_container">
-                            <input type="number" min="0" class="text" name="factory_num" id="factory_num" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="class">Класс точности:</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="class" id="class" value="">
-                        </div>
-                    </div>
-                </div>
-                <h3>
-                    Тарифы счётчика
-                </h3>
-                <div class="input_container select">
-                    <div class="validation_container">
-                        <label for="tariff1">Выбор тарифа 1:</label>
-                        <div class="field_container selector">
-                            <select size="1" id="tariff1" name="tariff1" class="tariff">
-                                <option value="0">- Нет -</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container select">
-                    <div class="validation_container">
-                        <label for="tariff2">Выбор тарифа 2:</label>
-                        <div class="field_container selector">
-                            <select size="1" id="tariff2" name="tariff2" class="tariff">
-                                <option value="0">- Нет -</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container select">
-                    <div class="validation_container">
-                        <label for="tariff3">Выбор тарифа 3:</label>
-                        <div class="field_container selector">
-                            <select size="1" id="tariff3" name="tariff3" class="tariff">
-                                <option value="0">- Нет -</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container select">
-                    <div class="validation_container">
-                        <label for="tariff4">Выбор тарифа 4:</label>
-                        <div class="field_container selector">
-                            <select size="1" id="tariff4" name="tariff4" class="tariff">
-                                <option value="0">- Нет -</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 lightbox_content">
-                <h3>
-                    Эксплуатация счётчика
-                </h3>
-                <div class="input_container  select">
-                    <div class="validation_container">
-                        <label for="prod_year">Год выпуска:</label>
-                        <div class="field_container">
-                            <div class="field_container selector">
-                                <select class="text" name="prod_year" id="prod_year" >
-                                    <option value="">-Нет-</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="verification">Срок поверки:</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="verification" id="verification" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="verified_until">Поверен до даты:</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="verified_until" id="verified_until" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="seals">Количество пломб:</label>
-                        <div class="field_container">
-                            <input type="number" class="text" name="seals" id="seals" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="seal_num">Номер пломбы:</label>
-                        <div class="field_container">
-                            <input type="number" class="text" name="seal_num" id="seal_num" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="inventory_num">Инвентарный номер:</label>
-                        <div class="field_container">
-                            <input type="number" class="text" name="inventory_num" id="inventory_num" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="comm_date">Дата ввода в эксплуатацию:</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="comm_date" id="comm_date" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="decomm_date">Дата вывода из эксплуатации:</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="decomm_date" id="decomm_date" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="initial_value">Начальное значение:</label>
-                        <div class="field_container">
-                            <input type="number" class="text" name="initial_value" id="initial_value" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="final_value">Финальное значение:</label>
-                        <div class="field_container">
-                            <input type="number" class="text" name="final_value" id="final_value" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="input_container">
-                    <div class="validation_container">
-                        <label for="responsible">ФИО ответственного лица:</label>
-                        <div class="field_container">
-                            <input type="text" class="text" name="responsible" id="responsible" value="">
-                        </div>
-                    </div>
-                </div>
-                <div class="button_container">
-                    <button type="submit" class="button">Добавить счётчик</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </form>
-</div>
-
-<noscript id="noscript_container">
-    <div id="noscript" class="error">
-        <p>JavaScript support is needed to use this page.</p>
-    </div>
-</noscript>
-
-<div id="message_container">
-    <div id="message" class="success">
-        <p>This is a success message.</p>
-    </div>
-</div>
-
-<div id="loading_container">
-    <div id="loading_container2">
-        <div id="loading_container3">
-            <div id="loading_container4">
-                Loading, please wait...
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- End of Lightbox Дщбавить счётчик //-->
-
-
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="../img/profile_small.png" />
+                            <img alt="image" class="img-circle" src="img/profile_small.png" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><span data-field="fname"></span> <span data-field="lname"></span></strong>
@@ -328,7 +86,7 @@
                     <a href="index.html"><i class="fa fa-th-large"></i><span class="nav-label">Главная</span></a>
                 </li>
                 <li>
-                    <a href="doma_sectora.html"><i class="fa fa-diamond"></i> <span class="nav-label">Дома и сектора</span></a>
+                    <a href="tariffs_counters.html"><i class="fa fa-diamond"></i> <span class="nav-label">Тарифы и счётчики</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label inactive">Начисление</span><span class="fa arrow"></span></a>
@@ -372,7 +130,7 @@
                             <li>
                                 <div class="dropdown-messages-box">
                                     <a href="#" class="pull-left inactive">
-                                        <img alt="image" class="img-circle" src="../img/a7.jpg">
+                                        <img alt="image" class="img-circle" src="img/a7.jpg">
                                     </a>
                                     <div class="media-body">
                                         <small class="pull-right">46h ago</small>
@@ -385,7 +143,7 @@
                             <li>
                                 <div class="dropdown-messages-box">
                                     <a href="#" class="pull-left inactive">
-                                        <img alt="image" class="img-circle" src="../img/a4.jpg">
+                                        <img alt="image" class="img-circle" src="img/a4.jpg">
                                     </a>
                                     <div class="media-body ">
                                         <small class="pull-right text-navy">5h ago</small>
@@ -398,7 +156,7 @@
                             <li>
                                 <div class="dropdown-messages-box">
                                     <a href="#" class="pull-left inactive">
-                                        <img alt="image" class="img-circle" src="../img/profile.jpg">
+                                        <img alt="image" class="img-circle" src="img/profile.jpg">
                                     </a>
                                     <div class="media-body ">
                                         <small class="pull-right">23h ago</small>
@@ -470,26 +228,25 @@
 
             </nav>
         </div>
+
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2 class="dom_address"></h2>
+            <div class="col-lg-6">
+                <h2>Тарифы и счётчики</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="index.html">Главная</a>
                     </li>
                     <li>
-                        <a>Дома и сектора</a>
-                    </li>
-                    <li>
-                        <a>Дома</a>
+                        <a>Тарифы и счётчики</a>
                     </li>
                     <li class="active">
-                        <strong><span class="dom_address"></span></strong>
+                        <a data="counter_name">Счётчик</a>
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-2">
-
+            <div class="col-lg-6">
+                <span data-field="name" class="abonent_name"></span>
+                <span data-field="address" class="abonent_address"></span>
             </div>
         </div>
         <div class="wrapper wrapper-content animated fadeInRight">
@@ -588,13 +345,11 @@
                                                 <td data-editor-field="final_value"></td>
                                             </tr>
                                             <tr>
-                                                <th data-editor-label="responsible">ФИО ответственного лицаа:</th>
+                                                <th data-editor-label="responsible">ФИО ответственного лица:</th>
                                                 <td data-editor-field="responsible"></td>
                                             </tr>
                                             </tbody>
                                         </table>
-
-                                        <button type="button" class="button" id="edit_counter">Изменить</button>
                                     </div>
                                 </div>
                             </div>
@@ -614,11 +369,6 @@
                                     </div>
                                     <div class="ibox-content">
                                         <table id="table_counter_files" class="datatable" ></table>
-                                        <form action="#" class="dropzone" id="dropzoneForm">
-                                            <div class="fallback">
-                                                <input name="file" type="file" multiple />
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -637,49 +387,6 @@
                                     </div>
                                     <div class="ibox-content">
                                         <table id="table_counter_readers" class="datatable" ></table>
-                                        <form class="form add_telemetreader" id="form_reader" data-id="" novalidate>
-                                        <table>
-                                            <tr>
-                                                <td style="padding-right: 10px;">
-                                                    <div class="input_container">
-                                                        <div class="validation_container input">
-                                                            <div class="field_container">
-                                                                <input type="text" placeholder="Введите RFID" class="text" id="rfid" name="rfid" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input_container">
-                                                        <div class="validation_container selector">
-<!--                                                            <label for="channel">№ канала:</label>-->
-                                                            <div class="field_container selector">
-                                                                <select id="channel" name="channel" style="width: 153px;">
-                                                                    <option value="">-№ канала-</option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="6">6</option>
-                                                                    <option value="7">7</option>
-                                                                    <option value="8">8</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <div class="button_container">
-                                                        <button type="button" class="button" id="add_reader">Добавить</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        </form>
                                     </div>
                                 </div>
                             </div>

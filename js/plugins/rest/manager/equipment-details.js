@@ -116,9 +116,7 @@ $(document).ready(function(){
         "columnDefs": [
             {
                 "render": function ( data, type, row ) {
-                    return '<div class="function_buttons"><ul><li class=""><a href="counter_details.html?counter_id=' + row.id + '" data-id="' + row.id + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
-                    //return '<a style="display: block; width: 30px; float: left; margin: 12px 10px 0 0; text-decoration: underline;" href="counter_details.html?counter_id=' + row.id + '" data-id="' + row.id + '"><span>Edit</span></a><div class="function_buttons"><ul><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>';
-
+                    return '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '" data-name="' + row.name + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '" data-name="' + row.name + '" data-equipment-id="' + $('#form_equipment').attr('data-id') + '"><span>Delete</span></a></li></ul></div>';
                 },
                 "targets": 2
             }
@@ -280,8 +278,57 @@ $(document).ready(function(){
         show_lightbox();
     });
 
-    // Add equipment submit form
-    $(document).on('submit', '#form_equipment', function(e){
+    // Edit equipment button
+    $(document).on('click', '.function_edit a', function(e){
+        e.preventDefault();
+        // Get equipment information from database
+        show_loading_message();
+        var id      = $(this).data('id');
+        var request = $.ajax({
+            url: $.API_base + "/equipment/" + id,
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+            },
+            "dataSrc": function ( json ) {
+                if(json.status == "error" && json.code == 401)  {
+                    setTimeout(' window.location.href = "login.html"; ', 10);
+                }
+                else {
+                    return json.data;
+                }
+            },
+            cache:        false,
+            type:         'GET'
+        });
+        request.done(function(output){
+            if (output.id > 0){
+                $('.lightbox_container h2').text('Редактировать оборудование');
+                $('#form_equipment button').text('Сохранить');
+                $('#form_equipment').attr('class', 'form edit');
+                $('#form_equipment').attr('data-id', id);
+                $('#form_equipment .field_container label.error').hide();
+                $('#form_equipment .field_container').removeClass('valid').removeClass('error');
+                $('#form_equipment #equipment_id').val(output.id);
+                $('#form_equipment #name').val(output.name);
+                $('#form_equipment #model').val(output.model);
+                $('#form_equipment #rfid').val(output.rfid);
+                $('#form_equipment #contact_type').val(output.contact_type);
+                $('#form_equipment #alert_type').val(output.alert_type);
+                hide_loading_message();
+                show_lightbox();
+            } else {
+                hide_loading_message();
+                show_message('Information request failed', 'error');
+            }
+        });
+        request.fail(function(jqXHR, textStatus){
+            hide_loading_message();
+            show_message('Information request failed: ' + textStatus, 'error');
+        });
+    });
+
+    // Edit equipment submit form
+    $(document).on('submit', '#form_equipment.edit', function(e){
         e.preventDefault();
         // Validate form
         if (form_equipment.valid() == true){
@@ -290,7 +337,55 @@ $(document).ready(function(){
             hide_lightbox();
             show_loading_message();
             var form_data = $('#form_equipment').serialize();
-            console.log("FORM_DATA" + form_data);
+            var id      = $(this).data('id');
+            var request   = $.ajax({
+                url:          $.API_base + '/equipment/' + id,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
+                "dataSrc": function ( json ) {
+                    if(json.status == "error" && json.code == 401)  {
+                        setTimeout(' window.location.href = "login.html"; ', 10);
+                    }
+                    else {
+                        return json.data;
+                    }
+                },
+                cache:        false,
+                data:         form_data,
+                dataType:     'json',
+                type:         'PUT'
+            });
+            request.done(function(output){
+                if (output.status == "ok"){
+                    // Reload datable
+                    table_equipment.api().ajax.reload(function(){
+                        hide_loading_message();
+                        var equipment_name = $('#name').val();
+                        show_message("Оборудование '" + equipment_name + "' успешно обновлено. ID оборудования: " + id, 'success');
+                    }, true);
+                } else {
+                    hide_loading_message();
+                    show_message(output.message, 'error');
+                }
+            });
+            request.fail(function(jqXHR, textStatus){
+                hide_loading_message();
+                show_message('Add request failed: ' + textStatus, 'error');
+            });
+        }
+    });
+
+    // Add equipment submit form
+    $(document).on('submit', '#form_equipment.add', function(e){
+        e.preventDefault();
+        // Validate form
+        if (form_equipment.valid() == true){
+            // Send company information to database
+            hide_ipad_keyboard();
+            hide_lightbox();
+            show_loading_message();
+            var form_data = $('#form_equipment').serialize();
             var request   = $.ajax({
                 url:          $.API_base + '/equipment',
                 beforeSend: function(xhr){
@@ -328,8 +423,6 @@ $(document).ready(function(){
             });
         }
     });
-
-
 
 
     // Delete equipment

@@ -1,90 +1,3 @@
-// Logout
-// How to use: $.Logout();
-
-(function($){
-    $.Logout = function() {
-        $.ajax({
-            type : 'DELETE',
-            url  : $.API_base + '/login',
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-            },
-            success :  function(response) {
-                $.removeCookie('token');
-                $.removeCookie('role');
-                setTimeout(' window.location.href = "login.html"; ', 10);
-            },
-            error :  function(response) {
-                console.log('ERROR LOGOUT');
-                console.log(JSON.stringify(response));
-            }
-        });
-    }
-
-})(jQuery);
-
-
-
-// GetResourcesList
-// How to use: $.GetResourcesList();
-// As result - $.Resources array is populated.
-(function($){
-    $.GetResourcesList = function() {
-        // callback
-        console.log("callback GetResourcesList");
-
-        $.ajax({
-            type : 'GET',
-            url  : $.API_base + '/resources',
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-            },
-            success :  function(response) {
-                var i;
-                $.Resources = new Array();
-                for(i = 0; i < response.length; i++){
-                    $.Resources[i] = { 'label': response[i].name, 'value' : response[i].id };
-                }
-            },
-            error :  function(response) {
-                console.log('ERROR GetResourcesList()');
-                console.log(JSON.stringify(response));
-            }
-        });
-    }
-
-})(jQuery);
-
-
-// GetTariffsList
-// How to use: $.GetTariffsList();
-// As result - $.Tariffs array is populated.
-(function($){
-    $.GetTariffsList = function() {
-        // callback
-        console.log("callback GetTariffsList");
-        $.ajax({
-            type : 'GET',
-            url  : $.API_base + '/tariffs',
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
-            },
-            success :  function(response) {
-                var i;
-                $.Tariffs = new Array();
-                for(i = 0; i < response.length; i++){
-                    $.Tariffs[i] = { 'label': response[i].name, 'value' : response[i].id };
-                }
-            },
-            error :  function(response) {
-                console.log('ERROR GetTariffsList()');
-                console.log(JSON.stringify(response));
-            }
-        });
-    }
-
-})(jQuery);
-
 
 // GetGeneralInfo
 // How to use: $.GetGeneralInfo();
@@ -105,11 +18,7 @@
                 $.each( response, function( key, value ) {
                     $("span[data-field='" + key + "']").html(value);
                 });
-                if(response.role == 2) $("span[data-field='role']").html('Менеджер<b class="caret"></b>');
-                if(response.role == 1) $("span[data-field='role']").html('Администратор<b class="caret"></b>');
-                if(response.role == 4) $("span[data-field='role']").html('Абонент<b class="caret"></b>');
-
-
+                if(response.role == 4) $("span[data-field='role']").html(response.name + '<b class="caret"></b>');
             },
             error :  function(response) {
                 console.log('ERROR GetGeneralInfo()');
@@ -120,7 +29,7 @@
 
 })(jQuery);
 
-// GetUserName
+/*// GetUserName
 // How to use: $.GetUserName();
 // On success - <span data-field="key">value</span> are populated
 (function($){
@@ -136,11 +45,10 @@
                 xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
             },
             success :  function(response) {
-                $.each( response, function( key, value ) {
+                /!*$.each( response, function( key, value ) {
                     $("span[data-field='" + key + "']").html(value);
-                });
-                if(response.role == 2) $("span[data-field='role']").html('Менеджер<b class="caret"></b>');
-                if(response.role == 1) $("span[data-field='role']").html('Администратор<b class="caret"></b>');
+                });*!/
+                if(response.role == 4) $("span[data-field='role']").html(response.name + '<b class="caret"></b>');
             },
             error :  function(response) {
                 console.log('ERROR GetUserName()');
@@ -149,10 +57,9 @@
         });
     }
 
-})(jQuery);
+})(jQuery);*/
 
-
-// GetAbonentInfo
+// GetGeneralInfo_Home
 // How to use: $.GetAbonentInfo();
 // On success - <span data-field="key">value</span> are populated
 var abo_counters_template_home = '<div class="col-lg-3"><a href="doma_sectora.html" style="color: white;!important">'
@@ -162,7 +69,7 @@ var abo_counters_template_home = '<div class="col-lg-3"><a href="doma_sectora.ht
     + '<h2 class="font-bold"><span class="abonent_res_counters" style="float: right;">{{res_counters}}</span></h2><span style="font-size: 12px; padding: 15px 25px 0 0; display: block;">Cчётчиков: </span>'
     + '</div></div></div></a></div>';
 (function($){
-    $.GetAbonentInfo = function() {
+    $.GetGeneralInfo_Home = function() {
         $.ajax({
             type : 'GET',
             url  : $.API_base + '/info',
@@ -183,8 +90,7 @@ var abo_counters_template_home = '<div class="col-lg-3"><a href="doma_sectora.ht
                             break;
                         }
                         case('role'):    {
-                            if(response.role == 4) $("span[data-field='role']").html('Абонент<b class="caret"></b>');
-                            console.log($("span[data-field='role']"));
+                            $("span[data-field='role']").html(response.name + '<b class="caret"></b>');
                             break;
                         }
                         case('counters'):    {
@@ -254,37 +160,7 @@ if(pathname.search(/login.html/i) == -1)    {
 
 })(jQuery);
 
-// -----------------
-// For adding table rows dinamically we use this solution:
-// https://stackoverflow.com/a/24490396
 
-//Compose template string
-String.prototype.compose = (function (){
-    var re = /\{{(.+?)\}}/g;
-    return function (o){
-        return this.replace(re, function (_, k){
-            return typeof o[k] != 'undefined' ? o[k] : '';
-        });
-    }
-}());
-
-// How to use:
-//var tbody = $('#myTable').children('tbody');
-//var table = tbody.length ? tbody : $('#myTable');
-//var row = '<tr>'+
-//    '<td>{{id}}</td>'+
-//    '<td>{{name}}</td>'+
-//    '<td>{{phone}}</td>'+
-//    '</tr>';
-//
-//
-////Add row
-//table.append(row.compose({
-//    'id': 3,
-//    'name': 'Lee',
-//    'phone': '123 456 789'
-//}));
-// -----------------
 
 
 // Формирование <TITLE> Breadcrumbs и заголовков страниц

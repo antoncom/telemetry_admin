@@ -70,7 +70,7 @@ $(document).ready(function(){
                         }
                     }
 
-                    if(key=='created') {
+                    if(key=='created' && value != "") {
                         value = value.substring(0,10);
                         value = value.replace(/-/g,".");
                     }
@@ -161,24 +161,35 @@ $(document).ready(function(){
                     return '<div class="function_buttons"><ul><li class="function_delete"><a data-id="' + row.id + '" data-name="' + row.name + '" data-counter-id="' + $('#form_counter').attr('data-id') + '"><span>Delete</span></a></li></ul></div>';
 
                 },
-                "targets": 2
+                "targets": 2,
+                "width": "50px"
+            },
+            {
+                "render": function ( data, type, row ) {
+                    return '<a class="counter_file_name" href="' + row.url + '"><span>' + row.name + '</span></a>';
+
+                },
+                "targets": 0
+            },
+            {
+                width: 100,
+                "targets": 1
             }
         ],
         columns: [
             {
-                title: "name",
-                data: "name"
+                title: "Файл",
+                data: null
             },
             {
-                title: "size",
+                title: "Размер",
                 data: "size"
             },
 
             {
-                title: "del",
+                title: "Ред.",
                 data: null,
                 className: "functions"
-                //defaultContent: '<div class="function_buttons"><ul><li class="function_edit"><a data-id=""><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '"><span>Delete</span></a></li></ul></div>'
             }
         ]
     });

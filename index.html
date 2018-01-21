@@ -12,7 +12,7 @@
     <!--    <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">-->
     <link href="css/telemetry_datatables.css" rel="stylesheet">
 
-
+    <link rel="stylesheet" href="js/plugins/rest/webapp.css">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="fonts_custom_icon/styles.css" rel="stylesheet">
@@ -26,6 +26,7 @@
     </style>
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="fonts/liberation-sans-narrow-bold/stylesheet.css">
+
 
 </head>
 
@@ -55,7 +56,7 @@
                     <a href="index.html"><i class="fa fa-th-large"></i><span class="nav-label">Главная</span></a>
                 </li>
                 <li>
-                    <a href="doma_sectora.html"><i class="fa fa-diamond"></i> <span class="nav-label">Дома и сектора</span></a>
+                    <a href="tariffs_counters.html"><i class="fa fa-diamond"></i> <span class="nav-label">Тарифы и счётчики</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label inactive">Начисление</span><span class="fa arrow"></span></a>
@@ -89,7 +90,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">Панель администратора</span>
+                        <span class="m-r-sm text-muted welcome-message">Панель абонента</span>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -198,7 +199,7 @@
             </nav>
         </div>
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
+            <div class="col-lg-6">
                 <h2>Главная</h2>
                 <ol class="breadcrumb">
                     <li>
@@ -206,29 +207,28 @@
                     </li>
                 </ol>
             </div>
-            <div class="col-lg-2">
-
+            <div class="col-lg-6">
+                <span data-field="name" class="abonent_name"></span>
+                <span data-field="address" class="abonent_address"></span>
             </div>
         </div>
 
 
 
-        <div class="row">
+        <div class="row" id="abo_home_widgets">
             <div class="col-lg-3">
                 <div class="widget style1">
                     <div class="row">
                         <div class="col-xs-12 text-center">
                             <i class="fa fa-share-alt-square fa-5x"></i>
                             <span style="float: right; margin-top: 5px;"> Всего счётчиков: </span>
+                            <span data-field="objects" class="abonent_objects"></span>
                         </div>
-                        <!--<div class="col-xs-6 text-right">
-                            <span> Многоквартирных домов: </span>
-                            <h2 class="font-bold"><span data-field="houses"></span></h2>
-                        </div>-->
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+
+            <!--<div class="col-lg-3">
                 <a href="doma_sectora.html" style="color: white;!important">
                     <div class="widget style1 navy-bg">
                         <div class="row">
@@ -242,10 +242,8 @@
                         </div>
                     </div>
                 </a>
-            </div>
-
-
-            <div class="col-lg-3">
+            </div>-->
+            <!--<div class="col-lg-3">
                 <a href="doma_sectora.html" style="color: white;!important">
                     <div class="widget style1 navy-bg">
                         <div class="row">
@@ -274,7 +272,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div>-->
         </div>
 
         <div class="row">
@@ -561,7 +559,8 @@
 <script src="js/inspinia.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
 <script src="js/plugins/uri/uri.js"></script>
-<script src="js/common.js"></script>
+<script src="js/plugins/rest/common_all.js"></script>
+<script src="js/plugins/rest/common_user.js"></script>
 
 
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js">
@@ -582,7 +581,7 @@
         window.location.href = "login.html"
     }
 
-    $.GetGeneralInfo();
+    $.GetGeneralInfo_Home();
 
 </script>
 

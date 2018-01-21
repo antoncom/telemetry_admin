@@ -6,6 +6,36 @@
  *   version 2.7
  *
 */
+
+@font-face {
+  font-family: 'liberation_sans_narrowbold';
+  src: url('liberation_sans_narrow_bold-webfont.eot');
+  src: url('liberation_sans_narrow_bold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('liberation_sans_narrow_bold-webfont.woff2') format('woff2'),
+  url('liberation_sans_narrow_bold-webfont.woff') format('woff'),
+  url('liberation_sans_narrow_bold-webfont.ttf') format('truetype'),
+  url('liberation_sans_narrow_bold-webfont.svg#liberation_sans_narrowbold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+
+
+@font-face {
+  font-family: 'liberation_sans_narrowregular';
+  src: url('liberation_sans_narrow-webfont.eot');
+  src: url('liberation_sans_narrow-webfont.eot?#iefix') format('embedded-opentype'),
+  url('liberation_sans_narrow-webfont.woff2') format('woff2'),
+  url('liberation_sans_narrow-webfont.woff') format('woff'),
+  url('liberation_sans_narrow-webfont.ttf') format('truetype'),
+  url('liberation_sans_narrow-webfont.svg#liberation_sans_narrowregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 h1,
 h2,
 h3,
@@ -1069,7 +1099,8 @@ button.dim:active:before {
 .label {
   background-color: #d1dade;
   color: #5e5e5e;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /*font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+  font-family: liberation_sans_narrowregular, 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: 600;
   padding: 3px 8px;
@@ -1078,7 +1109,7 @@ button.dim:active:before {
 .badge {
   background-color: #d1dade;
   color: #5e5e5e;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: liberation_sans_narrowregular, 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 600;
   padding-bottom: 4px;
@@ -1166,7 +1197,7 @@ button.dim:active:before {
   line-height: 20px;
   font-size: 12px;
   color: white;
-  font-family: Trebuchet, Arial, sans-serif;
+  font-family: liberation_sans_narrowregular, Trebuchet, Arial, sans-serif;
   font-weight: bold;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -1997,7 +2028,7 @@ div.dt-button-info {
   line-height: 16px;
   font-size: 10px;
   color: white;
-  font-family: Trebuchet, Arial, sans-serif;
+  font-family: liberation_sans_narrowregular, Trebuchet, Arial, sans-serif;
   font-weight: bold;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -2376,7 +2407,7 @@ div.dt-button-info {
   width: 100%;
   font-size: 0.75em;
   line-height: 1.333333em;
-  font-family: open sans, lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
+  font-family: liberation_sans_narrowregular, open sans, lucida grande, lucida sans unicode, helvetica, arial, sans-serif;
   padding: 5px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -3038,7 +3069,7 @@ a.forum-item-title:hover {
   border-radius: 3px;
   background: #292929;
   color: white;
-  font-family: sans-serif, Verdana;
+  font-family: liberation_sans_narrowregular, sans-serif, Verdana;
   font-size: smaller;
   padding: 5px;
 }
@@ -3476,9 +3507,9 @@ body.tour-open .animated {
   border-bottom: 1px solid #e7eaec;
 }
 body {
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: liberation_sans_narrowregular, "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #2f4050;
-  font-size: 13px;
+  font-size: 16px;
   color: #676a6c;
   overflow-x: hidden;
 }
@@ -6824,7 +6855,7 @@ body.body-small .vote-icon {
 }
 body.landing-page {
   color: #676a6c;
-  font-family: 'Open Sans', helvetica, arial, sans-serif;
+  font-family: liberation_sans_narrowregular, 'Open Sans', helvetica, arial, sans-serif;
   background-color: #fff;
 }
 .landing-page {
@@ -6906,7 +6937,7 @@ body.landing-page {
 }
 .landing-page .navbar-default .nav li a {
   color: #fff;
-  font-family: 'Open Sans', helvetica, arial, sans-serif;
+  font-family: liberation_sans_narrowregular, 'Open Sans', helvetica, arial, sans-serif;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -8591,3 +8622,4 @@ a.btn[href="#"] {
   background-color: #199a47;
   color: #ffffff;
 }
+

@@ -311,7 +311,7 @@ table.datatable {
 table.datatable th,
 table.datatable td {
     background-color: #fff;
-    padding: 5px 10px 5px 10px;
+    padding: 0px 10px 5px 10px;
     border: 1px solid #ccc;
 }
 
@@ -357,7 +357,7 @@ table.datatable tbody td.nowrap {
 }
 
 table.datatable tbody td.functions .function_buttons {
-    width: 70px;
+    width: 30px;
     height: 30px;
     margin: 0 auto 0 auto;
 }
@@ -917,3 +917,29 @@ select[multiple], select[size] {
     margin-right: 0px;
 }
 
+.abonent_name   {
+    font-size: 24px;
+    padding-top: 20px;
+    display: block;
+}
+
+.abonent_address    {
+    font-size:13px;
+}
+
+.counter_file_name {
+    /*white-space: nowrap;*/
+    display: block;
+    width: 185px;
+    float: left;
+    margin: 12px 10px 0 0;
+    text-decoration: underline;
+}
+
+table.datatable tbody td .link {
+    /*white-space: nowrap;*/
+    display: block;
+    float: left;
+    margin: 12px 10px 0 0;
+    text-decoration: underline;
+}

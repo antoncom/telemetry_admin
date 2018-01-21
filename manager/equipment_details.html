@@ -10,7 +10,7 @@
     <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!--AAA-->
-    <link href="../js/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <!--<link href="../js/plugins/dataTables/datatables.min.css" rel="stylesheet">-->
     <link href="../css/telemetry_datatables.css" rel="stylesheet">
 
 
@@ -40,10 +40,11 @@
 
 
 
-    <script charset="utf-8" src="../js/plugins/rest/equipment-details.js"></script>
+    <script charset="utf-8" src="../js/plugins/rest/manager/equipment-details.js"></script>
     <script src="../js/plugins/cookie/jquery.cookie.js"></script>
     <script src="../js/plugins/uri/uri.js"></script>
-    <script src="../js/common.js"></script>
+    <script src="../js/plugins/rest/common_all.js"></script>
+    <script src="../js/plugins/rest/common_manager.js"></script>
 
 
 
@@ -69,7 +70,7 @@
 
 <!-- Lightbox Добавить оборудование //-->
 <div class="lightbox_bg"></div>
-<div class="lightbox_container" style="margin: 0 30% 0 30%; width: 600px; height: 530px;">
+<div class="lightbox_container" style="margin: 0 30% 0 30%; width: 630px; height: 530px;">
     <div class="lightbox_close"></div>
     <h2 style="margin-left: 60px;">Добавить оборудование</h2>
 
@@ -78,6 +79,7 @@
             <div class="row">
                 <div class="col-md-12 lightbox_content" style="padding: 30px 20px 0 60px;">
                     <input type="hidden" name="quarter_id" id="quarter_id" value="">
+                    <input type="hidden" name="id" id="equipment_id" value="">
                     <div class="input_container">
                         <div class="validation_container">
                             <label for="name">Название оборудования:</label>
