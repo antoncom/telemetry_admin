@@ -204,6 +204,7 @@ button.button:active {
 .dataTables_length:after, .field_container.selector:after {
     width: 32px;
     height: 32px;
+/*    border: 1px solid red;*/
     position: relative;
     top: 1px;
     right: 28px;
@@ -261,7 +262,7 @@ select::-ms-expand  {
 
 .dataTables_paginate {
     position: absolute;
-    bottom: 0;
+    bottom: -35px;
     left: 0;
 }
 .dataTables_paginate a {
@@ -359,7 +360,8 @@ table.datatable tbody td.nowrap {
 table.datatable tbody td.functions .function_buttons {
     width: 30px;
     height: 30px;
-    margin: 0 auto 0 auto;
+    margin: 4px auto 0 auto;
+    float: left;
 }
 table.datatable tbody td.functions .function_buttons li {
     float: left;

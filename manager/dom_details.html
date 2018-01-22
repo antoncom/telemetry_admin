@@ -6,26 +6,42 @@
 
     <title>Дома и сектора | Дома | </span></title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+   <!-- <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="../js/plugins/dataTables/datatables.min.css" rel="stylesheet">
-    <link href="../css/telemetry_datatables.css" rel="stylesheet">
+    &lt;!&ndash;<link href="../js/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="../css/telemetry_datatables.css" rel="stylesheet">&ndash;&gt;
 
 
     <link href="../css/animate.css" rel="stylesheet">
     <link rel="stylesheet" href="../js/plugins/rest/webapp.css">
+
     <link href="../css/style.css" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css">
+    &lt;!&ndash;<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../js/plugins/datatablesEditor/css/editor.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="../js/plugins/datatablesEditor/examples/resources/syntax/shCore.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/datatablesEditor/examples/resources/syntax/shCore.css">&ndash;&gt;
     <style type="text/css" class="init">
 
 
 
     </style>
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../fonts/liberation-sans-narrow-bold/stylesheet.css">-->
+
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="../css/telemetry_datatables.css" rel="stylesheet">
+
+
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.2/css/select.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/datatablesEditor/css/editor.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/plugins/datatablesEditor/examples/resources/syntax/shCore.css">
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../fonts/liberation-sans-narrow-bold/stylesheet.css">
 
@@ -421,25 +437,6 @@
         } );
 
 
-/*
-        // $.Resources is populated
-        $.GetResourcesList();
-
-        // update 'res' selector into the editor popup
-        editor.on( 'initCreate', function ( e) {
-            editor.field('res').update($.Resources );
-        });
-
-        editor.on( 'initEdit', function ( e) {
-            editor.field('res').update($.Resources );
-        });
-
-
-        editor.on( 'preSubmit', function ( e) {
-            editor.field( 'res_name' ).set( editor.get( 'res' ));
-        });
-*/
-
 
 
         editor.on('close', function(e) {
@@ -477,6 +474,23 @@
             pageLength: 25,
             responsive: true,
             dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5',
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
             ajax: {
                 "url": $.API_base + "/quarters?table=1&estate_id=" + $.GET("estate_id"),
                 "beforeSend": function (xhr) {
@@ -501,7 +515,7 @@
                 {data: "counters"}
             ],
             select: true,
-            buttons: [
+            /*buttons: [
                 {extend: "create", editor: editor},
                 {extend: "edit", editor: editor},
                 {extend: "remove", editor: editor},
@@ -518,7 +532,7 @@
                                 .css('font-size', 'inherit');
                     }
                 }
-            ]
+            ]*/
         });
 
         /*// Update <title>, <span> with class="dom_address"

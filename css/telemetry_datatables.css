@@ -1,3 +1,15 @@
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
     background-color: #B0BED9;
 }
+
+.dataTables_length  {
+    float: left;
+}
+
+.html5buttons   {
+    float: left;
+}
+
+.dataTables_filter  {
+    float: right;
+}

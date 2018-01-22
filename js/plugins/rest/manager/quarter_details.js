@@ -42,7 +42,7 @@ $(document).ready(function(){
         },
         pageLength: 25,
         responsive: true,
-        dom: '<"html5buttons"B>Tfgt<"bottom"lp>',
+        dom: '<"html5buttons"Bp>Tfgt<"bottom"l>',
         ajax: {
             "url": $.API_base + "/estates?table=1",
             "beforeSend": function (xhr) {
