@@ -20,11 +20,17 @@ $(document).ready(function(){
     } );
 
 
-    // $.Resources is populated
+/*    // $.Resources is populated
     $.GetResourcesList();
 
     // $.Tariffs is populated
-    $.GetTariffsList();
+    $.GetTariffsList();*/
+
+    // Предварительное получение данных, а затем выполнение всего прочего
+    $.when($.GetResourcesList(), $.GetTariffsList()).done(function(){
+        populateCounterData();
+        reloadTelemetreadersTable();
+    });
 
     // Populate html table with Quarter data
     $.ajax({
@@ -132,11 +138,11 @@ $(document).ready(function(){
         }
     });
 
-    // $.Resources is populated
+    /*// $.Resources is populated
     $.GetResourcesList();
 
     // $.Tariffs is populated
-    $.GetTariffsList();
+    $.GetTariffsList();*/
 
     // Populate options in form selectors
     function populateOptions()  {

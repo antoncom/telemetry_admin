@@ -136,12 +136,25 @@ $(document).ready(function() {
         default: ;
     }
 
+
+
     // TODO
     // Добавить получение номера квартиры по URL-параметру kvaty_id
     // Таким образом полный адрес квартиры получать в одном месте (только здесь) и передавать его на страницы через coookie
     // Получение адреса дома и номера квартиры реализовать в виде последовательно выполняемых функций.
 
 });
+
+// selector = '#form_counter #res', e.g. html selector of <select>
+function populateResourcesSelect(selector)   {
+    // Poulate resources
+    if($(selector + ' option').length <= 1)    {
+        $.each($.Resources,function(key, value)
+        {
+            $(selector).append('<option value="' + value.value + '">' + value.label + '</option>');
+        });
+    }
+}
 
 
 
