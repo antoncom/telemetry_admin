@@ -302,6 +302,22 @@ String.prototype.compose = (function (){
 // -----------------
 
 
+// EstateAddressInUse
+(function($){
+    $.EstateAddressRemoteValid = function(address, estates) {
+        var address_lc = address.toLowerCase();
+        var out = "true";
+        $.each(estates, function(i, value) {
+            if(value.address.toLowerCase() === address_lc)    {
+                out = "false";
+                return false; // exit from $.each loop
+            }
+        });
+        return out;
+    }
+})(jQuery);
+
+
 
 //// ************ Lightbox operating general functions ********** /////
 // Show message
