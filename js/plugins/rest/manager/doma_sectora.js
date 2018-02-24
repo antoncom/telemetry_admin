@@ -148,6 +148,11 @@ $(document).ready(function() {
                 }
             }
         },
+        onfocusin: function(element, event)   {
+            // unhighlight input element
+            $(element).parent().parent('.validation_container').removeClass('error');
+            $(element).siblings('label.error').remove();
+        },
         rules: {
             address: {
                 required: true,
