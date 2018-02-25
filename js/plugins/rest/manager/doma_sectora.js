@@ -9,7 +9,7 @@ $(document).ready(function() {
     $.GetUserName();
 
 
-    var doma_table = $('#doma_table').DataTable({
+    var table_estates = $('#table_estates').DataTable({
         "columnDefs": [
             {
                 "targets": [ 0 ],
@@ -34,8 +34,14 @@ $(document).ready(function() {
             },
             {
                 "render": function ( data, type, row ) {
-                    return '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '" data-name="' + row.name + '"><span>Edit</span></a></li><li class="function_delete"><a data-id="' + row.id + '" data-name="' + row.name + '" data-counter-id="' + $('#form_counter').attr('data-id') + '"><span>Delete</span></a></li></ul></div>';
-
+                    // Если в доме нет ни одного помещения, счётчика, оборудования, то делаем доступной кнопку Delete
+                    var staff = data.resident + data.nonresident + data.counters + data.equipment;
+                    var edit_link = '<div class="function_buttons"><ul><li class="function_edit"><a data-id="' + row.id + '" data-address="' + row.address + '"><span>Edit</span></a></li>';
+                    var delete_link = '<li class="function_delete"><a data-id="' + row.id + '" data-address="' + row.address + '" data-counter-id="' + $('#form_counter').attr('data-id') + '"><span>Delete</span></a></li></ul></div>';
+                    var links = '';
+                    if (staff == 0) links = edit_link + delete_link;
+                    else links = edit_link + '</ul></div>';
+                    return links;
                 },
                 "targets": 8
             }
@@ -95,10 +101,6 @@ $(document).ready(function() {
                 text: 'Add',
                 action: function (e, dt, node, config) {
                     //show_loading_message();
-                    // HERE
-                    // TODO
-                    // Add Edit Delete based on tariffs.js
-
 
                     $('.lightbox_container h2').text('Добавить дом');
                     $('#form_doma_sectora button').text('Сохранить');
@@ -132,6 +134,18 @@ $(document).ready(function() {
         }
     });
     var form_doma_sectora = $('#form_doma_sectora');
+    // format correct spaces
+    $("input#address").on({
+        change: function() {
+            // remove double spaces etc.
+            this.value = this.value.replace(/ {1,}/g," ");
+            // remove spaces from both end of string
+            this.value = this.value.trim();
+            // remove spaces before punctuation
+            this.value = this.value.replace(/\s+([.,!":])/g, '$1')
+        }
+    });
+
     form_doma_sectora.validate({
         // this is for "remote" option
         // it avoids ajax request on each onkeyup event
@@ -159,8 +173,6 @@ $(document).ready(function() {
                 minlength: 8,
                 remote: { // Валидация адреса (проверка на существование адреса в БД)
                     url:  $.API_base + '/estates',
-                    //url:  'http://telemetry.mediapublish.ru/manager/m1.php',
-
                     beforeSend: function(xhr){
                         xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
                     },
@@ -191,13 +203,12 @@ $(document).ready(function() {
         messages: {
             address: {
                 required: "Это поле обязательно для заполнения!",
-                minlength: jQuery.validator.format("Введите как минимум {0} символов."),
-                remote: "Данный адрес уже присутствует в системе!"
+                minlength: jQuery.validator.format("Введите как минимум {0} символов.")
             }
         }
     });
 
-    // Add home submit form
+    // Add estate address submit form
     $(document).on('submit', '#form_doma_sectora.add', function(e){
         e.preventDefault();
         // Validate form
@@ -229,7 +240,7 @@ $(document).ready(function() {
             request.done(function(output){
                 if (output.id > 0){
                     // Reload datable
-                    doma_table.ajax.reload(function(){
+                    table_estates.ajax.reload(function(){
                         hide_loading_message();
                         show_message("Дом успешно добавлен. ID дома: " + output.id, 'success');
                     }, true);
@@ -241,6 +252,111 @@ $(document).ready(function() {
             request.fail(function(jqXHR, textStatus){
                 hide_loading_message();
                 show_message('Add request failed: ' + textStatus, 'error');
+            });
+        }
+    });
+
+
+    // Edit estate button
+    $(document).on('click', '#table_estates .function_edit a', function(e){
+        e.preventDefault();
+
+        var estate_id = $(this).data('id');
+        var estate_address = $(this).data('address');
+
+        $('.lightbox_container h2').text('Редактировать адрес');
+        $('#form_doma_sectora button').text('Сохранить');
+        $('#form_doma_sectora').attr('class', 'form edit');
+        $('#form_doma_sectora').attr('data-id', '');
+        $('#form_doma_sectora .field_container label.error').hide();
+        $('#form_doma_sectora .field_container label.error').hide();
+        $('#form_doma_sectora .field_container').removeClass('valid').removeClass('error');
+        $('#form_doma_sectora #estate_id').val(estate_id);
+        $('#form_doma_sectora #address').val(estate_address);
+
+            show_lightbox();
+    });
+
+    // Edit estate submit form
+    $(document).on('submit', '#form_doma_sectora.edit', function(e){
+        e.preventDefault();
+        var estate_id = $('#form_doma_sectora #estate_id').val();
+        var estate_address = $('#form_doma_sectora #address').val();
+        // Validate form
+        var form = $('#form_doma_sectora');
+        if (form.valid() == true){
+            hide_ipad_keyboard();
+            var form_data = $('#form_doma_sectora').serialize();
+            hide_lightbox();
+            show_loading_message();
+            var request   = $.ajax({
+                url:  $.API_base + '/estates/' + estate_id,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
+                "dataSrc": function ( json ) {
+                    if(json.status == "error" && json.code == 401)  {
+                        setTimeout(' window.location.href = "login.html"; ', 10);
+                    }
+                    else {
+                        return json.data;
+                    }
+                },
+                cache:        false,
+                data:         form_data,
+                dataType:     'json',
+                type:         'PUT'
+            });
+            request.done(function(output){
+                if (output.status == "ok"){
+                    // Reload datable
+                    table_estates.ajax.reload(function(){
+                        hide_loading_message();
+                        show_message("Адрес успешно обновлён: " + estate_address, 'success');
+                    }, true);
+                } else {
+                    hide_loading_message();
+                    show_message(output.message, 'error');
+                }
+            });
+            request.fail(function(jqXHR, textStatus){
+                hide_loading_message();
+                show_message('Add request failed: ' + textStatus, 'error');
+            });
+        }
+    });
+
+    // Delete address
+    $(document).on('click', '#table_estates .function_delete a', function(e){
+        e.preventDefault();
+        var estate_id = $(this).data('id');
+        var estate_address = $(this).data('address');
+        if (confirm("Вы уверены, что хотите удалить адрес: '" + estate_address + "'?")){
+            show_loading_message();
+            var id      = $(this).data('id');
+            var request   = $.ajax({
+                url:          $.API_base + '/estates/' + id,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-Auth-Token', $.cookie('token'));
+                },
+                cache:        false,
+                type:         'DELETE'
+            });
+            request.done(function(output){
+                if (output.status == 'ok'){
+                    // Reload datable
+                    table_estates.ajax.reload(function(){
+                        hide_loading_message();
+                        show_message("Адрес успешно удалён: '" + estate_address + "'.", 'success');
+                    }, true);
+                } else {
+                    hide_loading_message();
+                    show_message('Delete address request failed', 'error');
+                }
+            });
+            request.fail(function(jqXHR, textStatus){
+                hide_loading_message();
+                show_message('Delete address request failed: ' + textStatus, 'error');
             });
         }
     });

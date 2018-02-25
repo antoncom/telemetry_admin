@@ -1,3 +1,10 @@
+// remove whitespace from both end of string
+if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+        return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
+}
+
 // Logout
 // How to use: $.Logout();
 (function($){
@@ -252,9 +259,6 @@ if(pathname.search(/login.html/i) == -1)    {
     };
 })(jQuery);
 
-
-
-
 // Get data from URL parameters
 (function($){
     $.GET = function(sParam) {
@@ -305,10 +309,16 @@ String.prototype.compose = (function (){
 // EstateAddressInUse
 (function($){
     $.EstateAddressRemoteValid = function(address, estates) {
-        var address_lc = address.toLowerCase();
+        var address_input = address.toLowerCase();
+        // remove all spaces
+        address_input = address_input.replace(/\s/g, '');
+        var address_db = "";
         var out = "true";
         $.each(estates, function(i, value) {
-            if(value.address.toLowerCase() === address_lc)    {
+            address_db = value.address.toLowerCase();
+            // remove all spaces
+            address_db = address_db.replace(/\s/g, '');
+            if(address_db === address_input)    {
                 out = "false";
                 return false; // exit from $.each loop
             }
