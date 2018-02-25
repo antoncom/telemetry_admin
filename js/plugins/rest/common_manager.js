@@ -1,5 +1,4 @@
 
-
 // GetGeneralInfo
 // How to use: $.GetGeneralInfo();
 // On success - <span data-field="key">value</span> are populated at the home page
