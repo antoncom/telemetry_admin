@@ -19,7 +19,7 @@ $(document).ready(function(){
     function populateCounterData()  {
         // Populate html table with Counter data
         // run
-        console.log("RUN populateCounterData");
+
         $.ajax({
             type : 'GET',
             url  : $.API_base + '/counters/' + $.GET("counter_id"),

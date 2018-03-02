@@ -1915,6 +1915,7 @@ div.dt-button-info {
 }
 .i-checks {
   padding-left: 0;
+  margin-bottom: 8px;
 }
 .form-control,
 .single-line {
@@ -1964,6 +1965,7 @@ div.dt-button-info {
   line-height: 1;
   padding: 6px 12px;
   text-align: center;
+  width: 16px;
 }
 .spinner-buttons.input-group-btn .btn-xs {
   line-height: 1.13;
@@ -8622,6 +8624,28 @@ a.btn[href="#"] {
   background-color: #199a47;
   color: #ffffff;
 }
+
+.input-group.date,
+.input-daterange.input-group  {
+  float: right;
+  display: none;
+  width: 50%;
+}
+.input-group-addon,
+.input-daterange .input-group-addon {
+  float: left;
+  width: 40px;
+  height: 30px;
+  display: block;
+  background-color: #fff;
+  border-width: 1px;
+}
+
+.input-group .form-control {
+  width: auto;
+  height: 30px;
+}
+
 
 
 
