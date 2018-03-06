@@ -202,39 +202,78 @@ $(document).ready(function() {
             $('#date_day').hide();
         });
 
-        $('#date_day').datepicker({
+/*        $('#date_day').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
             autoclose: true,
             format: 'dd-mm-yyyy'
-        });
+        });*/
 
-        $('#date_month').datepicker({
+        /*$('#date_month').datepicker({
             minViewMode: 1,
             keyboardNavigation: false,
             forceParse: false,
             forceParse: false,
             autoclose: true,
             todayHighlight: true,
-            format: 'mm-yyyy'
-        });
+            format: 'yyyy-mm'
+        }).on("changeDate", function(e) {
+             $('#form_consumption input[name=period]').val(2);
+             $('#form_consumption input[name=from]').val(moment(e.date).format('YYYY-MM-DD'));
+             $('#form_consumption input[name=to]').val(moment(e.date).endOf("month").format('YYYY-MM-DD'));
+        });*/
 
-        $('#daterange').datepicker({
+
+
+
+/*        $('#daterange').datepicker({
             keyboardNavigation: false,
             forceParse: false,
             autoclose: true
-        });
+        });*/
 
 
-        $('input[name="daterange"]').daterangepicker({
+        /*$('input[name="daterange"]').daterangepicker({
             format: 'DD-MM-YYYY'
+        });*/
+
+        //$('input[name="daterange_months"]').daterangepicker({
+        //    format: 'YYYY-MM'
+        //});
+
+        console.log(moment().subtract(3, 'months').startOf('month').format('DD/MM/YYYY'));
+        console.log(moment().startOf('month').subtract(1, 'day').format('DD/MM/YYYY'));
+
+        $('input[name="daterange_months"]').daterangepicker({
+            periods: ['month'],
+            single: false,
+            orientation: 'left',
+            expanded: true,
+            forceUpdate: true,
+            ranges: {
+                'Последние 3 месяца': [moment().subtract(3, 'months').startOf('month').format('YYYY-MM-DD'), moment().startOf('month').subtract(1, 'day').format('YYYY-MM-DD')],
+                'Прошлый год': [moment().subtract(1, 'year').add(1,'day'), moment()],
+                'Custom Range': 'custom'
+            }
+        }, function (startDate, endDate, period) {
+            $(this).val(startDate.format('YYYY-MM-DD') + ' – ' + endDate.format('YYYY-MM-DD'))
         });
+
+
+        // TODO
+        // 1. Delete sensortower/daterangepicker at all because of bugs
+        // or check example again: https://sensortower.github.io/daterangepicker/examples
+        // use knockout
+        // 2. Setup something like Bootstrap datepicker:
+        // http://yaireo.github.io/dateRangePicker/
+        //
+
 
         $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
 
-        $('#reportrange').daterangepicker({
+        /*$('#reportrange').daterangepicker({
             format: 'DD/MM/YYYY',
             startDate: moment().subtract(29, 'days'),
             endDate: moment(),
@@ -273,7 +312,7 @@ $(document).ready(function() {
         }, function(start, end, label) {
             console.log(start.toISOString(), end.toISOString(), label);
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        });
+        });*/
 
     });
 
